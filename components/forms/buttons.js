@@ -2,7 +2,6 @@ import React from 'react';
 import t from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import MaterialIcon from 'material-icons-react';
 import { filterKeys } from '../../libs/helpers';
 import { fullWidth, withProp, color } from '../helpers';
 
@@ -86,7 +85,6 @@ const iconProps = props => filterKeys(props, ['color', 'icon']);
 export const IconButton = props => {
   return (
     <Button {...props}>
-      <MaterialIcon {...iconProps(props)} />
       <span>{props.children}</span>
     </Button>
   );
@@ -99,7 +97,6 @@ IconButton.propTypes = {
 export const CircleButton = props => {
   return (
     <Button circle {...props}>
-      <MaterialIcon {...iconProps(props)} />
     </Button>
   );
 };

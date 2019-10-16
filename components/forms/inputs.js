@@ -1,5 +1,4 @@
 import React from 'react';
-import MaterialIcon from 'material-icons-react';
 import styled, { css } from 'styled-components';
 import { trace } from '../../libs/helpers';
 import { fullWidth, withProp, color } from '../helpers';
@@ -84,16 +83,8 @@ const IconInputStyle = styled.div`
   }
 `;
 
-export const IconInput = props => {
-  return (
-    <IconInputStyle large={props.large}>
-      <span>
-        <MaterialIcon icon={props.icon} color={props.color || '#a0a0f0'} />
-      </span>
-      {props.children || <Input {...props} />}
-    </IconInputStyle>
-  );
-};
+export const IconInput = props => <div>Change This</div>
+
 const RadioStyle = styled.label`
   width: 20px;
   height: 20px;
