@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled from '../ThemeProvider';
 
 // TODO: complete the collapsibla component
 //add an morph property

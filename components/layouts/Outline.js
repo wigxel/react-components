@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from '../ThemeProvider';
 import { withProp } from '../helpers';
 
 const Outliner = styled.div`

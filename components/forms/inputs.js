@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from '../ThemeProvider';
 import { trace } from '../../libs/helpers';
 import { fullWidth, withProp, color } from '../helpers';
 
@@ -166,11 +166,13 @@ RadioLabel.defaultProps = {
 
 const CheckboxStyle = styled(RadioStyle)`
   margin-right: 5px;
+  cursor: pointer;
 
   > input + span {
     border-radius: 2px;
   }
 `;
+
 export const Checkbox = props => {
   return (
     <CheckboxStyle>

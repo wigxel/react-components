@@ -2,7 +2,7 @@
  * Styled components helpers
  * @author Joseph Julius Owonvown
  */
-import styled, { css } from 'styled-components';
+import styled, { css } from './ThemeProvider';
 
 
 export const withProp = key => style => props => props[key] && style;

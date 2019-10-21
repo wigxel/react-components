@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from '../ThemeProvider';
 import t from 'prop-types';
 import { color, withProp } from '../helpers';
 

@@ -13,127 +13,6 @@ var _ = _interopDefault(require('lodash'));
 var fp = require('lodash/fp');
 var reactRouterDom = require('react-router-dom');
 
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(source).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
-}
-
-function _taggedTemplateLiteral(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  return Object.freeze(Object.defineProperties(strings, {
-    raw: {
-      value: Object.freeze(raw)
-    }
-  }));
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -1310,7 +1189,7 @@ var createClass = function () {
   };
 }();
 
-var _extends$1 = Object.assign || function (target) {
+var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
 
@@ -1640,7 +1519,7 @@ var cloneNames = function cloneNames(names) {
   var clone = Object.create(null);
   // eslint-disable-next-line guard-for-in
   for (var id in names) {
-    clone[id] = _extends$1({}, names[id]);
+    clone[id] = _extends({}, names[id]);
   }
   return clone;
 };
@@ -1768,7 +1647,7 @@ var wrapAsElement = function wrapAsElement(css, names) {
     }
 
     // eslint-disable-next-line react/no-danger
-    return React__default.createElement('style', _extends$1({}, props, { dangerouslySetInnerHTML: { __html: css() } }));
+    return React__default.createElement('style', _extends({}, props, { dangerouslySetInnerHTML: { __html: css() } }));
   };
 };
 
@@ -2254,8 +2133,8 @@ var StyleSheet = function () {
     });
 
     /* clone other maps */
-    sheet.rehydratedNames = _extends$1({}, this.rehydratedNames);
-    sheet.deferred = _extends$1({}, this.deferred);
+    sheet.rehydratedNames = _extends({}, this.rehydratedNames);
+    sheet.deferred = _extends({}, this.deferred);
 
     return sheet;
   };
@@ -2611,12 +2490,12 @@ function constructWithOptions(componentConstructor, tag) {
 
   /* If config methods are called, wrap up a new template function and merge options */
   templateFunction.withConfig = function (config) {
-    return constructWithOptions(componentConstructor, tag, _extends$1({}, options, config));
+    return constructWithOptions(componentConstructor, tag, _extends({}, options, config));
   };
 
   /* Modify/inject new props at runtime */
   templateFunction.attrs = function (attrs) {
-    return constructWithOptions(componentConstructor, tag, _extends$1({}, options, {
+    return constructWithOptions(componentConstructor, tag, _extends({}, options, {
       attrs: Array.prototype.concat(options.attrs, attrs).filter(Boolean)
     }));
   };
@@ -2999,7 +2878,7 @@ var ThemeProvider = function (_Component) {
       throw new StyledComponentsError(8);
     }
 
-    return _extends$1({}, outerTheme, theme);
+    return _extends({}, outerTheme, theme);
   };
 
   ThemeProvider.prototype.getContext = function getContext(theme, outerTheme) {
@@ -3285,7 +3164,7 @@ var StyledComponent = function (_Component) {
     var isTargetTag = isTag(elementToBeCreated);
 
     var propsForElement = {};
-    var computedProps = _extends$1({}, this.props, this.attrs);
+    var computedProps = _extends({}, this.props, this.attrs);
 
     var key = void 0;
     // eslint-disable-next-line guard-for-in
@@ -3303,7 +3182,7 @@ var StyledComponent = function (_Component) {
     }
 
     if (this.props.style && this.attrs.style) {
-      propsForElement.style = _extends$1({}, this.attrs.style, this.props.style);
+      propsForElement.style = _extends({}, this.attrs.style, this.props.style);
     }
 
     propsForElement.className = Array.prototype.concat(foldedComponentIds, styledComponentId, generatedClassName !== styledComponentId ? generatedClassName : null, this.props.className, this.attrs.className).filter(Boolean).join(' ');
@@ -3314,7 +3193,7 @@ var StyledComponent = function (_Component) {
   StyledComponent.prototype.buildExecutionContext = function buildExecutionContext(theme, props, attrs) {
     var _this2 = this;
 
-    var context = _extends$1({}, props, { theme: theme });
+    var context = _extends({}, props, { theme: theme });
 
     if (!attrs.length) return context;
 
@@ -3414,7 +3293,7 @@ function createStyledComponent(target, options, rules) {
    */
   var WrappedStyledComponent = void 0;
   var forwardRef = function forwardRef(props, ref) {
-    return React__default.createElement(ParentComponent, _extends$1({}, props, { forwardedComponent: WrappedStyledComponent, forwardedRef: ref }));
+    return React__default.createElement(ParentComponent, _extends({}, props, { forwardedComponent: WrappedStyledComponent, forwardedRef: ref }));
   };
   forwardRef.displayName = displayName;
   WrappedStyledComponent = React__default.forwardRef(forwardRef);
@@ -3444,7 +3323,7 @@ function createStyledComponent(target, options, rules) {
 
     var newComponentId = previousComponentId && previousComponentId + '-' + (isTag(tag) ? tag : escape(getComponentName(tag)));
 
-    var newOptions = _extends$1({}, optionsToCopy, {
+    var newOptions = _extends({}, optionsToCopy, {
       attrs: finalAttrs,
       componentId: newComponentId,
       ParentComponent: ParentComponent
@@ -3580,6 +3459,135 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test' && 
   }
 
   window['__styled-components-init__'] += 1;
+}
+
+var ThemeProvider$1 = function ThemeProvider$1(_ref) {
+  var theme = _ref.theme,
+      children = _ref.children;
+  return React__default.createElement(ThemeProvider, {
+    theme: theme
+  }, React__default.Children.only(children));
+};
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _extends$1() {
+  _extends$1 = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends$1.apply(this, arguments);
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
 
 var isDevelopment = function isDevelopment() {
@@ -3976,7 +3984,7 @@ var InputStyle$1 = styled.input(_templateObject$2(), function (props) {
   return a.theme.primary;
 }, color('primary'), withProp('large')(css(_templateObject2$2(), color('primary'))), fullWidth(), withProp('large')(css(_templateObject3$2())));
 var Input = React__default.forwardRef(function (props, ref) {
-  return React__default.createElement(InputStyle$1, _extends({}, props, {
+  return React__default.createElement(InputStyle$1, _extends$1({}, props, {
     ref: ref
   }));
 });
@@ -4000,7 +4008,7 @@ var RadioInput = function RadioInput(props) {
   var inputKey = "uid--".concat(radioKey++);
   return React__default.createElement(RadioStyle, {
     htmlFor: inputKey
-  }, React__default.createElement("input", _extends({
+  }, React__default.createElement("input", _extends$1({
     id: inputKey,
     onClick: trace('The Radio clicked.'),
     type: "radio"
@@ -4019,7 +4027,7 @@ RadioLabel.defaultProps = {
 };
 var CheckboxStyle = styled(RadioStyle)(_templateObject9());
 var Checkbox = function Checkbox(props) {
-  return React__default.createElement(CheckboxStyle, null, React__default.createElement("input", _extends({
+  return React__default.createElement(CheckboxStyle, null, React__default.createElement("input", _extends$1({
     onClick: trace('The Radio clicked.'),
     type: "checkbox"
   }, props)), React__default.createElement("span", null));
@@ -4094,7 +4102,7 @@ IconButton.propTypes = {
   children: propTypes.node.isRequired
 };
 var CircleButton = function CircleButton(props) {
-  return React__default.createElement(Button, _extends({
+  return React__default.createElement(Button, _extends$1({
     circle: true
   }, props));
 };
@@ -4246,6 +4254,114 @@ Modal.propTypes = {
   size: propTypes.string.isRequired
 };
 
+function _templateObject$7() {
+  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  padding: 0;\n  box-sizing: border-box;\n\n  .list-item {\n    padding: 0.5rem 1rem;\n    & + .list-item {\n      border-top: solid 1px ", ";\n    }\n  }\n\n  li {\n    display: block;\n\n    a {\n      display: block;\n      text-decoration: none;\n      border: 0 solid 5px;\n      padding: 1rem 1.5rem;\n      color: ", ";\n      transition: border 0.3s cubic-bezier(0.74, 1.26, 0.99, 0.97);\n\n      &.active {\n        color: ", ";\n        background-color: ", ";\n        border-left: solid 5px ", ";\n      }\n    }\n  }\n"]);
+
+  _templateObject$7 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var FlatListStyle = styled.ul(_templateObject$7(), color('whitesmoke'), color('grey'), color('primary'), color('whitesmoke'), color('primary'));
+var FlatList = function FlatList(props) {
+  return React__default.createElement(FlatListStyle, null, props.children);
+};
+
+var FlatListItem = function FlatListItem(props) {
+  return React__default.createElement("li", _extends$1({
+    className: "list-item"
+  }, props));
+};
+
+FlatList.Item = FlatListItem;
+
+var FlatListLink = function FlatListLink(props) {
+  return React__default.createElement(FlatList.Item, {
+    className: "nav-item"
+  }, React__default.createElement(reactRouterDom.NavLink, props, props.children));
+};
+
+FlatList.Link = FlatListLink;
+
+function _templateObject$8() {
+  var data = _taggedTemplateLiteral(["\n  height: 0;\n  padding: 0 0;\n  overflow: hidden;\n  grid-column: 1 / 3;\n  transition: all 0.3s ease-out;\n\n  ul {\n    margin: 0;\n    padding: 0;\n    width: 100%;\n    display: block;\n  }\n"]);
+
+  _templateObject$8 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+//add an morph property
+
+var CollapseStyle = styled.div(_templateObject$8());
+var Collapsible = function Collapsible(props) {
+  var container = React.useRef();
+
+  var _useState = React.useState(0),
+      _useState2 = _slicedToArray(_useState, 2),
+      height = _useState2[0],
+      setHeight = _useState2[1];
+
+  var getHeight = function getHeight(el) {
+    return el.getBoundingClientRect().height;
+  };
+
+  React.useEffect(function () {
+    setHeight(props.open ? getHeight(container.current) : 0);
+  }, [props.open]);
+  return React__default.createElement(CollapseStyle, _extends$1({}, props, {
+    style: {
+      height: height
+    }
+  }), React__default.createElement("div", {
+    ref: container
+  }, props.children));
+};
+Collapsible.defaultProps = {
+  morph: false
+};
+
+function _templateObject2$5() {
+  var data = _taggedTemplateLiteral(["\n        &:hover {\n            &:before {\n                background-color: ", ";\n            }\n        }\n    "]);
+
+  _templateObject2$5 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$9() {
+  var data = _taggedTemplateLiteral(["\n  padding: 0;\n  display: flex;\n  flex: 1;\n  flex-flow: column ;\n  box-sizing: border-box;\n  margin-left: ", "px;\n  border-left: solid 1px ", ";\n\n\n  .a-item {\n    display: block;\n    position: relative;\n    padding: .5rem 0 .5rem 1.5rem;\n\n    .msg {\n\n    }\n\n    .timestamp {\n        opacity: 0.7;\n        font-size: smaller;\n        font-style: italic;\n    }\n\n\n    ", "\n\n    &::before {\n        content: \"\";\n        width: 23px;\n        height: 23px;\n        top: 50%; left: 0;\n        position: absolute;\n        border-radius: 50%;\n        background-color: white;\n        transform: translate3d(-50%, -50%, 0);\n        box-shadow: 0 0 0 3px ", ";\n        border: solid 1px ", ";\n    }\n  }\n"]);
+
+  _templateObject$9 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var ActivityStyle = styled.ul(_templateObject$9(), 23 / 2, color('greylight'), withProp('hoverable')(css(_templateObject2$5(), color('whitesmoke'))), color('bgcolor'), color('greylight'));
+var Activity = function Activity(props) {
+  return React__default.createElement(ActivityStyle, props, props.entries.map(function (e, index) {
+    return React__default.createElement("li", {
+      key: index,
+      className: "a-item"
+    }, props.render ? props.render(e) : React__default.createElement("article", null, React__default.createElement("div", {
+      className: "msg"
+    }, e), React__default.createElement("span", {
+      className: "timestamp"
+    }, "2 days ago")));
+  }));
+};
+Activity.propTypes = {
+  children: propTypes.array,
+  entries: propTypes.array,
+  render: propTypes.func,
+  hoverable: propTypes.bool
+};
+
 function _templateObject3$5() {
   var data = _taggedTemplateLiteral(["\n\n    > * + * {\n      margin-top:  ", ";\n    }\n  "]);
 
@@ -4256,27 +4372,27 @@ function _templateObject3$5() {
   return data;
 }
 
-function _templateObject2$5() {
+function _templateObject2$6() {
   var data = _taggedTemplateLiteral(["\n    > * {\n      margin-top: 0;\n      margin-bottom: 0;\n    }\n  "]);
 
-  _templateObject2$5 = function _templateObject2() {
+  _templateObject2$6 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$7() {
+function _templateObject$a() {
   var data = _taggedTemplateLiteral(["\n  padding: 0.1px 0;\n  \n  ", "\n\n  > * + * {\n    margin-top: 1rem;\n  }\n\n  ", "\n\n"]);
 
-  _templateObject$7 = function _templateObject() {
+  _templateObject$a = function _templateObject() {
     return data;
   };
 
   return data;
 }
 var propSizes = [['small', '.5rem'], ['medium', '1.5rem'], ['large', '2rem']];
-var StackStyle = styled.div(_templateObject$7(), withProp('noExtraSpace')(css(_templateObject2$5())), propSizes.map(function (_ref) {
+var StackStyle = styled.div(_templateObject$a(), withProp('noExtraSpace')(css(_templateObject2$6())), propSizes.map(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
       prop = _ref2[0],
       size = _ref2[1];
@@ -4287,32 +4403,32 @@ var Stack = function Stack(props) {
   return React__default.createElement(StackStyle, props);
 };
 
-function _templateObject2$6() {
+function _templateObject2$7() {
   var data = _taggedTemplateLiteral(["\n    > * + * {\n      margin-left: ", ";\n    }\n  "]);
 
-  _templateObject2$6 = function _templateObject2() {
+  _templateObject2$7 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$8() {
+function _templateObject$b() {
   var data = _taggedTemplateLiteral(["\n  > * + * {\n    margin-left:  0.5rem;\n  }\n\n  ", "\n"]);
 
-  _templateObject$8 = function _templateObject() {
+  _templateObject$b = function _templateObject() {
     return data;
   };
 
   return data;
 }
 var propSizes$1 = [['small', '.25rem'], ['medium', '1.2rem'], ['large', '1.5rem']];
-var TabStyle = styled.div(_templateObject$8(), propSizes$1.map(function (_ref) {
+var TabStyle = styled.div(_templateObject$b(), propSizes$1.map(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
       prop = _ref2[0],
       size = _ref2[1];
 
-  return withProp(prop)(css(_templateObject2$6(), size));
+  return withProp(prop)(css(_templateObject2$7(), size));
 }));
 var Tab = function Tab(props) {
   return React__default.createElement(TabStyle, props);
@@ -4348,20 +4464,20 @@ function _templateObject3$6() {
   return data;
 }
 
-function _templateObject2$7() {
+function _templateObject2$8() {
   var data = _taggedTemplateLiteral(["\n        padding-left: 0 !important;\n        padding-right: 0 !important;\n    "]);
 
-  _templateObject2$7 = function _templateObject2() {
+  _templateObject2$8 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$9() {
+function _templateObject$c() {
   var data = _taggedTemplateLiteral(["\n    display: inline-block;\n    width: 100%;\n    padding: 5rem;\n\n    ", "\n\n    ", "\n"]);
 
-  _templateObject$9 = function _templateObject() {
+  _templateObject$c = function _templateObject() {
     return data;
   };
 
@@ -4387,7 +4503,7 @@ var addChildren = function addChildren(Cluster) {
   return C;
 };
 
-var LargeS = styled.span(_templateObject$9(), withProp('vertical')(css(_templateObject2$7())), withProp('horizontal')(css(_templateObject3$6())));
+var LargeS = styled.span(_templateObject$c(), withProp('vertical')(css(_templateObject2$8())), withProp('horizontal')(css(_templateObject3$6())));
 var SmallS = styled(LargeS)(_templateObject4$4());
 var MediumS = styled(LargeS)(_templateObject5$3());
 var Cluster = addChildren(MediumS);
@@ -4396,20 +4512,20 @@ var Large = addChildren(LargeS);
 Cluster.Large = Large;
 Cluster.Small = Small;
 
-function _templateObject2$8() {
+function _templateObject2$9() {
   var data = _taggedTemplateLiteral(["\n  justify-content: flex-start;\n  grid-template-columns: repeat(auto-fill, ", ");\n"]);
 
-  _templateObject2$8 = function _templateObject2() {
+  _templateObject2$9 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$a() {
+function _templateObject$d() {
   var data = _taggedTemplateLiteral(["\n  display: grid;\n  grid-gap: 1.5rem;\n  position: relative;\n  justify-content: space-between;\n  grid-template-columns: repeat(auto-fill, minmax(200px, 250px));\n"]);
 
-  _templateObject$a = function _templateObject() {
+  _templateObject$d = function _templateObject() {
     return data;
   };
 
@@ -4447,14 +4563,14 @@ var ThreeColumns = function ThreeColumns(props) {
 var FourColumnGrid = function FourColumnGrid(props) {
   return React__default.createElement(FourColumnGridStyle, props, props.children);
 };
-var FourColumnGridStyle = styled.section(_templateObject$a());
+var FourColumnGridStyle = styled.section(_templateObject$d());
 
 var addPixel = function addPixel(number) {
   var isWithoutUnit = RegExp('\\d$').test(number);
   return isWithoutUnit ? number + 'px' : number;
 };
 
-var Grid = styled(FourColumnGridStyle)(_templateObject2$8(), function (a) {
+var Grid = styled(FourColumnGridStyle)(_templateObject2$9(), function (a) {
   return addPixel(a.width);
 });
 var GridView = function GridView(props) {
@@ -4467,16 +4583,16 @@ GridView.propTypes = {
   width: propTypes.oneOfType([propTypes.number, propTypes.string]).isRequired
 };
 
-function _templateObject$b() {
+function _templateObject$e() {
   var data = _taggedTemplateLiteral(["\n\twidth: 100%;\n\theight: 25vh;\n\tmin-height: 250px;\n\tobject-fit: cover;\n\tborder-radius: 12px;\n"]);
 
-  _templateObject$b = function _templateObject() {
+  _templateObject$e = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyleCoverImage = styled.img(_templateObject$b());
+var StyleCoverImage = styled.img(_templateObject$e());
 var CoverImage = function CoverImage() {
   return React__default.createElement(StyleCoverImage, {
     className: "w-4/5",
@@ -4484,30 +4600,8 @@ var CoverImage = function CoverImage() {
   });
 };
 
-function _templateObject2$9() {
-  var data = _taggedTemplateLiteral(["\n        * {\n            outline: solid 1px red;\n        }\n    "]);
-
-  _templateObject2$9 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$c() {
-  var data = _taggedTemplateLiteral(["\n    & > * {\n        outline: solid 1px red;\n    }\n    \n    ", "\n"]);
-
-  _templateObject$c = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Outliner = styled.div(_templateObject$c(), withProp('all')(css(_templateObject2$9())));
-var Outline = Outliner;
-
 function _templateObject2$a() {
-  var data = _taggedTemplateLiteral(["\n  background-color: ", ";\n  min-height: calc(100vh - 60px);\n  position: sticky;\n  top: 60px;\n"]);
+  var data = _taggedTemplateLiteral(["\n        * {\n            outline: solid 1px red;\n        }\n    "]);
 
   _templateObject2$a = function _templateObject2() {
     return data;
@@ -4516,16 +4610,38 @@ function _templateObject2$a() {
   return data;
 }
 
-function _templateObject$d() {
-  var data = _taggedTemplateLiteral(["\n  min-height: calc(100vh - 80px);\n  background-color: ", ";\n"]);
+function _templateObject$f() {
+  var data = _taggedTemplateLiteral(["\n    & > * {\n        outline: solid 1px red;\n    }\n    \n    ", "\n"]);
 
-  _templateObject$d = function _templateObject() {
+  _templateObject$f = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var JumbotronStyle = styled.div(_templateObject$d(), function (props) {
+var Outliner = styled.div(_templateObject$f(), withProp('all')(css(_templateObject2$a())));
+var Outline = Outliner;
+
+function _templateObject2$b() {
+  var data = _taggedTemplateLiteral(["\n  background-color: ", ";\n  min-height: calc(100vh - 60px);\n  position: sticky;\n  top: 60px;\n"]);
+
+  _templateObject2$b = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$g() {
+  var data = _taggedTemplateLiteral(["\n  min-height: calc(100vh - 80px);\n  background-color: ", ";\n"]);
+
+  _templateObject$g = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var JumbotronStyle = styled.div(_templateObject$g(), function (props) {
   return props.theme.primary;
 });
 var Jumbotron = function Jumbotron(props) {
@@ -4536,117 +4652,9 @@ var Container = function Container(props) {
     className: "container mx-auto"
   }, props.children);
 };
-var SidebarStyle = styled.div(_templateObject2$a(), color('navbar'));
+var SidebarStyle = styled.div(_templateObject2$b(), color('navbar'));
 var Sidebar = function Sidebar(props) {
   return React__default.createElement(SidebarStyle, null, props.children);
-};
-
-function _templateObject$e() {
-  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  padding: 0;\n  box-sizing: border-box;\n\n  .list-item {\n    padding: 0.5rem 1rem;\n    & + .list-item {\n      border-top: solid 1px ", ";\n    }\n  }\n\n  li {\n    display: block;\n\n    a {\n      display: block;\n      text-decoration: none;\n      border: 0 solid 5px;\n      padding: 1rem 1.5rem;\n      color: ", ";\n      transition: border 0.3s cubic-bezier(0.74, 1.26, 0.99, 0.97);\n\n      &.active {\n        color: ", ";\n        background-color: ", ";\n        border-left: solid 5px ", ";\n      }\n    }\n  }\n"]);
-
-  _templateObject$e = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var FlatListStyle = styled.ul(_templateObject$e(), color('whitesmoke'), color('grey'), color('primary'), color('whitesmoke'), color('primary'));
-var FlatList = function FlatList(props) {
-  return React__default.createElement(FlatListStyle, null, props.children);
-};
-
-var FlatListItem = function FlatListItem(props) {
-  return React__default.createElement("li", _extends({
-    className: "list-item"
-  }, props));
-};
-
-FlatList.Item = FlatListItem;
-
-var FlatListLink = function FlatListLink(props) {
-  return React__default.createElement(FlatList.Item, {
-    className: "nav-item"
-  }, React__default.createElement(reactRouterDom.NavLink, props, props.children));
-};
-
-FlatList.Link = FlatListLink;
-
-function _templateObject$f() {
-  var data = _taggedTemplateLiteral(["\n  height: 0;\n  padding: 0 0;\n  overflow: hidden;\n  grid-column: 1 / 3;\n  transition: all 0.3s ease-out;\n\n  ul {\n    margin: 0;\n    padding: 0;\n    width: 100%;\n    display: block;\n  }\n"]);
-
-  _templateObject$f = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-//add an morph property
-
-var CollapseStyle = styled.div(_templateObject$f());
-var Collapsible = function Collapsible(props) {
-  var container = React.useRef();
-
-  var _useState = React.useState(0),
-      _useState2 = _slicedToArray(_useState, 2),
-      height = _useState2[0],
-      setHeight = _useState2[1];
-
-  var getHeight = function getHeight(el) {
-    return el.getBoundingClientRect().height;
-  };
-
-  React.useEffect(function () {
-    setHeight(props.open ? getHeight(container.current) : 0);
-  }, [props.open]);
-  return React__default.createElement(CollapseStyle, _extends({}, props, {
-    style: {
-      height: height
-    }
-  }), React__default.createElement("div", {
-    ref: container
-  }, props.children));
-};
-Collapsible.defaultProps = {
-  morph: false
-};
-
-function _templateObject2$b() {
-  var data = _taggedTemplateLiteral(["\n        &:hover {\n            &:before {\n                background-color: ", ";\n            }\n        }\n    "]);
-
-  _templateObject2$b = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$g() {
-  var data = _taggedTemplateLiteral(["\n  padding: 0;\n  display: flex;\n  flex: 1;\n  flex-flow: column ;\n  box-sizing: border-box;\n  margin-left: ", "px;\n  border-left: solid 1px ", ";\n\n\n  .a-item {\n    display: block;\n    position: relative;\n    padding: .5rem 0 .5rem 1.5rem;\n\n    .msg {\n\n    }\n\n    .timestamp {\n        opacity: 0.7;\n        font-size: smaller;\n        font-style: italic;\n    }\n\n\n    ", "\n\n    &::before {\n        content: \"\";\n        width: 23px;\n        height: 23px;\n        top: 50%; left: 0;\n        position: absolute;\n        border-radius: 50%;\n        background-color: white;\n        transform: translate3d(-50%, -50%, 0);\n        box-shadow: 0 0 0 3px ", ";\n        border: solid 1px ", ";\n    }\n  }\n"]);
-
-  _templateObject$g = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var ActivityStyle = styled.ul(_templateObject$g(), 23 / 2, color('greylight'), withProp('hoverable')(css(_templateObject2$b(), color('whitesmoke'))), color('bgcolor'), color('greylight'));
-var Activity = function Activity(props) {
-  return React__default.createElement(ActivityStyle, props, props.entries.map(function (e, index) {
-    return React__default.createElement("li", {
-      key: index,
-      className: "a-item"
-    }, props.render ? props.render(e) : React__default.createElement("article", null, React__default.createElement("div", {
-      className: "msg"
-    }, e), React__default.createElement("span", {
-      className: "timestamp"
-    }, "2 days ago")));
-  }));
-};
-Activity.propTypes = {
-  children: propTypes.array,
-  entries: propTypes.array,
-  render: propTypes.func,
-  hoverable: propTypes.bool
 };
 
 function _templateObject4$5() {
@@ -4688,7 +4696,7 @@ function _templateObject$h() {
 
   return data;
 }
-var Heading = "\n  font-family: var(--heading-font), 'Montserrat', 'Avenir', 'Helvetica Neue', 'Segoe UI' sans-serif;\n  color: #555555;\n\n  &.font-light {\n      font-weight: 300;\n  }\n  \n  &.font-bold {\n      font-weight: 500;\n  }\n";
+var Heading = "\n  font-family: var(--heading-font, 'Montserrat', 'Avenir', 'Helvetica Neue', 'Segoe UI', sans-serif);\n  color: #555555;\n\n  &.font-light {\n      font-weight: 300;\n  }\n  \n  &.font-bold {\n      font-weight: 500;\n  }\n";
 var H1 = styled.h1(_templateObject$h(), Heading);
 var H2 = styled.h2(_templateObject2$c(), Heading);
 var H3 = styled.h3(_templateObject3$7(), Heading);
@@ -4750,5 +4758,6 @@ exports.SearchComponent = SearchComponent;
 exports.Sidebar = Sidebar;
 exports.Stack = Stack;
 exports.Tab = Tab;
+exports.ThemeProvider = ThemeProvider$1;
 exports.ThreeColumns = ThreeColumns;
 exports.TwoColumns = TwoColumns;
