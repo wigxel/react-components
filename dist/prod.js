@@ -3890,7 +3890,7 @@ NumberInput.propTypes = {
 };
 
 function _templateObject9() {
-  var data = _taggedTemplateLiteral(["\n  margin-right: 5px;\n\n  > input + span {\n    border-radius: 2px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-right: 5px;\n  cursor: pointer;\n\n  > input + span {\n    border-radius: 2px;\n  }\n"]);
 
   _templateObject9 = function _templateObject9() {
     return data;
