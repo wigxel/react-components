@@ -100,11 +100,3 @@ export const CircleButton = props => {
     </Button>
   );
 };
-
-export const BookButton = () => {
-  return (
-    <IconButton color="white" icon="add">
-      BOOK
-    </IconButton>
-  );
-};
