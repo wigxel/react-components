@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '../ThemeProvider';
+import styled from 'styled-components';
 import t from 'prop-types';
 
 export const TwoColumns = props => {

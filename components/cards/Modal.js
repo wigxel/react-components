@@ -1,6 +1,6 @@
 import React from 'react'
 import t from 'prop-types';
-import styled, { css } from "../ThemeProvider";
+import styled, { css } from "styled-components";
 import { propIs } from '../helpers'
 import Card from './Card'
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from'../ThemeProvider';
+import styled from'styled-components';
 
 export const Heading = `
-  font-family: var(--heading-font, 'Montserrat', 'Avenir', 'Helvetica Neue', 'Segoe UI', sans-serif);
+  font-family: var(--heading-font), 'Montserrat', 'Avenir', 'Helvetica Neue', 'Segoe UI' sans-serif;
   color: #555555;
 
   &.font-light {

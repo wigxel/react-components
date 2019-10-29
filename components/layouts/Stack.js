@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from '../ThemeProvider';
+import styled, { css } from 'styled-components';
 import { withProp } from '../helpers';
 
 const propSizes = [

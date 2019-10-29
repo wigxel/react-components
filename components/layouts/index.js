@@ -1,6 +1,6 @@
 import React from 'react';
 import t from 'prop-types';
-import styled from '../ThemeProvider';
+import styled from 'styled-components';
 import { color } from '../helpers';
 import Stack from './Stack';
 

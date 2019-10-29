@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { css } from '../ThemeProvider';
+import styled, { css } from 'styled-components';
 import _ from 'lodash';
 import { compose } from 'lodash/fp';
 import t from 'prop-types';

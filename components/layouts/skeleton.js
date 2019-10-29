@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '../ThemeProvider';
+import styled from 'styled-components';
 
 const skel = (name) => props => props.theme.skeleton[name]
 

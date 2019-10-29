@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from '../ThemeProvider';
+import styled, { css } from 'styled-components';
 
 const ParagraphStyle = styled.p`
   font-family: var(--text-font), 'Lato', sans-serif;
