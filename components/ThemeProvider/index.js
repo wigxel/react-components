@@ -9,4 +9,5 @@ export const ThemeProvider = ({ theme, children }) => {
     </StyledThemeProvider>
   );
 };
+
 export default styled;

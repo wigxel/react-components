@@ -4106,12 +4106,6 @@ var CircleButton = function CircleButton(props) {
     circle: true
   }, props));
 };
-var BookButton = function BookButton() {
-  return React__default.createElement(IconButton, {
-    color: "white",
-    icon: "add"
-  }, "BOOK");
-};
 
 function _templateObject$4() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  overflow: hidden;\n  width: 100%;\n  max-width: 800px;\n  flex-flow: column;\n  border-radius: 0 0 12px 12px;\n  box-shadow: 0 17px 9px 0px rgba(0, 0, 0, 0.1);\n\n  > input {\n    height: 50px;\n    color: white;\n    text-indent: 20px;\n    font-size: 16px;\n    background: transparent;\n    border: solid 1px white;\n\n    &::placeholder {\n      color: white;\n    }\n\n    &:focus {\n      border-width: 2px;\n    }\n  }\n\n  > .search-base {\n    height: 50px;\n    display: flex;\n    padding-left: 1rem;\n    padding-right: 1rem;\n    align-items: center;\n    font-family: 'Quicksand', sans-serif;\n    background-color: white;\n    color: ", ";\n\n    .tags {\n      flex: 1;\n      display: flex;\n      margin-left: 1rem;\n      justify-content: flex-start;\n    }\n\n    a {\n      padding: 0.5em 0.5em;\n      border-radius: 12px;\n      transition: all 0.3s ease-out;\n      cursor: pointer;\n\n      &:hover {\n        background-color: ", ";\n      }\n    }\n  }\n"]);
@@ -4727,7 +4721,6 @@ var ParagraphStyle = styled.p(_templateObject$i(), function (props) {
 var P = ParagraphStyle;
 
 exports.Activity = Activity;
-exports.BookButton = BookButton;
 exports.Button = Button;
 exports.Card = Card;
 exports.Checkbox = Checkbox;
@@ -4761,3 +4754,4 @@ exports.Tab = Tab;
 exports.ThemeProvider = ThemeProvider$1;
 exports.ThreeColumns = ThreeColumns;
 exports.TwoColumns = TwoColumns;
+exports.default = styled;

@@ -2,7 +2,7 @@ import React from 'react';
 import t from 'prop-types';
 import styled, { css } from '../ThemeProvider';
 import { withProp } from '../helpers';
-// import { log } from '../../libs/helpers';
+// import { log } from '../../libs/helpers'; 
 
 const addChildren = (Cluster) => {
     const C = ({horizontal, vertical, children}) => {
