@@ -2,14 +2,14 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import { Theme } from './styles/StyleComponents';
-import { H2, H4, P } from '../components/typography';
+import { H1, H2, H4, P } from '../components/typography';
 import { Stack, Cluster, Outline } from '../components/layouts/';
 
 storiesOf('Layouts', module).addDecorator(withKnobs)
     .add('Stack', () => (<Theme>
         <Stack large>
             <Stack small noExtraSpace>
-                <H2>Stack</H2>
+                <H1 bold>Stack</H1>
                 <P>
                     <span>Stacks elements with equivalent space between them.</span>
                     <i>Observe the space between the child contents</i>
@@ -17,7 +17,7 @@ storiesOf('Layouts', module).addDecorator(withKnobs)
             </Stack>
             <Outline all>
                 <Stack>
-                    <H2>Heading</H2>
+                    <H2 light>Mocking Jay</H2>
                     <P>I go up, i need to go up. Can i go and play in the hay, we play in the Hay,. Can Jack and i play in the hay?</P>
                     <ul>
                         <li>The Mockingjay</li>
@@ -28,13 +28,13 @@ storiesOf('Layouts', module).addDecorator(withKnobs)
             </Outline>
             <Outline all>
                 <Stack small noExtraSpace>
-                    <H2>Heading</H2>
+                    <H2>John Wick</H2>
                     <P>I go up, i need to go up. Can i go and play in the hay, we play in the Hay,. Can Jack and i play in the hay?</P>
                 </Stack>
             </Outline>
             <Outline all>
                 <Stack noExtraSpace>
-                    <H2>Heading</H2>
+                    <H2>Angry Birds: Frienemies</H2>
                     <P>I go up, i need to go up. Can i go and play in the hay, we play in the Hay,. Can Jack and i play in the hay?</P>
                 </Stack>
             </Outline>

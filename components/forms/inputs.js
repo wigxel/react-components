@@ -4,7 +4,7 @@ import { trace } from '../../libs/helpers';
 import { fullWidth, withProp, color } from '../helpers';
 
 const InputStyle = styled.input`
-  background-color: ${props => props.theme.whitesmoke};
+  background-color: ${color('whitesmoke')};
   border: none;
   height: 38px;
   min-width: 243px;
@@ -14,7 +14,7 @@ const InputStyle = styled.input`
   font-family: var(--heading-font, 'Quicksand');
   transition: all 0.3s ease-out;
   border-color: ${color('primary')};
-  caret-color: ${a => a.theme.primary};
+  caret-color: ${color('primary')};
   outline: none;
 
   &::placeholder {

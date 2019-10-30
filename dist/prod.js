@@ -1379,11 +1379,7 @@ function _templateObject$2() {
 
   return data;
 }
-var InputStyle$1 = styled__default.input(_templateObject$2(), function (props) {
-  return props.theme.whitesmoke;
-}, color('primary'), function (a) {
-  return a.theme.primary;
-}, color('primary'), withProp('large')(styled.css(_templateObject2$2(), color('primary'))), fullWidth(), withProp('large')(styled.css(_templateObject3$2())));
+var InputStyle$1 = styled__default.input(_templateObject$2(), color('whitesmoke'), color('primary'), color('primary'), color('primary'), withProp('large')(styled.css(_templateObject2$2(), color('primary'))), fullWidth(), withProp('large')(styled.css(_templateObject3$2())));
 var Input = React__default.forwardRef(function (props, ref) {
   return React__default.createElement(InputStyle$1, _extends({}, props, {
     ref: ref
@@ -2052,38 +2048,8 @@ var Sidebar = function Sidebar(props) {
   return React__default.createElement(SidebarStyle, null, props.children);
 };
 
-function _templateObject4$5() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  font-size: 18px;\n"]);
-
-  _templateObject4$5 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3$7() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  font-size: 25px;\n"]);
-
-  _templateObject3$7 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2$c() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  font-size: 35px;\n"]);
-
-  _templateObject2$c = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject$h() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  font-size: 45px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-family: var(--heading-font, 'Avenir', 'Helvetica Neue', 'Segoe UI', sans-serif);\n  font-weight: ", ";\n  font-size: ", ";\n"]);
 
   _templateObject$h = function _templateObject() {
     return data;
@@ -2091,16 +2057,40 @@ function _templateObject$h() {
 
   return data;
 }
-var Heading = "\n  font-family: var(--heading-font, 'Montserrat', 'Avenir', 'Helvetica Neue', 'Segoe UI', sans-serif);\n\n  &.font-light {\n      font-weight: 300;\n  }\n  \n  &.font-bold {\n      font-weight: 500;\n  }\n";
-var H1 = styled__default.h1(_templateObject$h(), Heading);
-var H2 = styled__default.h2(_templateObject2$c(), Heading);
-var H3 = styled__default.h3(_templateObject3$7(), Heading);
-var H4 = styled__default.h4(_templateObject4$5(), Heading);
+var Heading = styled__default.span(_templateObject$h(), function (props) {
+  return props.bold ? 'bold' : props.light ? '300' : '400';
+}, function (props) {
+  return props.$fontSize;
+});
+var H1 = function H1(props) {
+  return React__default.createElement(Heading, _extends({}, props, {
+    as: "h1",
+    $fontSize: '43px'
+  }));
+};
+var H2 = function H2(props) {
+  return React__default.createElement(Heading, _extends({}, props, {
+    as: "h2",
+    $fontSize: "35px"
+  }));
+};
+var H3 = function H3(props) {
+  return React__default.createElement(Heading, _extends({}, props, {
+    as: "h3",
+    $fontSize: "25px"
+  }));
+};
+var H4 = function H4(props) {
+  return React__default.createElement(Heading, _extends({}, props, {
+    as: "h4",
+    $fontSize: "18px"
+  }));
+};
 
-function _templateObject2$d() {
+function _templateObject2$c() {
   var data = _taggedTemplateLiteral(["\n      font-size: 13px;\n    "]);
 
-  _templateObject2$d = function _templateObject2() {
+  _templateObject2$c = function _templateObject2() {
     return data;
   };
 
@@ -2117,7 +2107,7 @@ function _templateObject$i() {
   return data;
 }
 var ParagraphStyle = styled__default.p(_templateObject$i(), function (props) {
-  return props.small && styled.css(_templateObject2$d());
+  return props.small && styled.css(_templateObject2$c());
 });
 var P = ParagraphStyle;
 
