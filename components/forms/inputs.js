@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { trace } from '../../libs/helpers';
 import { fullWidth, withProp, color } from '../helpers';
@@ -119,21 +119,18 @@ const RadioStyle = styled.label`
   }
 `;
 
-let radioKey = 0;
-export const RadioInput = props => {
-  const inputKey = `uid--${radioKey++}`;
+export const RadioInput = React.forwardRef((props, ref) => {  
   return (
-    <RadioStyle htmlFor={inputKey}>
+    <RadioStyle>
       <input
-        id={inputKey}
-        onClick={trace('The Radio clicked.')}
+        ref={ref}
         type="radio"
         {...props}
       />
       <span />
     </RadioStyle>
   );
-};
+});
 
 const RadioLabelStyle = styled.div`
   display: inline-flex;

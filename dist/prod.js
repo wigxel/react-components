@@ -1400,17 +1400,12 @@ var RadioStyle = styled__default.label(_templateObject7$1(), function (a) {
 }, function (a) {
   return a.theme.primary;
 });
-var radioKey = 0;
-var RadioInput = function RadioInput(props) {
-  var inputKey = "uid--".concat(radioKey++);
-  return React__default.createElement(RadioStyle, {
-    htmlFor: inputKey
-  }, React__default.createElement("input", _extends({
-    id: inputKey,
-    onClick: trace('The Radio clicked.'),
+var RadioInput = React__default.forwardRef(function (props, ref) {
+  return React__default.createElement(RadioStyle, null, React__default.createElement("input", _extends({
+    ref: ref,
     type: "radio"
   }, props)), React__default.createElement("span", null));
-};
+});
 var RadioLabelStyle = styled__default.div(_templateObject8(), ''
 /* vertical-align: center; */
 , fullWidth(), ''
