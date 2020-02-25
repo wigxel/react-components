@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean, number } from '@storybook/addon-knobs';
 import { Theme } from './styles/StyleComponents';
-import { H1, H2, H4, P } from '../components/typography';
+import { H1, H2, H3, H4, P } from '../components/typography';
 import { Stack, Cluster, Outline } from '../components/layouts/';
+import { Pager, Hello }  from '../components/layouts/Pager';
+import { Button } from '../components/forms/buttons';
+
+const ClusterOutline = ({ children }) => {
+    return (
+        <Cluster.Small>
+            <Outline color="whitesmoke">
+                {children}
+            </Outline>
+        </Cluster.Small>
+    );
+}
 
 storiesOf('Layouts', module).addDecorator(withKnobs)
     .add('Stack', () => (<Theme>
@@ -117,4 +129,38 @@ storiesOf('Layouts', module).addDecorator(withKnobs)
             </Stack>
         </Theme>
         );
+    })
+    .add('Pager', () => {
+        const current = number("Current Page");
+        return (
+            <Theme>
+                <Stack noExtraSpace style={{ width: '100%' }}>
+                    <H2>Pager</H2>
+                    <Outline color="indigo">
+                    <Pager current={current} morph={boolean("Should Morph")}>
+                        <ClusterOutline>
+                            <Stack noExtraSpace>
+                                <H3 light={true}>The Pager is really cool.</H3>
+                                <P>So, the page is more like a carousel; but for pages. It can switch between pages 
+                                when a user wants it to. <br/>
+                                Wait until you see how it really works</P>
+                                <P>Click Here to Switch to the Next Page</P>
+                                <Button>Switch to Page 2</Button>
+                            </Stack>
+                        </ClusterOutline>
+                        <ClusterOutline>
+                            <Stack noExtraSpace>
+                                <H3>This is the Second Page</H3>
+                                <P>So, what do you think about it?</P>
+                                <P>Great or what?</P>
+                                <P>Click Here to Switch to the Previous Page</P>
+                                <P>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi perferendis placeat optio accusamus tempora debitis facilis? Officiis obcaecati cum natus in aspernatur, est, adipisci labore amet necessitatibus commodi, reprehenderit aperiam et cumque a nesciunt harum delectus. Recusandae, eveniet iste provident delectus consequuntur autem similique repellendus. Asperiores labore facere quis sint. Iste, maiores! Deserunt dignissimos veritatis minima laboriosam, quaerat cum, ad iure eius itaque possimus error suscipit corrupti, soluta debitis ab! Temporibus cumque blanditiis obcaecati sint aliquam adipisci ipsa sunt neque dolorum quas perferendis reprehenderit eius maxime modi debitis ad, eligendi!</P>
+                                <Button>Back</Button>
+                            </Stack>
+                        </ClusterOutline>
+                    </Pager>
+                    </Outline>
+                </Stack>
+            </Theme>
+        )
     })

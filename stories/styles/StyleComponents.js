@@ -4,8 +4,12 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { Light } from './Theme';
 
 const GlobalStyle = createGlobalStyle`
+	:root {
+		--heading-font: 'Poppins';
+	}
+
   body {
-    font-family: Prompt, sans-serif;
+    font-family: PT Sans, Lato, "Segoe UI", sans-serif;
   }
 `;
 

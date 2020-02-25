@@ -35,3 +35,4 @@ export const Sidebar = props => {
 export * from './Grids';
 export * from './imageHolders';
 export * from './Outline';
+export * from './Pager';
