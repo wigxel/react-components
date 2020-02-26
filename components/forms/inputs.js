@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
-import styled, { css } from 'styled-components';
 import { trace } from '../../libs/helpers';
-import { fullWidth, withProp, color } from '../helpers';
+import { fullWidth, theme, withProp } from '../helpers';
+import styled, { css } from '../theme-provider';
 
 const InputStyle = styled.input`
-  background-color: ${color('whitesmoke')};
+  background-color: ${theme('whitesmoke')};
   border: none;
   height: 38px;
   min-width: 243px;
@@ -13,8 +13,8 @@ const InputStyle = styled.input`
   font-size: 13px;
   font-family: var(--heading-font, 'Quicksand');
   transition: all 0.3s ease-out;
-  border-color: ${color('primary')};
-  caret-color: ${color('primary')};
+  border-color: ${theme('primary')};
+  caret-color: ${theme('primary')};
   outline: none;
 
   &::placeholder {
@@ -28,11 +28,13 @@ const InputStyle = styled.input`
   }
 
   &:focus {
-    border: solid 1px ${color('primary')};
+    border: solid 1px ${theme('primary')};
     ${withProp('large')(css`
-        border: solid 2px ${color('primary')};
+        border: solid 2px ${theme('primary')};
     `)}
   }
+
+  ${(props) => trace('the Property from the input template literal', props.theme)}
 
   ${fullWidth()}
   ${withProp('large')(css`
@@ -44,7 +46,7 @@ const InputStyle = styled.input`
 `;
 
 export const Input = React.forwardRef((props, ref) => {
-  return <InputStyle {...props} ref={ref} />;
+  return (<InputStyle {...props} ref={ref} />);
 });
 
 const IconInputStyle = styled.div`
@@ -64,7 +66,7 @@ const IconInputStyle = styled.div`
     margin: 6px;
     width: 28px;
     height: 28px;
-    color: ${a => a.theme.primary};
+    color: ${theme('primary')};
 
     ${props =>
       props.large &&
@@ -111,11 +113,11 @@ const RadioStyle = styled.label`
     background-clip: content-box;
     text-align: center;
     box-sizing: border-box;
-    border: solid 1px ${a => a.theme.grey};
+    border: solid 1px ${theme('primary')};
   }
 
   input:checked + span {
-    background-color: ${a => a.theme.primary};
+    background-color: ${theme('primary')};
   }
 `;
 
@@ -134,7 +136,6 @@ export const RadioInput = React.forwardRef((props, ref) => {
 
 const RadioLabelStyle = styled.div`
   display: inline-flex;
-  ${'' /* vertical-align: center; */}
   align-items: center;
   padding-right: 5px;
 

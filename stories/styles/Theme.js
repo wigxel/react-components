@@ -4,7 +4,7 @@ const Generic = {
   danger: '#E56464',
   grey: '#878787',
   greylight: '#848484',
-  navbar: '#FDFDFD'
+  navbar: '#FDFDFD',
 };
 
 const Light = {

@@ -1,5 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from '../theme-provider';
+import { css } from 'styled-components';
 import t from 'prop-types';
 import { color, withProp } from '../helpers';
 

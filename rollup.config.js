@@ -13,9 +13,11 @@ export default {
   output: {
     file: outputFile,
     format: 'cjs',
-    exports: 'named'
+    exports: "named",
   },
-  external: id => /^react|lodash|styled-components/.test(id),
+  external: id => {
+    return /^(react|lodash)/.test(id)
+  },
   plugins: [
     replace({
       ENVIRONMENT: JSON.stringify(NODE_ENV)

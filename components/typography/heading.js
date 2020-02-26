@@ -1,6 +1,5 @@
 import React from 'react';
-import styled from'styled-components';
-import { filterKeys } from '../../libs/helpers'
+import styled from'../theme-provider';
 
 export const Heading = styled.span`
   font-family: var(--heading-font, 'Avenir', 'Helvetica Neue', 'Segoe UI', sans-serif);
@@ -8,7 +7,7 @@ export const Heading = styled.span`
   font-size: ${props => props.$fontSize};
 `
 
-export const H1 = (props) => <Heading {...props} as="h1" $fontSize={'43px'} />
+export const H1 = (props) => <Heading {...props} as="h1" $fontSize="43px" />
 
 export const H2 = (props) => <Heading {...props} as="h2" $fontSize="35px" />
 

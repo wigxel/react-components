@@ -1,3 +1,5 @@
+import { curry, curryN, toPairs, fromPairs, filter } from 'ramda';
+
 export const slugify = text => {
   const a = 'àáäâãåăæçèéëêǵḧìíïîḿńǹñòóöôœṕŕßśșțùúüûǘẃẍÿź·/_,:;';
   const b = 'aaaaaaaaceeeeghiiiimnnnoooooprssstuuuuuwxyz------';
@@ -36,13 +38,14 @@ const cStyle = `
   border-radius: 3px;
 `
 
-export const trace = (info = '', style = cStyle) => x => {
+export const trace = curry((info = '', x, style = cStyle) => {
   if (isDevelopment()) {
   // eslint-disable-next-line
-    console.info(`%c${info}%c${x}`, style);   
+    console.info(`%c${info}%c`, style);   
+    console.info("--->", x);
   }
   return x;
-};
+});
 
 export const log = (x, msg) => trace(msg)(x);
 
@@ -58,13 +61,11 @@ const iterate = fn => (alloc, cur) => alloc + (fn ? fn(cur) : cur);
 export const sumArray = (arr, fn) => arr.reduce(iterate(fn), 0);
 
 // eslint-disable-next-line
-export const filterKeys = (object = {}, keys = [], negate = false) => {
-  return Object.entries(object).reduce((alloc, [key, value]) => {
-    const cond = negate ? !keys.includes(key) : keys.includes(key);
-    if (cond) alloc[key] = value;
-    return alloc;
-  }, {});
-};
+export const filterKeys = curryN(2, (object = {}, keys = [], negate = false) => {
+  const onlyKeys = ([key]) => keys.includes(key);
+  const newPairs = filter(onlyKeys, toPairs(object));
+  return fromPairs(newPairs);
+});
 
 export const isImage = (mimeType = '') =>
   /image\/(jpeg|png|jpg)/g.test(mimeType);
@@ -77,3 +78,5 @@ export const isImage = (mimeType = '') =>
 export const onEnter = fn => evt => {
   if (evt.keyCode === 13) fn(evt);
 };
+
+

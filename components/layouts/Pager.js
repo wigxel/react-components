@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
-import styled from "styled-components";
+import styled from "../theme-provider";
 import t from "prop-types";
 import { debounce } from "lodash";
 

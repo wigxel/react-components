@@ -2,10 +2,21 @@
  * Styled components helpers
  * @author Joseph Julius Owonvown
  */
-import styled, { css } from 'styled-components';
+import { isArray } from 'lodash';
+import styled from './theme-provider';
+import { css } from 'styled-components';
+import { curry, path, split, lensPath, view } from 'ramda';
 
+export const theme = curry((key, props) => {
+  const path = isArray(key) ? key : split('.', key);
+  const varLens = lensPath(path);
 
-export const withProp = key => style => props => props[key] && style;
+  return view(varLens, props.theme);
+});
+
+export const withProp = curry((key , style , props) => {
+  return props[key] && style;
+});
 
 export const propIs = prop => functor => style => props => functor(props[prop]) && style;
 
@@ -16,34 +27,33 @@ export const CardStyle = (con = {}) => styled.article`
   background-color: ${color('bgcolor')};
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 
-  ${withProp('static')(css`
+  ${withProp('static', css`
     box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
-  `)(con)}
+  `, con)}
 
-  ${withProp('clickable')(css`
+  ${withProp('clickable', css`
     cursor: pointer;
-  `)(con)}
+  `, con)}
 
-  ${withProp('shadow')(css`
+  ${withProp('shadow', css`
     box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
     &:hover {
       box-shadow: 0 3px 12px -5px rgba(0, 0, 0, 0.3);
     }
-  `)(con)}
+  `, con)}
 
-  ${withProp('outlineDanger')(css`
+  ${withProp('outlineDanger', css`
     border: solid 1px ${color('danger')};
     box-shadow: none !important;
   `)}
 `;
 
-export const fullWidth = () =>
-  withProp('fullwidth')(css`
-    display: flex;
-    width: 100%;
-  `);
+export const fullWidth = withProp('fullwidth', css`
+  display: flex;
+  width: 100%;
+`);
 
-export const color = name => props => props.theme[name];
+export const color = theme;
 
 const sizes = {
   bigDestktop: 1800, // 1800 above
