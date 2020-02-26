@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { trace } from '../../libs/helpers';
 import { fullWidth, theme, withProp } from '../helpers';
-import styled, { css } from '../theme-provider';
+import styled, { css } from 'styled-components';
 
 const InputStyle = styled.input`
   background-color: ${theme('whitesmoke')};

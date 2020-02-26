@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from "../theme-provider";
+import styled from "styled-components";
 
 import { CardStyle, color } from '../helpers';
 

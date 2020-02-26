@@ -1,5 +1,5 @@
-import React from "react";
-import styled from 'styled-components';
+// import React from "react";
+// import styled from 'styled-components';
 // import styled, { css as _css, ThemeProvider as Provider } from 'styled-components';
 
 // export const ThemeProvider = (props) => {
@@ -10,6 +10,3 @@ import styled from 'styled-components';
 //   </Provider>
 // };
 // console.log(_css);
-
-export * from 'styled-components';
-export default styled;

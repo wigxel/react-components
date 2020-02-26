@@ -1,7 +1,6 @@
 import React from 'react';
 import t from 'prop-types';
-import styled from '../theme-provider';
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { filterKeys } from '../../libs/helpers';
 import { fullWidth, withProp, color } from '../helpers';
 

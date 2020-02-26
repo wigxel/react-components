@@ -3,8 +3,7 @@
  * @author Joseph Julius Owonvown
  */
 import { isArray } from 'lodash';
-import styled from './theme-provider';
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { curry, path, split, lensPath, view } from 'ramda';
 
 export const theme = curry((key, props) => {

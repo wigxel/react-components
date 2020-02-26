@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from'../theme-provider';
+import styled from'styled-components';
 
 export const Heading = styled.span`
   font-family: var(--heading-font, 'Avenir', 'Helvetica Neue', 'Segoe UI', sans-serif);

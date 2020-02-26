@@ -16,7 +16,7 @@ export default {
     exports: "named",
   },
   external: id => {
-    return /^(react|lodash)/.test(id)
+    return /^(react|lodash|styled-components)/.test(id)
   },
   plugins: [
     replace({

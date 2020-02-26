@@ -4,7 +4,7 @@
   "description": "UI Component library by Wigxel corp.",
   "main": "dist/prod.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepublishOnly": "npm run release",
@@ -32,14 +32,16 @@
   "homepage": "https://github.com/wigxel/react-components#readme",
   "dependencies": {
     "lodash": "^4.17.15",
+    "ramda": "^0.27.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2",
-    "styled-components": "^4.4.0"
+    "styled-components": "^5.0.1"
   },
   "peerDependencies": {
     "react": "16.x",
-    "lodash": "4.x"
+    "lodash": "4.x",
+    "styled-components": "4.x"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",

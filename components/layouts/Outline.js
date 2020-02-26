@@ -1,5 +1,4 @@
-import styled from '../theme-provider';
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { withProp } from '../helpers';
 
 const outlineColor = props => props.color || 'orange';
