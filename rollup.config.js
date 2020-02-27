@@ -10,11 +10,15 @@ const outputFile = NODE_ENV === "production" ? "./dist/prod.js" : "./dist/dev.js
 
 export default {
   input: 'main.js',
-  output: {
+  output: [{
     file: outputFile,
     format: 'cjs',
     exports: "named",
-  },
+  }, {
+    file: './dist/dev.esm.js',
+    format: 'esm',
+    exports: "named",
+  }],
   external: id => {
     return /^(react|lodash|styled-components)/.test(id)
   },
