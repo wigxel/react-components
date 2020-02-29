@@ -6,6 +6,7 @@ import { Light } from './Theme';
 const GlobalStyle = createGlobalStyle`
 	:root {
 		--heading-font: 'Poppins';
+    --input-font: "Poppins";
 	}
 
   body {

@@ -4,6 +4,10 @@ const Generic = {
   danger: '#E56464',
   grey: '#878787',
   greylight: '#848484',
+  border: { 
+    gray: '#e1e1e1',
+    width: '2px',
+  },
   navbar: '#FDFDFD',
 };
 

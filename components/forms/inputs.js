@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { trace } from '../../libs/helpers';
 import { fullWidth, theme, withProp } from '../helpers';
 import styled, { css } from 'styled-components';
 
@@ -33,8 +32,6 @@ const InputStyle = styled.input`
         border: solid 2px ${theme('primary')};
     `)}
   }
-
-  ${(props) => trace('the Property from the input template literal', props.theme)}
 
   ${fullWidth()}
   ${withProp('large')(css`
@@ -174,7 +171,7 @@ const CheckboxStyle = styled(RadioStyle)`
 export const Checkbox = props => {
   return (
     <CheckboxStyle>
-      <input onClick={trace('The Radio clicked.')} type="checkbox" {...props} />
+      <input type="checkbox" {...props} />
       <span />
     </CheckboxStyle>
   );
