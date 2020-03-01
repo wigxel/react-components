@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from'styled-components';
+import React from "react"
+import styled from"styled-components"
 
 export const Heading = styled.span`
   font-family: var(--heading-font, 'Avenir', 'Helvetica Neue', 'Segoe UI', sans-serif);
-  font-weight: ${props => props.bold ? 'bold' : (props.light ? '300' : '400' )};
+  font-weight: ${props => props.bold ? "bold" : (props.light ? "300" : "400" )};
   font-size: ${props => props.$fontSize};
 `
 

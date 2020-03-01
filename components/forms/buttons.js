@@ -1,12 +1,12 @@
-import React from 'react';
-import t from 'prop-types';
-import styled, { css } from 'styled-components';
-import { filterKeys } from '../../libs/helpers';
-import { fullWidth, withProp, color } from '../helpers';
+import React from "react"
+import t from "prop-types"
+import styled, { css } from "styled-components"
+import { filterKeys } from "../../libs/helpers"
+import { fullWidth, withProp, color } from "../helpers"
 
 const ButtonStyle = styled.button`
-  --theme-color: ${color('accent')};
-  background-color: ${color('accent')};
+  --theme-color: ${color("accent")};
+  background-color: ${color("accent")};
   padding: .7rem 1.8rem;
   white-space: nowrap;
   font-size: 13px;
@@ -40,27 +40,27 @@ const ButtonStyle = styled.button`
     box-shadow: 0 3px 8px -4px rgba(0, 0, 0, 0.3);
   }
 
-  ${withProp('primary')(css`
-    --theme-color: ${color('primary')};
-    background-color: ${color('primary')};
+  ${withProp("primary")(css`
+    --theme-color: ${color("primary")};
+    background-color: ${color("primary")};
   `)}
 
-  ${withProp('danger')(css`
-    --theme-color: ${color('danger')};
-    background-color: ${color('danger')};
+  ${withProp("danger")(css`
+    --theme-color: ${color("danger")};
+    background-color: ${color("danger")};
   `)}
 
-  ${withProp('outline')(css`
+  ${withProp("outline")(css`
     background-color: transparent;
     border: solid 2px var(--theme-color, #888);
     color: var(--theme-color, #888);
   `)}
 
-  ${withProp('large')(css`
+  ${withProp("large")(css`
     padding: 1rem 2rem;
   `)}
 
-  ${withProp('circle')(css`
+  ${withProp("circle")(css`
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -75,27 +75,27 @@ const ButtonStyle = styled.button`
   `)}
 
   ${fullWidth()}
-`;
+`
 
 export const Button = ButtonStyle
 
-const iconProps = props => filterKeys(props, ['color', 'icon']);
+const iconProps = props => filterKeys(props, ["color", "icon"])
 
 export const IconButton = props => {
-  return (
-    <Button {...props}>
-      <span>{props.children}</span>
-    </Button>
-  );
-};
+	return (
+		<Button {...props}>
+			<span>{props.children}</span>
+		</Button>
+	)
+}
 
 IconButton.propTypes = {
-  children: t.node.isRequired,
+	children: t.node.isRequired,
 }
 
 export const CircleButton = props => {
-  return (
-    <Button circle {...props}>
-    </Button>
-  );
-};
+	return (
+		<Button circle {...props}>
+		</Button>
+	)
+}

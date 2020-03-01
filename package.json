@@ -10,7 +10,9 @@
     "prepublishOnly": "npm run release",
     "release": "npm run build:dev && npm run build:prod",
     "build:prod": "NODE_ENV=production rollup -c",
-    "build:dev": "NODE_ENV=development rollup -c"
+    "build:dev": "NODE_ENV=development rollup -c",
+    "lint": "eslint --config=.eslintrc.js components/** stories/**",
+    "fix": "eslint --fix components/** stories/**"
   },
   "repository": {
     "type": "git",
@@ -53,6 +55,8 @@
     "@storybook/addons": "^5.2.4",
     "@storybook/react": "^5.2.4",
     "babel-loader": "^8.0.6",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.18.3",
     "rollup": "^1.24.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",

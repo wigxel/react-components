@@ -1,7 +1,7 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import t from 'prop-types';
-import { color, withProp } from '../helpers';
+import React from "react"
+import styled, { css } from "styled-components"
+import t from "prop-types"
+import { color, withProp } from "../helpers"
 
 const ActivityStyle = styled.ul `
   padding: 0;
@@ -10,7 +10,7 @@ const ActivityStyle = styled.ul `
   flex-flow: column ;
   box-sizing: border-box;
   margin-left: ${23 / 2}px;
-  border-left: solid 1px ${color('greylight')};
+  border-left: solid 1px ${color("greylight")};
 
 
   .a-item {
@@ -29,10 +29,10 @@ const ActivityStyle = styled.ul `
     }
 
 
-    ${withProp('hoverable')(css`
+    ${withProp("hoverable")(css`
         &:hover {
             &:before {
-                background-color: ${color('whitesmoke')};
+                background-color: ${color("whitesmoke")};
             }
         }
     `)}
@@ -46,33 +46,33 @@ const ActivityStyle = styled.ul `
         border-radius: 50%;
         background-color: white;
         transform: translate3d(-50%, -50%, 0);
-        box-shadow: 0 0 0 3px ${color('bgcolor')};
-        border: solid 1px ${color('greylight')};
+        box-shadow: 0 0 0 3px ${color("bgcolor")};
+        border: solid 1px ${color("greylight")};
     }
   }
-`;
+`
 
 export const Activity = (props) => {
-    return (
-        <ActivityStyle {...props}>
-            {props.entries.map((e, index) => (
-                <li key={index} className="a-item">
-                    {props.render ? props.render(e) : <article>
-                        <div className="msg">{e}</div>
-                        <span className="timestamp">2 days ago</span>
-                    </article>
-                    }
-                </li>
-            ))}
-        </ActivityStyle>
-    )
+	return (
+		<ActivityStyle {...props}>
+			{props.entries.map((e, index) => (
+				<li key={index} className="a-item">
+					{props.render ? props.render(e) : <article>
+						<div className="msg">{e}</div>
+						<span className="timestamp">2 days ago</span>
+					</article>
+					}
+				</li>
+			))}
+		</ActivityStyle>
+	)
 }
 
 Activity.propTypes = {
-    children: t.array,
-    entries: t.array,
-    render: t.func,
-    hoverable: t.bool,
+	children: t.array,
+	entries: t.array,
+	render: t.func,
+	hoverable: t.bool,
 }
 
-export default Activity;
+export default Activity

@@ -1,12 +1,12 @@
-import React from 'react'
-import t from 'prop-types';
-import styled, { css } from "styled-components";
-import { propIs } from '../helpers'
-import Card from './Card'
+import React from "react"
+import t from "prop-types"
+import styled, { css } from "styled-components"
+import { propIs } from "../helpers"
+import Card from "./Card"
 
 const ModalSize = {
-    small: e => e === 'sm',
-    large: e => e === 'lg',
+	small: e => e === "sm",
+	large: e => e === "lg",
 }
 
 const DialogStyle = styled.section`
@@ -50,16 +50,16 @@ const DialogStyle = styled.section`
         max-width: 800px;
         transform: translate(0, -50%);
 
-        ${propIs('size')(ModalSize.small)(css`
+        ${propIs("size")(ModalSize.small)(css`
             max-width: 400px;        
         `)}
 
-        ${propIs('size')(ModalSize.large)(css`
+        ${propIs("size")(ModalSize.large)(css`
             max-width: 1000px;
         `)}
     }
 
-    ${propIs('show')(show => show === true)(css`
+    ${propIs("show")(show => show === true)(css`
         visibility: visible;
 
         .wg-dialog {
@@ -77,34 +77,34 @@ const DialogStyle = styled.section`
 `
 
 export const Modal = (props) => {
-     if (props.show) {
-         document.body.style.overflow = 'hidden'
-         document.body.style.height = '100vh'
-     } else {
-         document.body.style.overflow = ''
-         document.body.style.height = ''
-     }
+	if (props.show) {
+		document.body.style.overflow = "hidden"
+		document.body.style.height = "100vh"
+	} else {
+		document.body.style.overflow = ""
+		document.body.style.height = ""
+	}
 
-    return <DialogStyle {...props}>
-        <div className="wg-backdrop" onClick={props.onClose}></div>
-        <div className="wg-dialog">
-            <Card className="wg-modal-content">
-                {props.children}
-            </Card>
-        </div>
-    </DialogStyle>
+	return <DialogStyle {...props}>
+		<div className="wg-backdrop" onClick={props.onClose}></div>
+		<div className="wg-dialog">
+			<Card className="wg-modal-content">
+				{props.children}
+			</Card>
+		</div>
+	</DialogStyle>
 }
 
 Modal.defaultProps = {
-    show: false,
-    size: '',
-    onClose: a => a,
+	show: false,
+	size: "",
+	onClose: a => a,
 }
 
 Modal.propTypes = {
-    onClose: t.func,
-    show: t.bool.isRequired,
-    size: t.string.isRequired,
+	onClose: t.func,
+	show: t.bool.isRequired,
+	size: t.string.isRequired,
 }
 
-export default Modal;
+export default Modal

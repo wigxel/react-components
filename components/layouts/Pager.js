@@ -1,7 +1,7 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
-import styled from "styled-components";
-import t from "prop-types";
-import { debounce } from "lodash";
+import React, { useRef, useState, useCallback, useEffect } from "react"
+import styled from "styled-components"
+import t from "prop-types"
+import { debounce } from "lodash"
 
 const Wrap = styled.div`
   box-sizing: border-box;
@@ -42,102 +42,102 @@ const Wrap = styled.div`
       }
     }
   }
-`;
+`
 
 export const Pager = props => {
-  const { current: cp } = props;
-  const [height, setHeight] = useState("auto");
+	const { current: cp } = props
+	const [height, setHeight] = useState("auto")
 
-  const pages = props.children;
-  const slideLeft = useCallback(
-    (cp, slider) => slider.current.clientWidth * cp,
-    []
-  );
+	const pages = props.children
+	const slideLeft = useCallback(
+		(cp, slider) => slider.current.clientWidth * cp,
+		[]
+	)
 
-  const rootElem = useRef(null);
-  const slider = useRef(null);
-  const slides = [];
-  const addSlideRef = useCallback(
-    (ref, index) => {
-      slides[index] = ref;
-    },
-    [slides]
-  );
+	const rootElem = useRef(null)
+	const slider = useRef(null)
+	const slides = []
+	const addSlideRef = useCallback(
+		(ref, index) => {
+			slides[index] = ref
+		},
+		[slides]
+	)
 
-  useEffect(() => {
-    if (slider.current) {
-      const leftOffset = slideLeft(cp, slider);
-      slider.current.scroll({
-        top: 0,
-        left: leftOffset,
-        behavior: "smooth"
-      });
-    }
+	useEffect(() => {
+		if (slider.current) {
+			const leftOffset = slideLeft(cp, slider)
+			slider.current.scroll({
+				top: 0,
+				left: leftOffset,
+				behavior: "smooth"
+			})
+		}
 
-    if (props.morph) {
-      const resizeHeight = () => {
-        if (slides[cp]) {
-          let newHeight = slides[cp].clientHeight + "px";
-          if (height !== newHeight) setHeight(newHeight);
-        }
-      };
-      debounce(resizeHeight, 500)();
-    } else {
-      setHeight('auto');
-    }
-  }, [cp, slides, height, props, slideLeft]);
+		if (props.morph) {
+			const resizeHeight = () => {
+				if (slides[cp]) {
+					let newHeight = slides[cp].clientHeight + "px"
+					if (height !== newHeight) setHeight(newHeight)
+				}
+			}
+			debounce(resizeHeight, 500)()
+		} else {
+			setHeight("auto")
+		}
+	}, [cp, slides, height, props, slideLeft])
 
-  return (
-    <Wrap ref={rootElem}>
-      <section id="page-holder" ref={slider} style={{ height }}>
-        {pages.map((child, index) => {
-          return (
-            <Slide
-              key={index}
-              ref={ref => addSlideRef(ref, index)}
-              width={slider.current ? slider.width + "px" : "100%"}
-              isActive={cp == index}
-            >
-              {child}
-            </Slide>
-          );
-        })}
-      </section>
-    </Wrap>
-  );
-};
+	return (
+		<Wrap ref={rootElem}>
+			<section id="page-holder" ref={slider} style={{ height }}>
+				{pages.map((child, index) => {
+					return (
+						<Slide
+							key={index}
+							ref={ref => addSlideRef(ref, index)}
+							width={slider.current ? slider.width + "px" : "100%"}
+							isActive={cp == index}
+						>
+							{child}
+						</Slide>
+					)
+				})}
+			</section>
+		</Wrap>
+	)
+}
 
 Pager.propTypes = {
-  morph: t.bool,
-  current: t.number.isRequired,
-  children: t.array.isRequired
-};
+	morph: t.bool,
+	current: t.number.isRequired,
+	children: t.array.isRequired
+}
 
 Pager.defaultProps = {
-  current: 0,
-  morph: false
-};
+	current: 0,
+	morph: false
+}
 
 const Slide = React.forwardRef(function Slide(
-  { width, isActive, children },
-  ref
+	{ width, isActive, children },
+	ref
 ) {
-  return (
-    <section
-      className={`page ${isActive ? "pager--active" : ""}`}
-      style={{ width }}
-    >
-      <div ref={ref} className="wg-slider-page px-15">
-        {children}
-      </div>
-    </section>
-  );
-});
+	return (
+		<section
+			className={`page ${isActive ? "pager--active" : ""}`}
+			style={{ width }}
+		>
+			<div ref={ref} className="wg-slider-page px-15">
+				{children}
+			</div>
+		</section>
+	)
+})
 
 Slide.propTypes = {
-  children: t.node,
-  isActive: t.bool.isRequired,
-  width: t.string.isRequired
-};
+	children: t.node,
+	isActive: t.bool.isRequired,
+	width: t.string.isRequired
+}
 
-export default Pager;
+export default Pager

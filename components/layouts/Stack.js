@@ -1,17 +1,17 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import { withProp } from '../helpers';
+import React from "react"
+import styled, { css } from "styled-components"
+import { withProp } from "../helpers"
 
 const propSizes = [
-  ['small', '.5rem'],
-  ['medium', '1.5rem'],
-  ['large', '2rem']
+	["small", ".5rem"],
+	["medium", "1.5rem"],
+	["large", "2rem"]
 ]
 
 const StackStyle = styled.div`
   padding: 0.1px 0;
   
-  ${withProp('noExtraSpace')(css`
+  ${withProp("noExtraSpace")(css`
     > * {
       margin-top: 0;
       margin-bottom: 0;
@@ -29,10 +29,10 @@ const StackStyle = styled.div`
     }
   `))}
 
-`;
+`
 
 export const Stack = props => {
-  return <StackStyle {...props} />;
-};
+	return <StackStyle {...props} />
+}
 
-export default Stack;
+export default Stack

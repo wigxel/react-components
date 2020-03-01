@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { onEnter } from '../../libs/helpers';
-import Currency from './CurrencyInput';
+import React from "react"
+import styled from "styled-components"
+import { onEnter } from "../../libs/helpers"
+import Currency from "./CurrencyInput"
 
-export const CurrencyInput = Currency;
+export const CurrencyInput = Currency
 
 const SearchStyle = styled.div`
   display: flex;
@@ -59,33 +59,33 @@ const SearchStyle = styled.div`
       }
     }
   }
-`;
+`
 
 export const SearchComponent = props => {
-  const handleSubmit = evt => props.onSubmit(evt.target.value);
+	const handleSubmit = evt => props.onSubmit(evt.target.value)
 
-  return (
-    <SearchStyle {...props}>
-      <input
-        type="text"
-        placeholder="Find Vendor..."
-        onKeyUp={onEnter(handleSubmit)}
-      />
-      <div className="search-base">
-        <b>Search Tags:</b>
-        <div className="tags">
-          {['africandishes', 'bouquet', 'glamour'].map(e => (
-            <a href={`#${e}`}>#{e}</a>
-          ))}
-        </div>
-      </div>
-    </SearchStyle>
-  );
-};
+	return (
+		<SearchStyle {...props}>
+			<input
+				type="text"
+				placeholder="Find Vendor..."
+				onKeyUp={onEnter(handleSubmit)}
+			/>
+			<div className="search-base">
+				<b>Search Tags:</b>
+				<div className="tags">
+					{["africandishes", "bouquet", "glamour"].map(e => (
+						<a href={`#${e}`}>#{e}</a>
+					))}
+				</div>
+			</div>
+		</SearchStyle>
+	)
+}
 
 SearchComponent.defaultProps = {
-  onSubmit: () => {}
-};
+	onSubmit: () => {}
+}
 
-export * from './inputs';
-export * from './buttons';
+export * from "./inputs"
+export * from "./buttons"

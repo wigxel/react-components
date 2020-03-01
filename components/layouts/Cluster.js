@@ -1,22 +1,22 @@
-import t from "prop-types";
-import styled, { css } from "styled-components";
-import { withProp } from "../helpers";
+import t from "prop-types"
+import styled, { css } from "styled-components"
+import { withProp } from "../helpers"
 // import { log } from '../../libs/helpers';
 
 const addProps = fn => {
-  fn.propTypes = {
-    horizontal: t.bool,
-    vertical: t.bool,
-    x: t.bool,
-    y: t.bool,
-    children: t.node.isRequired
-  };
+	fn.propTypes = {
+		horizontal: t.bool,
+		vertical: t.bool,
+		x: t.bool,
+		y: t.bool,
+		children: t.node.isRequired
+	}
 
-  return fn;
-};
+	return fn
+}
 
 const withProps = props => style => $props =>
-  props.map(prop => withProp(prop)(style)($props));
+	props.map(prop => withProp(prop)(style)($props))
 
 const LargeS = styled.span`
   display: inline-block;
@@ -33,19 +33,19 @@ const LargeS = styled.span`
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   `)}
-`;
+`
 const SmallS = styled(LargeS)`
   padding: 1rem;
-`;
+`
 const MediumS = styled(LargeS)`
   padding: 2.5rem;
-`;
+`
 
-export const Cluster = addProps(MediumS);
-const Small = addProps(SmallS);
-const Large = addProps(LargeS);
+export const Cluster = addProps(MediumS)
+const Small = addProps(SmallS)
+const Large = addProps(LargeS)
 
-Cluster.Large = Large;
-Cluster.Small = Small;
+Cluster.Large = Large
+Cluster.Small = Small
 
-export default Cluster;
+export default Cluster

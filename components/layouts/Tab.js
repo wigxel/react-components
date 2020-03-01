@@ -1,11 +1,11 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import { withProp } from '../helpers';
+import React from "react"
+import styled, { css } from "styled-components"
+import { withProp } from "../helpers"
 
 const propSizes = [
-  ['small', '.25rem'],
-  ['medium', '1.2rem'],
-  ['large', '1.5rem']
+	["small", ".25rem"],
+	["medium", "1.2rem"],
+	["large", "1.5rem"]
 ]
 
 const TabStyle = styled.div`
@@ -18,10 +18,10 @@ const TabStyle = styled.div`
       margin-left: ${size};
     }
   `))}
-`;
+`
 
 export const Tab = props => {
-  return <TabStyle {...props} />;
-};
+	return <TabStyle {...props} />
+}
 
-export default Tab;
+export default Tab

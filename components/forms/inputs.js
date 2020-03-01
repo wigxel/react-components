@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
-import { fullWidth, theme, withProp } from '../helpers';
-import styled, { css } from 'styled-components';
+import React, { useRef } from "react"
+import { fullWidth, theme, withProp } from "../helpers"
+import styled, { css } from "styled-components"
 
 const InputStyle = styled.input`
-  background-color: ${theme('whitesmoke')};
+  background-color: ${theme("whitesmoke")};
   border: none;
   height: 38px;
   min-width: 243px;
@@ -12,8 +12,8 @@ const InputStyle = styled.input`
   font-size: 13px;
   font-family: var(--heading-font, 'Quicksand');
   transition: all 0.3s ease-out;
-  border-color: ${theme('primary')};
-  caret-color: ${theme('primary')};
+  border-color: ${theme("primary")};
+  caret-color: ${theme("primary")};
   outline: none;
 
   &::placeholder {
@@ -27,24 +27,24 @@ const InputStyle = styled.input`
   }
 
   &:focus {
-    border: solid 1px ${theme('primary')};
-    ${withProp('large')(css`
-        border: solid 2px ${theme('primary')};
+    border: solid 1px ${theme("primary")};
+    ${withProp("large")(css`
+        border: solid 2px ${theme("primary")};
     `)}
   }
 
   ${fullWidth()}
-  ${withProp('large')(css`
+  ${withProp("large")(css`
       height: 50px;
       font-size: 16px;
       border-radius: 12px;
       border: solid 2px transparent;
     `)}
-`;
+`
 
 export const Input = React.forwardRef((props, ref) => {
-  return (<InputStyle {...props} ref={ref} />);
-});
+	return (<InputStyle {...props} ref={ref} />)
+})
 
 const IconInputStyle = styled.div`
   --input-mb: 0;
@@ -63,10 +63,10 @@ const IconInputStyle = styled.div`
     margin: 6px;
     width: 28px;
     height: 28px;
-    color: ${theme('primary')};
+    color: ${theme("primary")};
 
     ${props =>
-      props.large &&
+		props.large &&
       css`
         height: 38px;
         width: 38px;
@@ -75,12 +75,12 @@ const IconInputStyle = styled.div`
   span + input {
     text-indent: 44px;
     ${props =>
-      props.large &&
+		props.large &&
       css`
         text-indent: 54px;
       `}
   }
-`;
+`
 
 export const IconInput = props => <div>Change This</div>
 
@@ -110,26 +110,26 @@ const RadioStyle = styled.label`
     background-clip: content-box;
     text-align: center;
     box-sizing: border-box;
-    border: solid 1px ${theme('primary')};
+    border: solid 1px ${theme("primary")};
   }
 
   input:checked + span {
-    background-color: ${theme('primary')};
+    background-color: ${theme("primary")};
   }
-`;
+`
 
 export const RadioInput = React.forwardRef((props, ref) => {  
-  return (
-    <RadioStyle>
-      <input
-        ref={ref}
-        type="radio"
-        {...props}
-      />
-      <span />
-    </RadioStyle>
-  );
-});
+	return (
+		<RadioStyle>
+			<input
+				ref={ref}
+				type="radio"
+				{...props}
+			/>
+			<span />
+		</RadioStyle>
+	)
+})
 
 const RadioLabelStyle = styled.div`
   display: inline-flex;
@@ -142,22 +142,22 @@ const RadioLabelStyle = styled.div`
     margin-left: 1rem;
     line-height: 20px;
     display: inline-block;
-    ${'' /* border: solid 1px black; */}
+    ${"" /* border: solid 1px black; */}
   }
-`;
+`
 
 export const RadioLabel = props => {
-  return (
-    <RadioLabelStyle {...props}>
-      <RadioInput {...props} />
-      <span>{props.label}</span>
-    </RadioLabelStyle>
-  );
-};
+	return (
+		<RadioLabelStyle {...props}>
+			<RadioInput {...props} />
+			<span>{props.label}</span>
+		</RadioLabelStyle>
+	)
+}
 
 RadioLabel.defaultProps = {
-  label: 'Something'
-};
+	label: "Something"
+}
 
 const CheckboxStyle = styled(RadioStyle)`
   margin-right: 5px;
@@ -166,13 +166,13 @@ const CheckboxStyle = styled(RadioStyle)`
   > input + span {
     border-radius: 2px;
   }
-`;
+`
 
 export const Checkbox = props => {
-  return (
-    <CheckboxStyle>
-      <input type="checkbox" {...props} />
-      <span />
-    </CheckboxStyle>
-  );
-};
+	return (
+		<CheckboxStyle>
+			<input type="checkbox" {...props} />
+			<span />
+		</CheckboxStyle>
+	)
+}

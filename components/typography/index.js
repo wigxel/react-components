@@ -1,2 +1,2 @@
-export * from "./heading.js";
-export * from "./text.js";
+export * from "./heading.js"
+export * from "./text.js"
