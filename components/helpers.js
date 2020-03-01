@@ -4,7 +4,7 @@
  */
 import { isArray } from "lodash"
 import styled, { css } from "styled-components"
-import { curry, path, split, lensPath, view } from "ramda"
+import { curry, split, lensPath, view } from "ramda"
 
 export const theme = curry((key, props) => {
 	const path = isArray(key) ? key : split(".", key)

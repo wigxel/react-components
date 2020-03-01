@@ -1,6 +1,6 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import { H3, H4 } from "../components/typography/heading"
+import { H3 } from "../components/typography/heading"
 import { Stack } from "../components/layouts"
 import { Theme } from "./styles/StyleComponents"
 import {
@@ -40,7 +40,21 @@ storiesOf("Form.Regular", module)
 	))
 	.add("Radio", () => (
 		<Theme>
-			<Checker />
+			<H3>Checkbox</H3>
+			<Checker 
+				style={Checker.Styles.Flat} 
+				label="Choose Hobby"
+				buttons={["Design", "Laugh", "Cry", "Joker"]} 
+				onChange={val => {
+					console.log(val)
+				}}/>
+			<Checker 
+				style={Checker.Styles.Dot} 
+				label="Choose Hobby"
+				buttons={["Design", "Laugh", "Cry", "Design", "Laugh", "Cry"]} 
+				onChange={val => {
+					console.log(val)
+				}}/>
 			<H3>Radio</H3>
 			<RadioInput name="poor" value="Mobbi" /> Male
 			<RadioLabel name="poor" value="Antelope" fullwidth />

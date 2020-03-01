@@ -9,6 +9,15 @@ const Generic = {
 		width: "2px",
 	},
 	navbar: "#FDFDFD",
+	padding: {
+		6: "2rem",
+		12: "2.5rem",
+	},
+	check: {
+		active: "#705DF5",
+		labelBg: "#705DF5",
+		labelColor: "white"
+	}
 }
 
 const Light = {

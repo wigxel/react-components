@@ -3,8 +3,7 @@ import styled, { css } from "styled-components"
 import { produce } from "immer"
 import { curry } from "ramda"
 import { withProp, theme, fullWidth } from "../helpers"
-import { trace } from "../../libs/helpers"
-import { pickBy  } from "ramda"
+import { pickBy } from "ramda"
 import t from "prop-types"
 
 const ValidInputProps = [
@@ -29,120 +28,125 @@ const filterProps = props => pickBy(attributesAndListeners, props)
 
 const sharedFocusStyle = css`
 	width: 100%;
-  border: solid ${theme("border.width")} ${theme("border.gray")};
-  background: #ffffff;
-  box-sizing: border-box;
-  border-radius: 16px;
-  position: relative;
-  cursor: text;
-  transition: all 0.3s ease-out;
+	border: solid ${theme("border.width")} ${theme("border.gray")};
+	background: #ffffff;
+	box-sizing: border-box;
+	border-radius: 16px;
+	position: relative;
+	cursor: text;
+	transition: all 0.3s ease-out;
 
-  &, input, textarea, select, button {
-  	font-family: var(--input-font);
-  	font-size: 1rem;
-  }
+	&,
+	input,
+	textarea,
+	select,
+	button {
+		font-family: var(--input-font);
+		font-size: 1rem;
+	}
 
- 	span.wg-label {
-    top: calc((52px / 2) / 2);
-    left: 10px;
-    line-height: 20px;
-    padding: 0 0.5rem;
-    position: absolute;
-    border-radius: 20px;
-    display: inline-block;
-	  background-color: white;
-    transition: all 0.3s ease-out;
-  }
+	span.wg-label {
+		top: calc((52px / 2) / 2);
+		left: 10px;
+		line-height: 20px;
+		padding: 0 0.5rem;
+		position: absolute;
+		border-radius: 20px;
+		display: inline-block;
+		background-color: white;
+		transition: all 0.3s ease-out;
+	}
 
-	${withProp("hasIcon", css`
-		input, textarea { text-indent: 15px; }
-		select { text-indent: 5px }
-	  span.wg-label {
-	    color: black;
-	    transform: translateX(1.8rem);
-	  }
+	${withProp(
+		"hasIcon",
+		css`
+			input,
+			textarea {
+				text-indent: 15px;
+			}
+			select {
+				text-indent: 5px;
+			}
+			span.wg-label {
+				color: black;
+				transform: translateX(1.8rem);
+			}
+		`
+	)}
+
+	${withProp("focused")(css`
+		border-color: ${theme("primary")} span.wg-label {
+			font-size: 0.9rem;
+			padding: 0 0.5rem;
+			color: ${theme("primary")};
+			transform: translate(0, -120%);
+		}
 	`)}
-
-  ${withProp("focused")(css`
-    border-color: ${theme("primary")}
-
-    span.wg-label {
-      font-size: 0.9rem;
-      padding: 0 0.5rem;
-      color: ${theme("primary")};
-      transform: translate(0, -120%);
-    }
-  `)}
 `
 const MainWrapper = styled.div`
 	width: 300px;
 	${fullWidth}
 `
 const InputStyle = styled.div`
-  margin-top: 15px;
-  box-sizing: border-box;
-  display: flex;
-  padding: .5rem 1rem;
-  align-items: center
-	
-  ${withProp("options")(css`
-    &::after {
-      content: "";
-      width: 12px;
-      height: 12px;
-      flex: 0 0 12px;
-      right: 15px;
-      pointer-events: none;
-      position: absolute;
-      border: solid 1px ${theme("primary")};
-      border-color: transparent #308ddb #308ddb transparent;
-      transform: rotate(45deg) translate(-25%);
-    }
-  `)}
+	margin-top: 15px;
+	box-sizing: border-box;
+	display: flex;
+	padding: 0.5rem 1rem;
+	align-items: center ${withProp("options")(css`
+				&::after {
+					content: "";
+					width: 12px;
+					height: 12px;
+					flex: 0 0 12px;
+					right: 15px;
+					pointer-events: none;
+					position: absolute;
+					border: solid 1px ${theme("primary")};
+					border-color: transparent #308ddb #308ddb transparent;
+					transform: rotate(45deg) translate(-25%);
+				}`)} &,
+		& > * {
+		transition: all 0.3s ease-out;
+	}
 
-  &,
-  & > * {
-    transition: all 0.3s ease-out;
-  }
+	${sharedFocusStyle}
 
-  ${sharedFocusStyle}
+	input, select {
+		outline: none !important;
+		border: none;
+		-webkit-appearance: none;
+		appearance: none;
+		width: 100%;
+		min-height: 30px;
+		background: transparent;
+	}
 
-  input, select {
-    outline: none !important;
-    border: none;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-	  min-height: 30px;
-    background: transparent;
-  }
-
-  input[type="number"] {
-    text-align: right;
-  }
+	input[type="number"] {
+		text-align: right;
+	}
 `
 
 export const TextWrapper = styled.div`
-  width: auto;
+	width: auto;
 
-  ${sharedFocusStyle}
-  ${withProp("focused")(css`
-    span.wg-label {
-      font-size: 0.9rem;
-    }
-  `)}
+	${sharedFocusStyle}
+	${withProp("focused")(css`
+		span.wg-label {
+			font-size: 0.9rem;
+		}
+	`)}
 
   textarea {
-	  max-width: 100%;
-	  resize: vertical;
-    border: none;
-    width: 100%; 
-    outline: none;
-    box-sizing: border-box;
-    min-width: 240px;
-    padding: 1rem 1.5rem;
-    background: transparent;
-  }
+		max-width: 100%;
+		resize: vertical;
+		border: none;
+		width: 100%;
+		outline: none;
+		box-sizing: border-box;
+		min-width: 240px;
+		padding: 1rem 1.5rem;
+		background: transparent;
+	}
 `
 
 export const Input = props => <input {...props} />
@@ -156,7 +160,7 @@ const createInput = curry((fn, initialState) => {
 
 		// please don't take out the event it's important
 		// eslint-disable-next-line
-    const setState = curry((fn, event) => {
+		const setState = curry((fn, event) => {
 			_setState(produce(state, fn))
 		})
 
@@ -198,7 +202,7 @@ const styleWrapper = curry((initialState, fn) => {
 		return (
 			<MainWrapper fullwidth={props.fullwidth}>
 				<InputStyle
-        	hasIcon={!!props.icon}
+					hasIcon={!!props.icon}
 					focused={state.focus}
 					options={props.children}
 					onClick={() => inputRef.current.focus()}
@@ -255,7 +259,7 @@ Input.Number = closedInput(({ state, props, inputRef }) => {
 })
 
 Input.Message = styled.div`
-  font-size: 0.8rem;
+	font-size: 0.8rem;
 `
 
 Input.Message.propTypes = {
@@ -275,14 +279,22 @@ export const Select = makeAlwaysFocused(({ props, inputRef }) => {
 	)
 })
 
-Select.Option = function Select_Option ({ value, text, selected }) {
+Select.Option = function Select_Option({ value, text, selected }) {
 	return (
-		 <option selected={selected} value={value}>{text}</option>
+		<option selected={selected} value={value || text}>
+			{text}
+		</option>
 	)
 }
 
+Select.Option.propTypes = {
+	text: t.string.isRequired,
+	value: t.string,
+	selected: t.bool,
+}
+
 Select.propTypes = {
-	children: t.array.isRequired,
+	children: t.array.isRequired
 }
 
 export const Textarea = createInput(({ props, inputRef, state }) => {
