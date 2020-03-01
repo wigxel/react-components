@@ -2,9 +2,16 @@ import React, { useState, useRef, useImperativeHandle } from "react"
 import styled, { css } from "styled-components"
 import { produce } from "immer"
 import { curry } from "ramda"
-import { withProp, theme, fullWidth } from "../helpers"
+import { withProp, themeOr, fullWidth } from "../helpers"
 import { pickBy } from "ramda"
 import t from "prop-types"
+
+const theme = themeOr({
+	border: {
+		gray: "#e1e1e1",
+		width: "1px"
+	}
+})
 
 const ValidInputProps = [
 	"placeholder",
@@ -76,7 +83,7 @@ const sharedFocusStyle = css`
 
 	${withProp("focused")(css`
 		border-color: ${theme("primary")};
-		
+
 		span.wg-label {
 			font-size: 0.9rem;
 			padding: 0 0.5rem;
