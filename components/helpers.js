@@ -8,9 +8,14 @@ import { curry, split, lensPath, view } from "ramda"
 
 export const theme = curry((key, props) => {
 	const path = isArray(key) ? key : split(".", key)
-	const varLens = lensPath(path)
+	const getPath = view(lensPath(path))
 
-	return view(varLens, props.theme)
+	return getPath(props.theme)
+})
+
+export const themeOr = curry((fallback, key, props) => {
+	const keyFrom = theme(key)
+	return keyFrom(props) || keyFrom({ theme: fallback })
 })
 
 export const withProp = curry((key , style , props) => {
@@ -20,36 +25,36 @@ export const withProp = curry((key , style , props) => {
 export const propIs = prop => functor => style => props => functor(props[prop]) && style
 
 export const CardStyle = (con = {}) => styled.article`
-  padding: 18px 20px;
-  border-radius: 12px;
-  box-sizing: border-box;
-  background-color: ${color("bgcolor")};
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	padding: 18px 20px;
+	border-radius: 12px;
+	box-sizing: border-box;
+	background-color: ${color("bgcolor")};
+	transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 
-  ${withProp("static", css`
-    box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
-  `, con)}
+	${withProp("static", css`
+		box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
+	`, con)}
 
-  ${withProp("clickable", css`
-    cursor: pointer;
-  `, con)}
+	${withProp("clickable", css`
+		cursor: pointer;
+	`, con)}
 
-  ${withProp("shadow", css`
-    box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
-    &:hover {
-      box-shadow: 0 3px 12px -5px rgba(0, 0, 0, 0.3);
-    }
-  `, con)}
+	${withProp("shadow", css`
+		box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
+		&:hover {
+			box-shadow: 0 3px 12px -5px rgba(0, 0, 0, 0.3);
+		}
+	`, con)}
 
-  ${withProp("outlineDanger", css`
-    border: solid 1px ${color("danger")};
-    box-shadow: none !important;
-  `)}
+	${withProp("outlineDanger", css`
+		border: solid 1px ${color("danger")};
+		box-shadow: none !important;
+	`)}
 `
 
 export const fullWidth = withProp("fullwidth", css`
-  display: flex;
-  width: 100%;
+	display: flex;
+	width: 100%;
 `)
 
 export const color = theme
@@ -64,10 +69,10 @@ const sizes = {
 // Iterate through the sizes and create a media template
 export const media = Object.keys(sizes).reduce((acc, label) => {
 	acc[label] = (...args) => css`
-    @media (max-width: ${sizes[label] / 16}em) {
-      ${css(...args)}
-    }
-  `
+		@media (max-width: ${sizes[label] / 16}em) {
+			${css(...args)}
+		}
+	`
 
 	return acc
 }, {})

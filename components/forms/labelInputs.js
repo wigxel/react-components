@@ -75,7 +75,9 @@ const sharedFocusStyle = css`
 	)}
 
 	${withProp("focused")(css`
-		border-color: ${theme("primary")} span.wg-label {
+		border-color: ${theme("primary")};
+		
+		span.wg-label {
 			font-size: 0.9rem;
 			padding: 0 0.5rem;
 			color: ${theme("primary")};
@@ -92,20 +94,24 @@ const InputStyle = styled.div`
 	box-sizing: border-box;
 	display: flex;
 	padding: 0.5rem 1rem;
-	align-items: center ${withProp("options")(css`
-				&::after {
-					content: "";
-					width: 12px;
-					height: 12px;
-					flex: 0 0 12px;
-					right: 15px;
-					pointer-events: none;
-					position: absolute;
-					border: solid 1px ${theme("primary")};
-					border-color: transparent #308ddb #308ddb transparent;
-					transform: rotate(45deg) translate(-25%);
-				}`)} &,
-		& > * {
+	align-items: center;
+
+	${withProp("options")(css`
+		&::after {
+			content: "";
+			width: 12px;
+			height: 12px;
+			flex: 0 0 12px;
+			right: 15px;
+			pointer-events: none;
+			position: absolute;
+			border: solid 1px ${theme("primary")};
+			transform: rotate(45deg) translate(-25%);
+			border-color: transparent #308ddb #308ddb transparent;
+		}
+	`)};
+
+		&, & > * {
 		transition: all 0.3s ease-out;
 	}
 

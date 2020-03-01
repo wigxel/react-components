@@ -41,20 +41,15 @@ storiesOf("Form.Regular", module)
 	.add("Radio", () => (
 		<Theme>
 			<H3>Checkbox</H3>
-			<Checker 
+			<Checker
+				label="Choose Hobby"
+				buttons={["Creative", "Modern", "Traditional"]} 
+				onChange={val => { console.log(val) }}/>
+			<Checker
 				style={Checker.Styles.Flat} 
 				label="Choose Hobby"
 				buttons={["Design", "Laugh", "Cry", "Joker"]} 
-				onChange={val => {
-					console.log(val)
-				}}/>
-			<Checker 
-				style={Checker.Styles.Dot} 
-				label="Choose Hobby"
-				buttons={["Design", "Laugh", "Cry", "Design", "Laugh", "Cry"]} 
-				onChange={val => {
-					console.log(val)
-				}}/>
+				onChange={val => { console.log(val) }}/>
 			<H3>Radio</H3>
 			<RadioInput name="poor" value="Mobbi" /> Male
 			<RadioLabel name="poor" value="Antelope" fullwidth />

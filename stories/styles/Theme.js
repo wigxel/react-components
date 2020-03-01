@@ -14,9 +14,7 @@ const Generic = {
 		12: "2.5rem",
 	},
 	check: {
-		active: "#705DF5",
-		labelBg: "#705DF5",
-		labelColor: "white"
+		labelBg: "#705DF5"
 	}
 }
 

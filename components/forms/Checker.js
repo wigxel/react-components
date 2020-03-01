@@ -1,8 +1,16 @@
 import React, { useCallback, useState } from "react"
 import styled, { css } from "styled-components"
-import { theme } from "../helpers"
 import { curryN } from "ramda"
+import { themeOr } from "../helpers"
 import t from "prop-types"
+
+const theme = themeOr({
+	check: {
+		active: "#705DF5",
+		labelBg: "#705DF5",
+		labelColor: "white"
+	}
+})
 
 const baseStyle = css`
 	width: 100%;
@@ -15,6 +23,8 @@ const baseStyle = css`
 	}
 
 	& > button {
+		font-family: var(--input-font, inherit);
+
 		&:focus {
 			color: ${theme("primary")};
 			/* box-shadow: 0px 0 0 2px var(--redAccent); */
@@ -107,7 +117,6 @@ export default function Checker(props) {
 	const isActive = useCallback(index => index == state)
 	const Wrapper = props.style || DotStyle
 
-	console.log(":::Wrapper", props.style)
 	return (
 		<Wrapper>
 			<label>{props.label}</label>
@@ -164,7 +173,6 @@ const FlatStyle = styled.div`
 		inset: 0;
 	}
 `
-
 const DotStyle = styled.div`
 	${baseStyle}
 	
@@ -202,5 +210,4 @@ const DotStyle = styled.div`
 		}
 	}
 `
-
 Checker.Styles = { Dot: DotStyle, Flat: FlatStyle }
