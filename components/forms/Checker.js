@@ -1,22 +1,28 @@
 import React, { useCallback, useState } from "react"
 import styled, { css } from "styled-components"
 import { curryN } from "ramda"
-import { themeOr } from "../helpers"
+import { themeOr, withProp, propIs } from "../helpers"
 import t from "prop-types"
 
 const theme = themeOr({
 	check: {
 		active: "#705DF5",
-		labelBg: "#705DF5",
-		labelColor: "white"
+		labelBg: "whitesmoke",
+		labelColor: "#705DF5"
 	}
 })
+
+const isFalse =  x => x == false
 
 const baseStyle = css`
 	width: 100%;
 	display: flex;
 	margin: 1rem 0;
 	align-items: center;
+
+ ${withProp("disabled", css`
+ 		opacity: .4;
+ 	`)}
 
 	@media screen and (min-width: 640px) {
 		flex-direction: row;
@@ -29,11 +35,14 @@ const baseStyle = css`
 			color: ${theme("primary")};
 			/* box-shadow: 0px 0 0 2px var(--redAccent); */
 		}
-		&:hover {
-			cursor: pointer;
-			color: ${theme("check.active")};
-			transition: all 0.2s ease-in-out;
-		}
+
+		${propIs("disabled", isFalse, css`
+			&:hover {
+				cursor: pointer;
+				color: ${theme("check.active")};
+				transition: all 0.2s ease-in-out;
+			}
+		`)}
 	}
 
 	& > * > span {
@@ -50,7 +59,7 @@ const baseStyle = css`
 			position: relative;
 			line-height: 20px;
 			border-radius: 0;
-			border: solid 1px ${theme("border.gray")};
+			border: solid 1px ${theme("whitesmoke")};
 			background: transparent;
 			min-height: 40px;
 			font-size: 1rem;
@@ -105,20 +114,21 @@ const baseStyle = css`
 `
 
 export default function Checker(props) {
-	const [state, setIndex] = useState(-1)
+	const [index, setIndex] = useState(-1)
 	const updateIndex = useCallback(
 		curryN(2, idx => {
+			if (props.disabled) return
 			const value = props.buttons[idx]
 			setIndex(idx)
 			props.onChange && props.onChange(value, idx)
 		}),
 		[setIndex]
 	)
-	const isActive = useCallback(index => index == state)
+	const isActive = useCallback(idx => idx == index)
 	const Wrapper = props.style || DotStyle
 
 	return (
-		<Wrapper>
+		<Wrapper disabled={props.disabled}>
 			<label>{props.label}</label>
 			{React.Children.map(props.buttons, (text, idx) => {
 				return (
@@ -142,7 +152,8 @@ export default function Checker(props) {
 }
 
 Checker.defaultProps = {
-	debug: false
+	debug: false,
+	disabled: false,
 }
 
 Checker.propTypes = {
@@ -150,6 +161,7 @@ Checker.propTypes = {
 	label: t.string.isRequired,
 	buttons: t.array.isRequired,
 	debug: t.bool,
+	disabled: t.bool,
 	style: t.oneOf([DotStyle, FlatStyle])
 }
 

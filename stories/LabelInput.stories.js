@@ -1,8 +1,8 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import { H3, H4 } from "../components/typography/heading"
+import { H3 } from "../components/typography/heading"
 import { Stack } from "../components/layouts"
-import { Theme } from "./styles/StyleComponents"
+import { Theme, SubHeading } from "./styles/StyleComponents"
 import { Input, Select, Textarea } from "../components/forms/labelInputs"
 // import { log, trace } from '../libs/helpers';
 
@@ -22,14 +22,28 @@ storiesOf("Form.InputLabel", module)
 	.add("Label Input", () => (
 		<Theme>
 			<Stack large noExtraSpace>
-				<Input.Label type="text" label="Interests" fullwidth />
-				<Input.Label label="Surname" type="text" icon={<HashIcon />} />
-				<Input.Label
-					label="Dreams"
-					type="text"
-					icon={<HashIcon />}
-					message={<Message />}
-				/>
+				<Stack>
+					<SubHeading text="FULL-WIDTH INPUT" />
+					<Input.Label type="text" label="Interests" fullwidth />
+					<Textarea label="Biography" />
+				</Stack>
+				<Stack small>
+					<SubHeading text="DISABLED" /> <br/>
+					<Input.Label label="Surname" disabled={true} type="text" 
+						icon={<HashIcon />} 
+						style={{width: "350px" }} />
+					<Textarea label="About You" disabled={true}/>
+				</Stack>
+				<Stack small>
+					<SubHeading text="INPUT WITH MESSAGE" /> <br/>
+					<Input.Label
+						label="Dreams"
+						type="text"
+						icon={<HashIcon />}
+						message={<Message />}
+					/>
+					<Textarea label="Description" message={<Message />} placeholder="How to get this started?" />
+				</Stack>
 			</Stack>
 		</Theme>
 	))
@@ -47,11 +61,5 @@ storiesOf("Form.InputLabel", module)
 					<Select.Option value={val} text={val} selected={val === "Blank"} />
 				))}
 			</Select>
-		</Theme>
-	))
-	.add("Textarea", () => (
-		<Theme>
-			<H3>Textarea</H3>
-			<Textarea label="About You" />
 		</Theme>
 	))

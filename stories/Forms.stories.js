@@ -48,6 +48,7 @@ storiesOf("Form.Regular", module)
 			<Checker
 				style={Checker.Styles.Flat} 
 				label="Choose Hobby"
+				disabled={true}
 				buttons={["Design", "Laugh", "Cry", "Joker"]} 
 				onChange={val => { console.log(val) }}/>
 			<H3>Radio</H3>

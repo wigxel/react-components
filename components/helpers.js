@@ -22,7 +22,7 @@ export const withProp = curry((key , style , props) => {
 	return props[key] && style
 })
 
-export const propIs = prop => functor => style => props => functor(props[prop]) && style
+export const propIs = curry((prop, functor, style , props) => functor(props[prop]) && style)
 
 export const CardStyle = (con = {}) => styled.article`
 	padding: 18px 20px;

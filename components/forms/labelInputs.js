@@ -2,7 +2,7 @@ import React, { useState, useRef, useImperativeHandle } from "react"
 import styled, { css } from "styled-components"
 import { produce } from "immer"
 import { curry } from "ramda"
-import { withProp, themeOr, fullWidth } from "../helpers"
+import { withProp, themeOr, fullWidth, propIs } from "../helpers"
 import { pickBy } from "ramda"
 import t from "prop-types"
 
@@ -24,14 +24,17 @@ const ValidInputProps = [
 	"value",
 	"id",
 	"className",
-	"style"
+	"style",
+	"disabled"
 ]
 
 const attributesAndListeners = (val, key) => {
 	return ValidInputProps.includes(key) || /^on[A-Z]/.test(key)
 }
 
-const filterProps = props => pickBy(attributesAndListeners, props)
+const filterProps = pickBy(attributesAndListeners)
+
+const disabled = propIs("disabled", x => x == true)
 
 const sharedFocusStyle = css`
 	width: 100%;
@@ -52,7 +55,7 @@ const sharedFocusStyle = css`
 		font-size: 1rem;
 	}
 
-	span.wg-label {
+	.wg-label {
 		top: calc((52px / 2) / 2);
 		left: 10px;
 		line-height: 20px;
@@ -74,7 +77,7 @@ const sharedFocusStyle = css`
 			select {
 				text-indent: 5px;
 			}
-			span.wg-label {
+			.wg-label {
 				color: black;
 				transform: translateX(1.8rem);
 			}
@@ -84,24 +87,37 @@ const sharedFocusStyle = css`
 	${withProp("focused")(css`
 		border-color: ${theme("primary")};
 
-		span.wg-label {
+		.wg-label {
 			font-size: 0.9rem;
 			padding: 0 0.5rem;
 			color: ${theme("primary")};
 			transform: translate(0, -120%);
 		}
 	`)}
+
+	${disabled(css`
+		border: none;
+		background-color: whitesmoke;
+
+		> .wg-label {
+			opacity: 0.5;
+			background-color: transparent;
+		}
+	`)}
 `
+
 const MainWrapper = styled.div`
-	width: 300px;
+	display: inline-block;
+	min-width: 250px;
 	${fullWidth}
 `
+
 const InputStyle = styled.div`
-	margin-top: 15px;
-	box-sizing: border-box;
 	display: flex;
-	padding: 0.5rem 1rem;
+	margin-top: 10px;
 	align-items: center;
+	padding: 0.5rem 1rem;
+	box-sizing: border-box;
 
 	${withProp("options")(css`
 		&::after {
@@ -118,7 +134,7 @@ const InputStyle = styled.div`
 		}
 	`)};
 
-		&, & > * {
+	&, & > * {
 		transition: all 0.3s ease-out;
 	}
 
@@ -144,7 +160,7 @@ export const TextWrapper = styled.div`
 
 	${sharedFocusStyle}
 	${withProp("focused")(css`
-		span.wg-label {
+		.wg-label {
 			font-size: 0.9rem;
 		}
 	`)}
@@ -167,7 +183,7 @@ export const Input = props => <input {...props} />
 const createInput = curry((fn, initialState) => {
 	const InputWrapper = (props, ref) => {
 		const [state, _setState] = useState({
-			focus: false,
+			focus: props.placeholder ? true : false,
 			...initialState
 		})
 
@@ -217,6 +233,7 @@ const styleWrapper = curry((initialState, fn) => {
 				<InputStyle
 					hasIcon={!!props.icon}
 					focused={state.focus}
+					disabled={props.disabled}
 					options={props.children}
 					onClick={() => inputRef.current.focus()}
 				>
@@ -312,13 +329,19 @@ Select.propTypes = {
 
 export const Textarea = createInput(({ props, inputRef, state }) => {
 	return (
-		<TextWrapper focused={state.focus} className="flex-1">
-			<span className="wg-label rounded-full">{props.label}</span>
-			<textarea
-				{...filterProps(props)}
-				ref={inputRef}
-				onChange={props.onChange}
-			/>
-		</TextWrapper>
+		<div>
+			<TextWrapper 
+				focused={state.focus}
+				disabled={props.disabled}
+				className="flex-1">
+				<span className="wg-label rounded-full">{props.label}</span>
+				<textarea
+					{...filterProps(props)}
+					ref={inputRef}
+					onChange={props.onChange}
+				/>
+			</TextWrapper>
+			{props.message}
+		</div>
 	)
 }, {})
