@@ -3,6 +3,7 @@
   "version": "1.0.6",
   "description": "UI Component library by Wigxel corp.",
   "main": "dist/prod.js",
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "storybook": "start-storybook -p 6006",
