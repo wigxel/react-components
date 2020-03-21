@@ -66,15 +66,51 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
 
     if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
+      ownKeys(Object(source), true).forEach(function (key) {
         _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      ownKeys(source).forEach(function (key) {
+      ownKeys(Object(source)).forEach(function (key) {
         Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
       });
+    }
+  }
+
+  return target;
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
     }
   }
 
@@ -94,7 +130,7 @@ function _taggedTemplateLiteral(strings, raw) {
 }
 
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
 function _arrayWithHoles(arr) {
@@ -102,10 +138,7 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -131,8 +164,25 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
 function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function _isPlaceholder(a) {
@@ -2838,7 +2888,7 @@ if (process.env.NODE_ENV !== 'production') {
 var Naira = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"21.298\" height=\"31\" viewBox=\"0 0 21.298 31\"><g transform=\"translate(0.001)\"><text transform=\"translate(1.5 25)\" fill=\"#705df5\" font-size=\"25\" font-family=\"Quicksand-Regular, Quicksand\"><tspan x=\"0\" y=\"0\">N</tspan></text><path d=\"M1949.232,3320.29c1.954-.057,21.3,0,21.3,0\" transform=\"translate(-1949.232 -3307.025)\" fill=\"none\" stroke=\"#705df5\" stroke-width=\"1\"/><path d=\"M1949.232,3320.265c1.954.011,21.3,0,21.3,0\" transform=\"translate(-1949.232 -3302)\" fill=\"none\" stroke=\"#705df5\" stroke-width=\"1\"/></g></svg>";
 
 function _templateObject7() {
-  var data = _taggedTemplateLiteral(["\n    @media (max-width: ", "em) {\n      ", "\n    }\n  "]);
+  var data = _taggedTemplateLiteral(["\n\t\t@media (max-width: ", "em) {\n\t\t\t", "\n\t\t}\n\t"]);
 
   _templateObject7 = function _templateObject7() {
     return data;
@@ -2848,7 +2898,7 @@ function _templateObject7() {
 }
 
 function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  width: 100%;\n"]);
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\twidth: 100%;\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -2858,7 +2908,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n    border: solid 1px ", ";\n    box-shadow: none !important;\n  "]);
+  var data = _taggedTemplateLiteral(["\n\t\tborder: solid 1px ", ";\n\t\tbox-shadow: none !important;\n\t"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -2868,7 +2918,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n    box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);\n    &:hover {\n      box-shadow: 0 3px 12px -5px rgba(0, 0, 0, 0.3);\n    }\n  "]);
+  var data = _taggedTemplateLiteral(["\n\t\tbox-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);\n\t\t&:hover {\n\t\t\tbox-shadow: 0 3px 12px -5px rgba(0, 0, 0, 0.3);\n\t\t}\n\t"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -2878,7 +2928,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n    cursor: pointer;\n  "]);
+  var data = _taggedTemplateLiteral(["\n\t\tcursor: pointer;\n\t"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -2888,7 +2938,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n    box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);\n  "]);
+  var data = _taggedTemplateLiteral(["\n\t\tbox-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);\n\t"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -2898,7 +2948,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding: 18px 20px;\n  border-radius: 12px;\n  box-sizing: border-box;\n  background-color: ", ";\n  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n\n  ", "\n\n  ", "\n\n  ", "\n\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n\tpadding: 18px 20px;\n\tborder-radius: 12px;\n\tbox-sizing: border-box;\n\tbackground-color: ", ";\n\ttransition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n\n\t", "\n\n\t", "\n\n\t", "\n\n\t", "\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -2907,27 +2957,27 @@ function _templateObject() {
   return data;
 }
 var theme = curry(function (key, props) {
-  var path = _.isArray(key) ? key : split('.', key);
-  var varLens = lensPath(path);
-  return view(varLens, props.theme);
+  var path = _.isArray(key) ? key : split(".", key);
+  var getPath = view(lensPath(path));
+  return getPath(props.theme);
+});
+var themeOr = curry(function (fallback, key, props) {
+  var keyFrom = theme(key);
+  return keyFrom(props) || keyFrom({
+    theme: fallback
+  });
 });
 var withProp = curry(function (key, style, props) {
   return props[key] && style;
 });
-var propIs = function propIs(prop) {
-  return function (functor) {
-    return function (style) {
-      return function (props) {
-        return functor(props[prop]) && style;
-      };
-    };
-  };
-};
+var propIs = curry(function (prop, functor, style, props) {
+  return functor(props[prop]) && style;
+});
 var CardStyle = function CardStyle() {
   var con = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return styled__default.article(_templateObject(), color('bgcolor'), withProp('static', styled.css(_templateObject2()), con), withProp('clickable', styled.css(_templateObject3()), con), withProp('shadow', styled.css(_templateObject4()), con), withProp('outlineDanger', styled.css(_templateObject5(), color('danger'))));
+  return styled__default.article(_templateObject(), color("bgcolor"), withProp("static", styled.css(_templateObject2()), con), withProp("clickable", styled.css(_templateObject3()), con), withProp("shadow", styled.css(_templateObject4()), con), withProp("outlineDanger", styled.css(_templateObject5(), color("danger"))));
 };
-var fullWidth = withProp('fullwidth', styled.css(_templateObject6()));
+var fullWidth = withProp("fullwidth", styled.css(_templateObject6()));
 var color = theme;
 var sizes = {
   bigDestktop: 1800,
@@ -3000,11 +3050,11 @@ function _templateObject$1() {
   return data;
 }
 var InputStyle = styled__default.div(_templateObject$1(), function (props) {
-  return props.focus && styled.css(_templateObject2$1(), color('primary'));
+  return props.focus && styled.css(_templateObject2$1(), color("primary"));
 }, fullWidth(), function (props) {
   return props.large && styled.css(_templateObject3$1());
 });
-var INVALID_MESSAGE = 'Invalid Number provided';
+var INVALID_MESSAGE = "Invalid Number provided";
 
 var number = function number(_char) {
   return ___default.isNumber(_char) && !___default.isNaN(_char);
@@ -3022,18 +3072,18 @@ var validateInput = function validateInput(evt) {
 
 var handleNaN = function handleNaN(fn) {
   return function (value) {
-    if (value !== 'NaN') return value;
+    if (value !== "NaN") return value;
     fn();
     return 0;
   };
 };
 
 var clean = function clean(value) {
-  return ___default.replace(String(value), /,/gm, '');
+  return ___default.replace(String(value), /,/gm, "");
 };
 var NumberInput = React__default.forwardRef(function (props, ref) {
   var _useState = React.useState({
-    value: ''
+    value: ""
   }),
       _useState2 = _slicedToArray(_useState, 2),
       prop = _useState2[0],
@@ -3054,11 +3104,11 @@ var NumberInput = React__default.forwardRef(function (props, ref) {
   }), // trace('naira'),
   numberFormat, // trace('cleaned')
   clean);
-  return React__default.createElement(InputStyle, allProps, React__default.createElement("img", {
+  return /*#__PURE__*/React__default.createElement(InputStyle, allProps, /*#__PURE__*/React__default.createElement("img", {
     src: Naira,
     alt: "cur",
     title: "currency"
-  }), React__default.createElement("input", {
+  }), /*#__PURE__*/React__default.createElement("input", {
     type: "text",
     name: props.name,
     placeholder: "0.0",
@@ -3094,7 +3144,7 @@ NumberInput.defaultProps = {
     throw Error(message);
   },
   large: false,
-  name: 'wg-input',
+  name: "wg-input",
   fullWidth: false
 };
 NumberInput.propTypes = {
@@ -3182,7 +3232,7 @@ function _templateObject2$2() {
 }
 
 function _templateObject$2() {
-  var data = _taggedTemplateLiteral(["\n  background-color: ", ";\n  border: none;\n  height: 38px;\n  min-width: 243px;\n  border-radius: 6px;\n  text-indent: 15px;\n  font-size: 13px;\n  font-family: var(--heading-font, 'Quicksand');\n  transition: all 0.3s ease-out;\n  border-color: ", ";\n  caret-color: ", ";\n  outline: none;\n\n  &::placeholder {\n    color: #a0a0a0;\n  }\n\n  &:hover,\n  &:focus {\n    background-color: #fff;\n    box-shadow: 0 3px 6px rgba(112, 93, 245, 0.16);\n  }\n\n  &:focus {\n    border: solid 1px ", ";\n    ", "\n  }\n\n  ", "\n\n  ", "\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  background-color: ", ";\n  border: none;\n  height: 38px;\n  min-width: 243px;\n  border-radius: 6px;\n  text-indent: 15px;\n  font-size: 13px;\n  font-family: var(--heading-font, 'Quicksand');\n  transition: all 0.3s ease-out;\n  border-color: ", ";\n  caret-color: ", ";\n  outline: none;\n\n  &::placeholder {\n    color: #a0a0a0;\n  }\n\n  &:hover,\n  &:focus {\n    background-color: #fff;\n    box-shadow: 0 3px 6px rgba(112, 93, 245, 0.16);\n  }\n\n  &:focus {\n    border: solid 1px ", ";\n    ", "\n  }\n\n  ", "\n  ", "\n"]);
 
   _templateObject$2 = function _templateObject() {
     return data;
@@ -3190,44 +3240,41 @@ function _templateObject$2() {
 
   return data;
 }
-var InputStyle$1 = styled__default.input(_templateObject$2(), theme('whitesmoke'), theme('primary'), theme('primary'), theme('primary'), withProp('large')(styled.css(_templateObject2$2(), theme('primary'))), function (props) {
-  return trace('the Property from the input template literal', props.theme);
-}, fullWidth(), withProp('large')(styled.css(_templateObject3$2())));
+var InputStyle$1 = styled__default.input(_templateObject$2(), theme("whitesmoke"), theme("primary"), theme("primary"), theme("primary"), withProp("large")(styled.css(_templateObject2$2(), theme("primary"))), fullWidth(), withProp("large")(styled.css(_templateObject3$2())));
 var Input = React__default.forwardRef(function (props, ref) {
-  return React__default.createElement(InputStyle$1, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement(InputStyle$1, _extends({}, props, {
     ref: ref
   }));
 });
-var IconInputStyle = styled__default.div(_templateObject4$1(), fullWidth(), theme('primary'), function (props) {
+var IconInputStyle = styled__default.div(_templateObject4$1(), fullWidth(), theme("primary"), function (props) {
   return props.large && styled.css(_templateObject5$1());
 }, function (props) {
   return props.large && styled.css(_templateObject6$1());
 });
 var IconInput = function IconInput(props) {
-  return React__default.createElement("div", null, "Change This");
+  return /*#__PURE__*/React__default.createElement("div", null, "Change This");
 };
-var RadioStyle = styled__default.label(_templateObject7$1(), theme('primary'), theme('primary'));
+var RadioStyle = styled__default.label(_templateObject7$1(), theme("primary"), theme("primary"));
 var RadioInput = React__default.forwardRef(function (props, ref) {
-  return React__default.createElement(RadioStyle, null, React__default.createElement("input", _extends({
+  return /*#__PURE__*/React__default.createElement(RadioStyle, null, /*#__PURE__*/React__default.createElement("input", _extends({
     ref: ref,
     type: "radio"
-  }, props)), React__default.createElement("span", null));
+  }, props)), /*#__PURE__*/React__default.createElement("span", null));
 });
-var RadioLabelStyle = styled__default.div(_templateObject8(), fullWidth(), ''
+var RadioLabelStyle = styled__default.div(_templateObject8(), fullWidth(), ""
 /* border: solid 1px black; */
 );
 var RadioLabel = function RadioLabel(props) {
-  return React__default.createElement(RadioLabelStyle, props, React__default.createElement(RadioInput, props), React__default.createElement("span", null, props.label));
+  return /*#__PURE__*/React__default.createElement(RadioLabelStyle, props, /*#__PURE__*/React__default.createElement(RadioInput, props), /*#__PURE__*/React__default.createElement("span", null, props.label));
 };
 RadioLabel.defaultProps = {
-  label: 'Something'
+  label: "Something"
 };
 var CheckboxStyle = styled__default(RadioStyle)(_templateObject9());
 var Checkbox = function Checkbox(props) {
-  return React__default.createElement(CheckboxStyle, null, React__default.createElement("input", _extends({
-    onClick: trace('The Radio clicked.'),
+  return /*#__PURE__*/React__default.createElement(CheckboxStyle, null, /*#__PURE__*/React__default.createElement("input", _extends({
     type: "checkbox"
-  }, props)), React__default.createElement("span", null));
+  }, props)), /*#__PURE__*/React__default.createElement("span", null));
 };
 
 function _templateObject6$2() {
@@ -3289,17 +3336,17 @@ function _templateObject$3() {
 
   return data;
 }
-var ButtonStyle = styled__default.button(_templateObject$3(), color('accent'), color('accent'), withProp('primary')(styled.css(_templateObject2$3(), color('primary'), color('primary'))), withProp('danger')(styled.css(_templateObject3$3(), color('danger'), color('danger'))), withProp('outline')(styled.css(_templateObject4$2())), withProp('large')(styled.css(_templateObject5$2())), withProp('circle')(styled.css(_templateObject6$2())), fullWidth());
+var ButtonStyle = styled__default.button(_templateObject$3(), color("accent"), color("accent"), withProp("primary")(styled.css(_templateObject2$3(), color("primary"), color("primary"))), withProp("danger")(styled.css(_templateObject3$3(), color("danger"), color("danger"))), withProp("outline")(styled.css(_templateObject4$2())), withProp("large")(styled.css(_templateObject5$2())), withProp("circle")(styled.css(_templateObject6$2())), fullWidth());
 var Button = ButtonStyle;
 
 var IconButton = function IconButton(props) {
-  return React__default.createElement(Button, props, React__default.createElement("span", null, props.children));
+  return /*#__PURE__*/React__default.createElement(Button, props, /*#__PURE__*/React__default.createElement("span", null, props.children));
 };
 IconButton.propTypes = {
   children: propTypes.node.isRequired
 };
 var CircleButton = function CircleButton(props) {
-  return React__default.createElement(Button, _extends({
+  return /*#__PURE__*/React__default.createElement(Button, _extends({
     circle: true
   }, props));
 };
@@ -3324,16 +3371,16 @@ var SearchComponent = function SearchComponent(props) {
     return props.onSubmit(evt.target.value);
   };
 
-  return React__default.createElement(SearchStyle, props, React__default.createElement("input", {
+  return /*#__PURE__*/React__default.createElement(SearchStyle, props, /*#__PURE__*/React__default.createElement("input", {
     type: "text",
     placeholder: "Find Vendor...",
     onKeyUp: onEnter(handleSubmit)
-  }), React__default.createElement("div", {
+  }), /*#__PURE__*/React__default.createElement("div", {
     className: "search-base"
-  }, React__default.createElement("b", null, "Search Tags:"), React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("b", null, "Search Tags:"), /*#__PURE__*/React__default.createElement("div", {
     className: "tags"
-  }, ['africandishes', 'bouquet', 'glamour'].map(function (e) {
-    return React__default.createElement("a", {
+  }, ["africandishes", "bouquet", "glamour"].map(function (e) {
+    return /*#__PURE__*/React__default.createElement("a", {
       href: "#".concat(e)
     }, "#", e);
   }))));
@@ -3353,13 +3400,13 @@ function _templateObject$5() {
 }
 var StyledCard = styled__default(CardStyle({
   shadow: true
-}))(_templateObject$5(), color('whitesmoke'));
+}))(_templateObject$5(), color("whitesmoke"));
 var Card = function Card(props) {
-  return React__default.createElement(StyledCard, props);
+  return /*#__PURE__*/React__default.createElement(StyledCard, props);
 };
 
 var CardHeader = function CardHeader(props) {
-  return React__default.createElement("header", props);
+  return /*#__PURE__*/React__default.createElement("header", props);
 };
 
 Card.Header = CardHeader;
@@ -3405,36 +3452,36 @@ function _templateObject$6() {
 }
 var ModalSize = {
   small: function small(e) {
-    return e === 'sm';
+    return e === "sm";
   },
   large: function large(e) {
-    return e === 'lg';
+    return e === "lg";
   }
 };
-var DialogStyle = styled__default.section(_templateObject$6(), propIs('size')(ModalSize.small)(styled.css(_templateObject2$4())), propIs('size')(ModalSize.large)(styled.css(_templateObject3$4())), propIs('show')(function (show) {
+var DialogStyle = styled__default.section(_templateObject$6(), propIs("size")(ModalSize.small)(styled.css(_templateObject2$4())), propIs("size")(ModalSize.large)(styled.css(_templateObject3$4())), propIs("show")(function (show) {
   return show === true;
 })(styled.css(_templateObject4$3())));
 var Modal = function Modal(props) {
   if (props.show) {
-    document.body.style.overflow = 'hidden';
-    document.body.style.height = '100vh';
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100vh";
   } else {
-    document.body.style.overflow = '';
-    document.body.style.height = '';
+    document.body.style.overflow = "";
+    document.body.style.height = "";
   }
 
-  return React__default.createElement(DialogStyle, props, React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement(DialogStyle, props, /*#__PURE__*/React__default.createElement("div", {
     className: "wg-backdrop",
     onClick: props.onClose
-  }), React__default.createElement("div", {
+  }), /*#__PURE__*/React__default.createElement("div", {
     className: "wg-dialog"
-  }, React__default.createElement(Card, {
+  }, /*#__PURE__*/React__default.createElement(Card, {
     className: "wg-modal-content"
   }, props.children)));
 };
 Modal.defaultProps = {
   show: false,
-  size: '',
+  size: "",
   onClose: function onClose(a) {
     return a;
   }
@@ -3454,13 +3501,13 @@ function _templateObject$7() {
 
   return data;
 }
-var FlatListStyle = styled__default.ul(_templateObject$7(), color('whitesmoke'), color('grey'), color('primary'), color('whitesmoke'), color('primary'));
+var FlatListStyle = styled__default.ul(_templateObject$7(), color("whitesmoke"), color("grey"), color("primary"), color("whitesmoke"), color("primary"));
 var FlatList = function FlatList(props) {
-  return React__default.createElement(FlatListStyle, null, props.children);
+  return /*#__PURE__*/React__default.createElement(FlatListStyle, null, props.children);
 };
 
 var FlatListItem = function FlatListItem(props) {
-  return React__default.createElement("li", _extends({
+  return /*#__PURE__*/React__default.createElement("li", _extends({
     className: "list-item"
   }, props));
 };
@@ -3468,9 +3515,9 @@ var FlatListItem = function FlatListItem(props) {
 FlatList.Item = FlatListItem;
 
 var FlatListLink = function FlatListLink(props) {
-  return React__default.createElement(FlatList.Item, {
+  return /*#__PURE__*/React__default.createElement(FlatList.Item, {
     className: "nav-item"
-  }, React__default.createElement(reactRouterDom.NavLink, props, props.children));
+  }, /*#__PURE__*/React__default.createElement(reactRouterDom.NavLink, props, props.children));
 };
 
 FlatList.Link = FlatListLink;
@@ -3502,11 +3549,11 @@ var Collapsible = function Collapsible(props) {
   React.useEffect(function () {
     setHeight(props.open ? getHeight(container.current) : 0);
   }, [props.open]);
-  return React__default.createElement(CollapseStyle, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement(CollapseStyle, _extends({}, props, {
     style: {
       height: height
     }
-  }), React__default.createElement("div", {
+  }), /*#__PURE__*/React__default.createElement("div", {
     ref: container
   }, props.children));
 };
@@ -3533,15 +3580,15 @@ function _templateObject$9() {
 
   return data;
 }
-var ActivityStyle = styled__default.ul(_templateObject$9(), 23 / 2, color('greylight'), withProp('hoverable')(styled.css(_templateObject2$5(), color('whitesmoke'))), color('bgcolor'), color('greylight'));
+var ActivityStyle = styled__default.ul(_templateObject$9(), 23 / 2, color("greylight"), withProp("hoverable")(styled.css(_templateObject2$5(), color("whitesmoke"))), color("bgcolor"), color("greylight"));
 var Activity = function Activity(props) {
-  return React__default.createElement(ActivityStyle, props, props.entries.map(function (e, index) {
-    return React__default.createElement("li", {
+  return /*#__PURE__*/React__default.createElement(ActivityStyle, props, props.entries.map(function (e, index) {
+    return /*#__PURE__*/React__default.createElement("li", {
       key: index,
       className: "a-item"
-    }, props.render ? props.render(e) : React__default.createElement("article", null, React__default.createElement("div", {
+    }, props.render ? props.render(e) : /*#__PURE__*/React__default.createElement("article", null, /*#__PURE__*/React__default.createElement("div", {
       className: "msg"
-    }, e), React__default.createElement("span", {
+    }, e), /*#__PURE__*/React__default.createElement("span", {
       className: "timestamp"
     }, "2 days ago")));
   }));
@@ -3582,8 +3629,8 @@ function _templateObject$a() {
 
   return data;
 }
-var propSizes = [['small', '.5rem'], ['medium', '1.5rem'], ['large', '2rem']];
-var StackStyle = styled__default.div(_templateObject$a(), withProp('noExtraSpace')(styled.css(_templateObject2$6())), propSizes.map(function (_ref) {
+var propSizes = [["small", ".5rem"], ["medium", "1.5rem"], ["large", "2rem"]];
+var StackStyle = styled__default.div(_templateObject$a(), withProp("noExtraSpace")(styled.css(_templateObject2$6())), propSizes.map(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
       prop = _ref2[0],
       size = _ref2[1];
@@ -3591,7 +3638,7 @@ var StackStyle = styled__default.div(_templateObject$a(), withProp('noExtraSpace
   return withProp(prop)(styled.css(_templateObject3$5(), size));
 }));
 var Stack = function Stack(props) {
-  return React__default.createElement(StackStyle, props);
+  return /*#__PURE__*/React__default.createElement(StackStyle, props);
 };
 
 function _templateObject2$7() {
@@ -3613,7 +3660,7 @@ function _templateObject$b() {
 
   return data;
 }
-var propSizes$1 = [['small', '.25rem'], ['medium', '1.2rem'], ['large', '1.5rem']];
+var propSizes$1 = [["small", ".25rem"], ["medium", "1.2rem"], ["large", "1.5rem"]];
 var TabStyle = styled__default.div(_templateObject$b(), propSizes$1.map(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
       prop = _ref2[0],
@@ -3622,7 +3669,7 @@ var TabStyle = styled__default.div(_templateObject$b(), propSizes$1.map(function
   return withProp(prop)(styled.css(_templateObject2$7(), size));
 }));
 var Tab = function Tab(props) {
-  return React__default.createElement(TabStyle, props);
+  return /*#__PURE__*/React__default.createElement(TabStyle, props);
 };
 
 function _templateObject5$3() {
@@ -3729,11 +3776,11 @@ var TwoColumns = function TwoColumns(props) {
       aside = _props$children[0],
       section = _props$children[1];
 
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("div", {
     className: "flex"
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     className: "w-1/5"
-  }, aside), React__default.createElement("div", {
+  }, aside), /*#__PURE__*/React__default.createElement("div", {
     className: "flex-1"
   }, section)));
 };
@@ -3743,31 +3790,31 @@ var ThreeColumns = function ThreeColumns(props) {
       section = _props$children2[1],
       third = _props$children2[2];
 
-  return React__default.createElement("section", {
+  return /*#__PURE__*/React__default.createElement("section", {
     className: "flex"
-  }, React__default.createElement("aside", {
+  }, /*#__PURE__*/React__default.createElement("aside", {
     className: "w-1/5"
-  }, aside), React__default.createElement("section", {
+  }, aside), /*#__PURE__*/React__default.createElement("section", {
     className: "flex-1 p-5"
-  }, section), React__default.createElement("aside", {
+  }, section), /*#__PURE__*/React__default.createElement("aside", {
     className: "w-1/5"
   }, third));
 };
 var FourColumnGrid = function FourColumnGrid(props) {
-  return React__default.createElement(FourColumnGridStyle, props, props.children);
+  return /*#__PURE__*/React__default.createElement(FourColumnGridStyle, props, props.children);
 };
 var FourColumnGridStyle = styled__default.section(_templateObject$d());
 
 var addPixel = function addPixel(number) {
-  var isWithoutUnit = RegExp('\\d$').test(number);
-  return isWithoutUnit ? number + 'px' : number;
+  var isWithoutUnit = RegExp("\\d$").test(number);
+  return isWithoutUnit ? number + "px" : number;
 };
 
 var Grid = styled__default(FourColumnGridStyle)(_templateObject2$9(), function (a) {
   return addPixel(a.width);
 });
 var GridView = function GridView(props) {
-  return React__default.createElement(Grid, props);
+  return /*#__PURE__*/React__default.createElement(Grid, props);
 };
 GridView.defaultProps = {
   width: 200
@@ -3787,7 +3834,7 @@ function _templateObject$e() {
 }
 var StyleCoverImage = styled__default.img(_templateObject$e());
 var CoverImage = function CoverImage() {
-  return React__default.createElement(StyleCoverImage, {
+  return /*#__PURE__*/React__default.createElement(StyleCoverImage, {
     className: "w-4/5",
     src: "/images/vendor_banner.png"
   });
@@ -3814,10 +3861,10 @@ function _templateObject$f() {
 }
 
 var outlineColor = function outlineColor(props) {
-  return props.color || 'orange';
+  return props.color || "orange";
 };
 
-var Outliner = styled__default.div(_templateObject$f(), outlineColor, withProp('all')(styled.css(_templateObject2$a(), outlineColor)));
+var Outliner = styled__default.div(_templateObject$f(), outlineColor, withProp("all")(styled.css(_templateObject2$a(), outlineColor)));
 var Outline = Outliner;
 
 function _templateObject$g() {
@@ -3868,19 +3915,19 @@ var Pager = function Pager(props) {
 
       _.debounce(resizeHeight, 500)();
     } else {
-      setHeight('auto');
+      setHeight("auto");
     }
   }, [cp, slides, height, props, slideLeft]);
-  return React__default.createElement(Wrap, {
+  return /*#__PURE__*/React__default.createElement(Wrap, {
     ref: rootElem
-  }, React__default.createElement("section", {
+  }, /*#__PURE__*/React__default.createElement("section", {
     id: "page-holder",
     ref: slider,
     style: {
       height: height
     }
   }, pages.map(function (child, index) {
-    return React__default.createElement(Slide, {
+    return /*#__PURE__*/React__default.createElement(Slide, {
       key: index,
       ref: function ref(_ref) {
         return addSlideRef(_ref, index);
@@ -3903,12 +3950,12 @@ var Slide = React__default.forwardRef(function Slide(_ref2, ref) {
   var width = _ref2.width,
       isActive = _ref2.isActive,
       children = _ref2.children;
-  return React__default.createElement("section", {
+  return /*#__PURE__*/React__default.createElement("section", {
     className: "page ".concat(isActive ? "pager--active" : ""),
     style: {
       width: width
     }
-  }, React__default.createElement("div", {
+  }, /*#__PURE__*/React__default.createElement("div", {
     ref: ref,
     className: "wg-slider-page px-15"
   }, children));
@@ -3942,16 +3989,16 @@ var JumbotronStyle = styled__default.div(_templateObject$h(), function (props) {
   return props.theme.primary;
 });
 var Jumbotron = function Jumbotron(props) {
-  return React__default.createElement(JumbotronStyle, props, props.children);
+  return /*#__PURE__*/React__default.createElement(JumbotronStyle, props, props.children);
 };
 var Container = function Container(props) {
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: "container mx-auto"
   }, props.children);
 };
-var SidebarStyle = styled__default.div(_templateObject2$b(), color('navbar'));
+var SidebarStyle = styled__default.div(_templateObject2$b(), color("navbar"));
 var Sidebar = function Sidebar(props) {
-  return React__default.createElement(SidebarStyle, null, props.children);
+  return /*#__PURE__*/React__default.createElement(SidebarStyle, null, props.children);
 };
 
 function _templateObject$i() {
@@ -3964,30 +4011,30 @@ function _templateObject$i() {
   return data;
 }
 var Heading = styled__default.span(_templateObject$i(), function (props) {
-  return props.bold ? 'bold' : props.light ? '300' : '400';
+  return props.bold ? "bold" : props.light ? "300" : "400";
 }, function (props) {
   return props.$fontSize;
 });
 var H1 = function H1(props) {
-  return React__default.createElement(Heading, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement(Heading, _extends({}, props, {
     as: "h1",
     $fontSize: "43px"
   }));
 };
 var H2 = function H2(props) {
-  return React__default.createElement(Heading, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement(Heading, _extends({}, props, {
     as: "h2",
     $fontSize: "35px"
   }));
 };
 var H3 = function H3(props) {
-  return React__default.createElement(Heading, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement(Heading, _extends({}, props, {
     as: "h3",
     $fontSize: "25px"
   }));
 };
 var H4 = function H4(props) {
-  return React__default.createElement(Heading, _extends({}, props, {
+  return /*#__PURE__*/React__default.createElement(Heading, _extends({}, props, {
     as: "h4",
     $fontSize: "18px"
   }));
@@ -4016,6 +4063,83 @@ var ParagraphStyle = styled__default.p(_templateObject$j(), function (props) {
   return props.small && styled.css(_templateObject2$c());
 });
 var P = ParagraphStyle;
+
+var delay = function delay(number) {
+  return new Promise(function (res) {
+    return setTimeout(res, number);
+  });
+};
+
+var next = function next(index, entries) {
+  if (index < entries.length - 1) {
+    return index + 1;
+  }
+
+  return 0;
+};
+
+var Type = function Type(_ref) {
+  var values = _ref.values,
+      props = _objectWithoutProperties(_ref, ["values"]);
+
+  var _useState = React.useState(0),
+      _useState2 = _slicedToArray(_useState, 2),
+      index = _useState2[0],
+      setIndex = _useState2[1];
+
+  var _useState3 = React.useState(""),
+      _useState4 = _slicedToArray(_useState3, 2),
+      value = _useState4[0],
+      setValue = _useState4[1];
+
+  var _useState5 = React.useState(values[index]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      current = _useState6[0],
+      setCurrent = _useState6[1];
+
+  React.useEffect(function () {
+    var moveFirstChar = function moveFirstChar(word, value) {
+      var wordArr = word.substr(1);
+      return [wordArr, value + word[0]];
+    };
+
+    var intId = setInterval(function () {
+      if (current === "" && value === "") {
+        var idx = next(index, values);
+        setIndex(idx);
+        return setCurrent(values[idx]);
+      }
+
+      if (current == "") {
+        if (value === values[index]) {
+          delay(500).then(function () {
+            setValue(value.substr(0, value.length - 1));
+          });
+        } else {
+          setValue(value.substr(0, value.length - 1));
+        }
+
+        return clearInterval(intId);
+      }
+
+      var _moveFirstChar = moveFirstChar(current, value),
+          _moveFirstChar2 = _slicedToArray(_moveFirstChar, 2),
+          _current = _moveFirstChar2[0],
+          _value = _moveFirstChar2[1];
+
+      setCurrent(_current);
+      setValue(_value);
+    }, props.speed || 200);
+    return function () {
+      return clearInterval(intId);
+    };
+  });
+  return /*#__PURE__*/React__default.createElement("span", props, " ", value, "| ");
+};
+Type.propTypes = {
+  values: propTypes.array.isRequired,
+  speed: propTypes.number
+};
 
 Object.keys(styled).forEach(function (k) {
   if (k !== 'default') Object.defineProperty(exports, k, {
@@ -4059,4 +4183,5 @@ exports.Stack = Stack;
 exports.Tab = Tab;
 exports.ThreeColumns = ThreeColumns;
 exports.TwoColumns = TwoColumns;
+exports.Type = Type;
 exports.default = styled__default;

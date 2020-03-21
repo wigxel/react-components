@@ -1,6 +1,6 @@
 {
   "name": "@wigxel/react-components",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "UI Component library by Wigxel corp.",
   "main": "dist/prod.js",
   "scripts": {
@@ -35,8 +35,8 @@
   "dependencies": {
     "lodash": "^4.17.15",
     "ramda": "^0.27.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "styled-components": "^4.4.0"
   },
@@ -46,24 +46,24 @@
     "styled-components": "4.x"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
-    "@babel/preset-react": "^7.6.3",
-    "@storybook/addon-actions": "^5.2.4",
-    "@storybook/addon-knobs": "^5.2.4",
-    "@storybook/addon-links": "^5.2.4",
-    "@storybook/addons": "^5.2.4",
-    "@storybook/react": "^5.2.4",
-    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.1",
+    "@storybook/addon-actions": "^5.3.17",
+    "@storybook/addon-knobs": "^5.3.17",
+    "@storybook/addon-links": "^5.3.17",
+    "@storybook/addons": "^5.3.17",
+    "@storybook/react": "^5.3.17",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.18.3",
-    "rollup": "^1.24.0",
-    "rollup-plugin-babel": "^4.3.3",
+    "eslint-plugin-react": "^7.19.0",
+    "rollup": "^1.32.1",
+    "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-svg": "^2.0.0",
-    "rollup-plugin-terser": "^5.1.2",
-    "storybook": "^5.1.11"
+    "rollup-plugin-terser": "^5.3.0",
+    "storybook": "^5.3.17"
   }
 }
