@@ -25,7 +25,8 @@ const ValidInputProps = [
 	"id",
 	"className",
 	"style",
-	"disabled"
+	"disabled",
+	"autoComplete"
 ]
 
 const attributesAndListeners = (val, key) => {

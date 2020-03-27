@@ -44,11 +44,10 @@ const Wrap = styled.div`
   }
 `
 
-export const Pager = props => {
+export const Pager = function(props) {
 	const { current: cp } = props
 	const [height, setHeight] = useState("auto")
 
-	const pages = props.children
 	const slideLeft = useCallback(
 		(cp, slider) => slider.current.clientWidth * cp,
 		[]
@@ -90,18 +89,16 @@ export const Pager = props => {
 	return (
 		<Wrap ref={rootElem}>
 			<section id="page-holder" ref={slider} style={{ height }}>
-				{pages.map((child, index) => {
-					return (
-						<Slide
-							key={index}
-							ref={ref => addSlideRef(ref, index)}
-							width={slider.current ? slider.width + "px" : "100%"}
-							isActive={cp == index}
-						>
-							{child}
-						</Slide>
-					)
-				})}
+				{React.Children.map(props.children, (child, index) => 
+					<Slide
+						key={index}
+						ref={ref => addSlideRef(ref, index)}
+						width={slider.current ? slider.width + "px" : "100%"}
+						isActive={cp == index}
+					>
+						{child}
+					</Slide>
+				)}
 			</section>
 		</Wrap>
 	)

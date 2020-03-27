@@ -18,23 +18,17 @@ storiesOf("Form.Regular", module)
 	.add("Inputs Fields", () => (
 		<Theme>
 			<section>
-				<H3>Input with Icons</H3>
-				<IconInput icon="home">
-					<Input placeholder="Cup of Coffee" />
-				</IconInput>
-				<IconInput icon="search" placeholder="Enter the world" />
-
 				<H3>Flat Inputs</H3>
 				<Input placeholder="E-mail Address: John Doe" />
 				<Input placeholder="First Name" />
 				<Input placeholder="Cup of Coffee" />
 
 				<H3>Full Width Input</H3>
-				<Stack>
+				<Stack.Flex>
 					<Input fullwidth placeholder="Cup of Coffee" />
 					<Input fullwidth placeholder="Enter the world" />
 					<Input fullwidth text="email" placeholder="someone@domain.co" />
-				</Stack>
+				</Stack.Flex>
 			</section>
 		</Theme>
 	))

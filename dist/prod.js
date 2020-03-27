@@ -1896,6 +1896,41 @@ _curry1(function lensPath(p) {
 });
 
 /**
+ * Returns a partial copy of an object containing only the keys that satisfy
+ * the supplied predicate.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.8.0
+ * @category Object
+ * @sig ((v, k) -> Boolean) -> {k: v} -> {k: v}
+ * @param {Function} pred A predicate to determine whether or not a key
+ *        should be included on the output object.
+ * @param {Object} obj The object to copy from
+ * @return {Object} A new object with only properties that satisfy `pred`
+ *         on it.
+ * @see R.pick, R.filter
+ * @example
+ *
+ *      const isUpperCase = (val, key) => key.toUpperCase() === key;
+ *      R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
+ */
+
+var pickBy =
+/*#__PURE__*/
+_curry2(function pickBy(test, obj) {
+  var result = {};
+
+  for (var prop in obj) {
+    if (test(obj[prop], prop, obj)) {
+      result[prop] = obj[prop];
+    }
+  }
+
+  return result;
+});
+
+/**
  * Splits a string into an array of strings based on the given
  * separator.
  *
@@ -3151,38 +3186,8 @@ NumberInput.propTypes = {
   isInvalid: propTypes.func
 };
 
-function _templateObject9() {
-  var data = _taggedTemplateLiteral(["\n  margin-right: 5px;\n  cursor: pointer;\n\n  > input + span {\n    border-radius: 2px;\n  }\n"]);
-
-  _templateObject9 = function _templateObject9() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject8() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-flex;\n  align-items: center;\n  padding-right: 5px;\n\n  ", "\n\n  > span {\n    margin-left: 1rem;\n    line-height: 20px;\n    display: inline-block;\n    ", "\n  }\n"]);
-
-  _templateObject8 = function _templateObject8() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject7$1() {
-  var data = _taggedTemplateLiteral(["\n  width: 20px;\n  height: 20px;\n  display: inline-block;\n  vertical-align: middle;\n\n  input {\n    visibility: hidden;\n    width: 0.1px;\n    height: 0.1px;\n    position: absolute;\n    left: -5px;\n    border: solid 1px black;\n  }\n\n  input + span {\n    width: 20px;\n    height: 20px;\n    display: inline-block;\n    border-radius: 50%;\n    justify-content: center;\n    align-items: center;\n    padding: 1px;\n    background-clip: content-box;\n    text-align: center;\n    box-sizing: border-box;\n    border: solid 1px ", ";\n  }\n\n  input:checked + span {\n    background-color: ", ";\n  }\n"]);
-
-  _templateObject7$1 = function _templateObject7() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject6$1() {
-  var data = _taggedTemplateLiteral(["\n        text-indent: 54px;\n      "]);
+  var data = _taggedTemplateLiteral(["\n\tmargin-right: 5px;\n\tcursor: pointer;\n\n\t> input + span {\n\t\tborder-radius: 2px;\n\t}\n"]);
 
   _templateObject6$1 = function _templateObject6() {
     return data;
@@ -3192,7 +3197,7 @@ function _templateObject6$1() {
 }
 
 function _templateObject5$1() {
-  var data = _taggedTemplateLiteral(["\n        height: 38px;\n        width: 38px;\n      "]);
+  var data = _taggedTemplateLiteral(["\n\tdisplay: inline-flex;\n\talign-items: center;\n\tpadding-right: 5px;\n\n\t", "\n\n\t> span {\n\t\tmargin-left: 1rem;\n\t\tline-height: 20px;\n\t\tdisplay: inline-block;\n\t\t", "\n\t}\n"]);
 
   _templateObject5$1 = function _templateObject5() {
     return data;
@@ -3202,7 +3207,7 @@ function _templateObject5$1() {
 }
 
 function _templateObject4$1() {
-  var data = _taggedTemplateLiteral(["\n  --input-mb: 0;\n  display: flex;\n  position: relative;\n  margin-bottom: 1rem;\n  ", "\n\n  span {\n    position: absolute;\n    display: inline-flex;\n    justify-content: center;\n    align-items: center;\n    background-color: white;\n    border-radius: 6px;\n    margin: 6px;\n    width: 28px;\n    height: 28px;\n    color: ", ";\n\n    ", "\n  }\n  span + input {\n    text-indent: 44px;\n    ", "\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n\twidth: 20px;\n\theight: 20px;\n\tdisplay: inline-block;\n\tvertical-align: middle;\n\n\tinput {\n\t\tvisibility: hidden;\n\t\twidth: 0.1px;\n\t\theight: 0.1px;\n\t\tposition: absolute;\n\t\tleft: -5px;\n\t\tborder: solid 1px black;\n\t}\n\n\tinput + span {\n\t\twidth: 20px;\n\t\theight: 20px;\n\t\tdisplay: inline-block;\n\t\tborder-radius: 50%;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\tpadding: 1px;\n\t\tbackground-clip: content-box;\n\t\ttext-align: center;\n\t\tbox-sizing: border-box;\n\t\tborder: solid 1px ", ";\n\t}\n\n\tinput:checked + span {\n\t\tbackground-color: ", ";\n\t}\n"]);
 
   _templateObject4$1 = function _templateObject4() {
     return data;
@@ -3212,7 +3217,7 @@ function _templateObject4$1() {
 }
 
 function _templateObject3$2() {
-  var data = _taggedTemplateLiteral(["\n      height: 50px;\n      font-size: 16px;\n      border-radius: 12px;\n      border: solid 2px transparent;\n    "]);
+  var data = _taggedTemplateLiteral(["\n\t\t\theight: 50px;\n\t\t\tfont-size: 16px;\n\t\t\tborder-radius: 12px;\n\t\t\tborder: solid 2px transparent;\n\t\t"]);
 
   _templateObject3$2 = function _templateObject3() {
     return data;
@@ -3222,7 +3227,7 @@ function _templateObject3$2() {
 }
 
 function _templateObject2$2() {
-  var data = _taggedTemplateLiteral(["\n        border: solid 2px ", ";\n    "]);
+  var data = _taggedTemplateLiteral(["\n\t\t\t\tborder: solid 2px ", ";\n\t\t"]);
 
   _templateObject2$2 = function _templateObject2() {
     return data;
@@ -3232,7 +3237,7 @@ function _templateObject2$2() {
 }
 
 function _templateObject$2() {
-  var data = _taggedTemplateLiteral(["\n  background-color: ", ";\n  border: none;\n  height: 38px;\n  min-width: 243px;\n  border-radius: 6px;\n  text-indent: 15px;\n  font-size: 13px;\n  font-family: var(--heading-font, 'Quicksand');\n  transition: all 0.3s ease-out;\n  border-color: ", ";\n  caret-color: ", ";\n  outline: none;\n\n  &::placeholder {\n    color: #a0a0a0;\n  }\n\n  &:hover,\n  &:focus {\n    background-color: #fff;\n    box-shadow: 0 3px 6px rgba(112, 93, 245, 0.16);\n  }\n\n  &:focus {\n    border: solid 1px ", ";\n    ", "\n  }\n\n  ", "\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n\tbackground-color: ", ";\n\tborder: none;\n\theight: 38px;\n\tmin-width: 243px;\n\tborder-radius: 6px;\n\ttext-indent: 15px;\n\tfont-size: 13px;\n\tfont-family: var(--heading-font, 'Quicksand');\n\ttransition: all 0.3s ease-out;\n\tborder-color: ", ";\n\tcaret-color: ", ";\n\toutline: none;\n\n\t&::placeholder {\n\t\tcolor: #a0a0a0;\n\t}\n\n\t&:hover,\n\t&:focus {\n\t\tbackground-color: #fff;\n\t\tbox-shadow: 0 3px 6px rgba(112, 93, 245, 0.16);\n\t}\n\n\t&:focus {\n\t\tborder: solid 1px ", ";\n\t\t", "\n\t}\n\n\t", "\n\t", "\n"]);
 
   _templateObject$2 = function _templateObject() {
     return data;
@@ -3241,27 +3246,53 @@ function _templateObject$2() {
   return data;
 }
 var InputStyle$1 = styled__default.input(_templateObject$2(), theme("whitesmoke"), theme("primary"), theme("primary"), theme("primary"), withProp("large")(styled.css(_templateObject2$2(), theme("primary"))), fullWidth(), withProp("large")(styled.css(_templateObject3$2())));
-var Input = React__default.forwardRef(function (props, ref) {
+var Input = React__default.forwardRef(function SimpleInput(props, ref) {
   return /*#__PURE__*/React__default.createElement(InputStyle$1, _extends({}, props, {
     ref: ref
   }));
-});
-var IconInputStyle = styled__default.div(_templateObject4$1(), fullWidth(), theme("primary"), function (props) {
-  return props.large && styled.css(_templateObject5$1());
-}, function (props) {
-  return props.large && styled.css(_templateObject6$1());
-});
-var IconInput = function IconInput(props) {
-  return /*#__PURE__*/React__default.createElement("div", null, "Change This");
-};
-var RadioStyle = styled__default.label(_templateObject7$1(), theme("primary"), theme("primary"));
-var RadioInput = React__default.forwardRef(function (props, ref) {
+}); // const IconInputStyle = styled.div`
+// 	--input-mb: 0;
+// 	display: flex;
+// 	position: relative;
+// 	margin-bottom: 1rem;
+// 	${fullWidth()}
+// 	span {
+// 		position: absolute;
+// 		display: inline-flex;
+// 		justify-content: center;
+// 		align-items: center;
+// 		background-color: white;
+// 		border-radius: 6px;
+// 		margin: 6px;
+// 		width: 28px;
+// 		height: 28px;
+// 		color: ${theme("primary")};
+// 		${props =>
+// 		props.large &&
+// 			css`
+// 				height: 38px;
+// 				width: 38px;
+// 			`}
+// 	}
+// 	span + input {
+// 		text-indent: 44px;
+// 		${props =>
+// 		props.large &&
+// 			css`
+// 				text-indent: 54px;
+// 			`}
+// 	}
+// `
+// export const IconInput = props => <div>Change This</div>
+
+var RadioStyle = styled__default.label(_templateObject4$1(), theme("primary"), theme("primary"));
+var RadioInput = React__default.forwardRef(function RadioInput(props, ref) {
   return /*#__PURE__*/React__default.createElement(RadioStyle, null, /*#__PURE__*/React__default.createElement("input", _extends({
     ref: ref,
     type: "radio"
   }, props)), /*#__PURE__*/React__default.createElement("span", null));
 });
-var RadioLabelStyle = styled__default.div(_templateObject8(), fullWidth(), ""
+var RadioLabelStyle = styled__default.div(_templateObject5$1(), fullWidth(), ""
 /* border: solid 1px black; */
 );
 var RadioLabel = function RadioLabel(props) {
@@ -3270,7 +3301,7 @@ var RadioLabel = function RadioLabel(props) {
 RadioLabel.defaultProps = {
   label: "Something"
 };
-var CheckboxStyle = styled__default(RadioStyle)(_templateObject9());
+var CheckboxStyle = styled__default(RadioStyle)(_templateObject6$1());
 var Checkbox = function Checkbox(props) {
   return /*#__PURE__*/React__default.createElement(CheckboxStyle, null, /*#__PURE__*/React__default.createElement("input", _extends({
     type: "checkbox"
@@ -3351,8 +3382,951 @@ var CircleButton = function CircleButton(props) {
   }, props));
 };
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+
+
+
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var NOTHING = typeof Symbol !== "undefined" ? Symbol("immer-nothing") : defineProperty({}, "immer-nothing", true);
+
+var DRAFT_STATE = typeof Symbol !== "undefined" ? Symbol("immer-state") : "__$immer_state";
+
+function isDraft(value) {
+    return !!value && !!value[DRAFT_STATE];
+}
+
+function isDraftable(value) {
+    if (!value) return false;
+    if ((typeof value === "undefined" ? "undefined" : _typeof(value)) !== "object") return false;
+    if (Array.isArray(value)) return true;
+    var proto = Object.getPrototypeOf(value);
+    return proto === null || proto === Object.prototype;
+}
+
+var assign = Object.assign || function assign(target, value) {
+    for (var key in value) {
+        if (has$2(value, key)) {
+            target[key] = value[key];
+        }
+    }
+    return target;
+};
+
+function shallowCopy(value) {
+    if (Array.isArray(value)) return value.slice();
+    var target = value.__proto__ === undefined ? Object.create(null) : {};
+    return assign(target, value);
+}
+
+function each(value, cb) {
+    if (Array.isArray(value)) {
+        for (var i = 0; i < value.length; i++) {
+            cb(i, value[i], value);
+        }
+    } else {
+        for (var key in value) {
+            cb(key, value[key], value);
+        }
+    }
+}
+
+function has$2(thing, prop) {
+    return Object.prototype.hasOwnProperty.call(thing, prop);
+}
+
+function is(x, y) {
+    // From: https://github.com/facebook/fbjs/blob/c69904a511b900266935168223063dd8772dfc40/packages/fbjs/src/core/shallowEqual.js
+    if (x === y) {
+        return x !== 0 || 1 / x === 1 / y;
+    } else {
+        return x !== x && y !== y;
+    }
+}
+
+function generatePatches(state, basePath, patches, inversePatches) {
+    Array.isArray(state.base) ? generateArrayPatches(state, basePath, patches, inversePatches) : generateObjectPatches(state, basePath, patches, inversePatches);
+}
+
+function generateArrayPatches(state, basePath, patches, inversePatches) {
+    var base = state.base,
+        copy = state.copy,
+        assigned = state.assigned;
+
+    var minLength = Math.min(base.length, copy.length);
+
+    // Look for replaced indices.
+    for (var i = 0; i < minLength; i++) {
+        if (assigned[i] && base[i] !== copy[i]) {
+            var path = basePath.concat(i);
+            patches.push({ op: "replace", path: path, value: copy[i] });
+            inversePatches.push({ op: "replace", path: path, value: base[i] });
+        }
+    }
+
+    // Did the array expand?
+    if (minLength < copy.length) {
+        for (var _i = minLength; _i < copy.length; _i++) {
+            patches.push({
+                op: "add",
+                path: basePath.concat(_i),
+                value: copy[_i]
+            });
+        }
+        inversePatches.push({
+            op: "replace",
+            path: basePath.concat("length"),
+            value: base.length
+        });
+    }
+
+    // ...or did it shrink?
+    else if (minLength < base.length) {
+            patches.push({
+                op: "replace",
+                path: basePath.concat("length"),
+                value: copy.length
+            });
+            for (var _i2 = minLength; _i2 < base.length; _i2++) {
+                inversePatches.push({
+                    op: "add",
+                    path: basePath.concat(_i2),
+                    value: base[_i2]
+                });
+            }
+        }
+}
+
+function generateObjectPatches(state, basePath, patches, inversePatches) {
+    var base = state.base,
+        copy = state.copy;
+
+    each(state.assigned, function (key, assignedValue) {
+        var origValue = base[key];
+        var value = copy[key];
+        var op = !assignedValue ? "remove" : key in base ? "replace" : "add";
+        if (origValue === base && op === "replace") return;
+        var path = basePath.concat(key);
+        patches.push(op === "remove" ? { op: op, path: path } : { op: op, path: path, value: value });
+        inversePatches.push(op === "add" ? { op: "remove", path: path } : op === "remove" ? { op: "add", path: path, value: origValue } : { op: "replace", path: path, value: origValue });
+    });
+}
+
+function applyPatches(draft, patches) {
+    for (var i = 0; i < patches.length; i++) {
+        var patch = patches[i];
+        var path = patch.path;
+
+        if (path.length === 0 && patch.op === "replace") {
+            draft = patch.value;
+        } else {
+            var base = draft;
+            for (var _i3 = 0; _i3 < path.length - 1; _i3++) {
+                base = base[path[_i3]];
+                if (!base || (typeof base === "undefined" ? "undefined" : _typeof(base)) !== "object") throw new Error("Cannot apply patch, path doesn't resolve: " + path.join("/")); // prettier-ignore
+            }
+            var key = path[path.length - 1];
+            switch (patch.op) {
+                case "replace":
+                case "add":
+                    // TODO: add support is not extensive, it does not support insertion or `-` atm!
+                    base[key] = patch.value;
+                    break;
+                case "remove":
+                    if (Array.isArray(base)) {
+                        if (key !== base.length - 1) throw new Error("Only the last index of an array can be removed, index: " + key + ", length: " + base.length); // prettier-ignore
+                        base.length -= 1;
+                    } else {
+                        delete base[key];
+                    }
+                    break;
+                default:
+                    throw new Error("Unsupported patch operation: " + patch.op);
+            }
+        }
+    }
+    return draft;
+}
+
+// @ts-check
+
+var descriptors = {};
+
+// For nested produce calls:
+var scopes = [];
+var currentScope = function currentScope() {
+    return scopes[scopes.length - 1];
+};
+
+function willFinalize(result, baseDraft, needPatches) {
+    var scope = currentScope();
+    scope.forEach(function (state) {
+        return state.finalizing = true;
+    });
+    if (result === undefined || result === baseDraft) {
+        if (needPatches) markChangesRecursively(baseDraft);
+        // This is faster when we don't care about which attributes changed.
+        markChangesSweep(scope);
+    }
+}
+
+function createDraft(base, parent) {
+    var draft = void 0;
+    if (isDraft(base)) {
+        var _state = base[DRAFT_STATE];
+        // Avoid creating new drafts when copying.
+        _state.finalizing = true;
+        draft = shallowCopy(_state.draft);
+        _state.finalizing = false;
+    } else {
+        draft = shallowCopy(base);
+    }
+    each(base, function (prop) {
+        Object.defineProperty(draft, "" + prop, createPropertyProxy("" + prop));
+    });
+
+    // See "proxy.js" for property documentation.
+    var state = {
+        scope: parent ? parent.scope : currentScope(),
+        modified: false,
+        finalizing: false, // es5 only
+        finalized: false,
+        assigned: {},
+        parent: parent,
+        base: base,
+        draft: draft,
+        copy: null,
+        revoke: revoke,
+        revoked: false // es5 only
+    };
+
+    createHiddenProperty(draft, DRAFT_STATE, state);
+    state.scope.push(state);
+    return draft;
+}
+
+function revoke() {
+    this.revoked = true;
+}
+
+function source(state) {
+    return state.copy || state.base;
+}
+
+function _get(state, prop) {
+    assertUnrevoked(state);
+    var value = source(state)[prop];
+    // Drafts are only created for proxyable values that exist in the base state.
+    if (!state.finalizing && value === state.base[prop] && isDraftable(value)) {
+        prepareCopy(state);
+        return state.copy[prop] = createDraft(value, state);
+    }
+    return value;
+}
+
+function _set(state, prop, value) {
+    assertUnrevoked(state);
+    state.assigned[prop] = true;
+    if (!state.modified) {
+        if (is(source(state)[prop], value)) return;
+        markChanged(state);
+        prepareCopy(state);
+    }
+    state.copy[prop] = value;
+}
+
+function markChanged(state) {
+    if (!state.modified) {
+        state.modified = true;
+        if (state.parent) markChanged(state.parent);
+    }
+}
+
+function prepareCopy(state) {
+    if (!state.copy) state.copy = shallowCopy(state.base);
+}
+
+function createPropertyProxy(prop) {
+    return descriptors[prop] || (descriptors[prop] = {
+        configurable: true,
+        enumerable: true,
+        get: function get$$1() {
+            return _get(this[DRAFT_STATE], prop);
+        },
+        set: function set$$1(value) {
+            _set(this[DRAFT_STATE], prop, value);
+        }
+    });
+}
+
+function assertUnrevoked(state) {
+    if (state.revoked === true) throw new Error("Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? " + JSON.stringify(state.copy || state.base));
+}
+
+// This looks expensive, but only proxies are visited, and only objects without known changes are scanned.
+function markChangesSweep(scope) {
+    // The natural order of drafts in the `scope` array is based on when they
+    // were accessed. By processing drafts in reverse natural order, we have a
+    // better chance of processing leaf nodes first. When a leaf node is known to
+    // have changed, we can avoid any traversal of its ancestor nodes.
+    for (var i = scope.length - 1; i >= 0; i--) {
+        var state = scope[i];
+        if (state.modified === false) {
+            if (Array.isArray(state.base)) {
+                if (hasArrayChanges(state)) markChanged(state);
+            } else if (hasObjectChanges(state)) markChanged(state);
+        }
+    }
+}
+
+function markChangesRecursively(object) {
+    if (!object || (typeof object === "undefined" ? "undefined" : _typeof(object)) !== "object") return;
+    var state = object[DRAFT_STATE];
+    if (!state) return;
+    var base = state.base,
+        draft = state.draft,
+        assigned = state.assigned;
+
+    if (!Array.isArray(object)) {
+        // Look for added keys.
+        Object.keys(draft).forEach(function (key) {
+            // The `undefined` check is a fast path for pre-existing keys.
+            if (base[key] === undefined && !has$2(base, key)) {
+                assigned[key] = true;
+                markChanged(state);
+            } else if (!assigned[key]) {
+                // Only untouched properties trigger recursion.
+                markChangesRecursively(draft[key]);
+            }
+        });
+        // Look for removed keys.
+        Object.keys(base).forEach(function (key) {
+            // The `undefined` check is a fast path for pre-existing keys.
+            if (draft[key] === undefined && !has$2(draft, key)) {
+                assigned[key] = false;
+                markChanged(state);
+            }
+        });
+    } else if (hasArrayChanges(state)) {
+        markChanged(state);
+        assigned.length = true;
+        if (draft.length < base.length) {
+            for (var i = draft.length; i < base.length; i++) {
+                assigned[i] = false;
+            }
+        } else {
+            for (var _i = base.length; _i < draft.length; _i++) {
+                assigned[_i] = true;
+            }
+        }
+        for (var _i2 = 0; _i2 < draft.length; _i2++) {
+            // Only untouched indices trigger recursion.
+            if (assigned[_i2] === undefined) markChangesRecursively(draft[_i2]);
+        }
+    }
+}
+
+function hasObjectChanges(state) {
+    var base = state.base,
+        draft = state.draft;
+
+    // Search for added keys. Start at the back, because non-numeric keys
+    // are ordered by time of definition on the object.
+
+    var keys = Object.keys(draft);
+    for (var i = keys.length - 1; i >= 0; i--) {
+        // The `undefined` check is a fast path for pre-existing keys.
+        if (base[keys[i]] === undefined && !has$2(base, keys[i])) {
+            return true;
+        }
+    }
+
+    // Since no keys have been added, we can compare lengths to know if an
+    // object has been deleted.
+    return keys.length !== Object.keys(base).length;
+}
+
+function hasArrayChanges(state) {
+    var draft = state.draft;
+
+    if (draft.length !== state.base.length) return true;
+    // See #116
+    // If we first shorten the length, our array interceptors will be removed.
+    // If after that new items are added, result in the same original length,
+    // those last items will have no intercepting property.
+    // So if there is no own descriptor on the last position, we know that items were removed and added
+    // N.B.: splice, unshift, etc only shift values around, but not prop descriptors, so we only have to check
+    // the last one
+    var descriptor = Object.getOwnPropertyDescriptor(draft, draft.length - 1);
+    // descriptor can be null, but only for newly created sparse arrays, eg. new Array(10)
+    if (descriptor && !descriptor.get) return true;
+    // For all other cases, we don't have to compare, as they would have been picked up by the index setters
+    return false;
+}
+
+function createHiddenProperty(target, prop, value) {
+    Object.defineProperty(target, prop, {
+        value: value,
+        enumerable: false,
+        writable: true
+    });
+}
+
+
+
+var legacyProxy = Object.freeze({
+	scopes: scopes,
+	currentScope: currentScope,
+	willFinalize: willFinalize,
+	createDraft: createDraft
+});
+
+// @ts-check
+
+// For nested produce calls:
+var scopes$1 = [];
+var currentScope$1 = function currentScope() {
+    return scopes$1[scopes$1.length - 1];
+};
+
+// Do nothing before being finalized.
+function willFinalize$1() {}
+
+function createDraft$1(base, parent) {
+    var state = {
+        // Track which produce call this is associated with.
+        scope: parent ? parent.scope : currentScope$1(),
+        // True for both shallow and deep changes.
+        modified: false,
+        // Used during finalization.
+        finalized: false,
+        // Track which properties have been assigned (true) or deleted (false).
+        assigned: {},
+        // The parent draft state.
+        parent: parent,
+        // The base state.
+        base: base,
+        // The base proxy.
+        draft: null,
+        // Any property proxies.
+        drafts: {},
+        // The base copy with any updated values.
+        copy: null,
+        // Called by the `produce` function.
+        revoke: null
+    };
+
+    var _ref = Array.isArray(base) ? Proxy.revocable([state], arrayTraps) : Proxy.revocable(state, objectTraps),
+        revoke = _ref.revoke,
+        proxy = _ref.proxy;
+
+    state.draft = proxy;
+    state.revoke = revoke;
+
+    state.scope.push(state);
+    return proxy;
+}
+
+var objectTraps = {
+    get: get$1,
+    has: function has$$1(target, prop) {
+        return prop in source$1(target);
+    },
+    ownKeys: function ownKeys(target) {
+        return Reflect.ownKeys(source$1(target));
+    },
+
+    set: set$1,
+    deleteProperty: deleteProperty,
+    getOwnPropertyDescriptor: getOwnPropertyDescriptor,
+    defineProperty: defineProperty$1,
+    setPrototypeOf: function setPrototypeOf() {
+        throw new Error("Immer does not support `setPrototypeOf()`.");
+    }
+};
+
+var arrayTraps = {};
+each(objectTraps, function (key, fn) {
+    arrayTraps[key] = function () {
+        arguments[0] = arguments[0][0];
+        return fn.apply(this, arguments);
+    };
+});
+arrayTraps.deleteProperty = function (state, prop) {
+    if (isNaN(parseInt(prop))) throw new Error("Immer does not support deleting properties from arrays: " + prop);
+    return objectTraps.deleteProperty.call(this, state[0], prop);
+};
+arrayTraps.set = function (state, prop, value) {
+    if (prop !== "length" && isNaN(parseInt(prop))) throw new Error("Immer does not support setting non-numeric properties on arrays: " + prop);
+    return objectTraps.set.call(this, state[0], prop, value);
+};
+
+function source$1(state) {
+    return state.copy || state.base;
+}
+
+function get$1(state, prop) {
+    if (prop === DRAFT_STATE) return state;
+    var drafts = state.drafts;
+
+    // Check for existing draft in unmodified state.
+
+    if (!state.modified && has$2(drafts, prop)) {
+        return drafts[prop];
+    }
+
+    var value = source$1(state)[prop];
+    if (state.finalized || !isDraftable(value)) return value;
+
+    // Check for existing draft in modified state.
+    if (state.modified) {
+        // Assigned values are never drafted. This catches any drafts we created, too.
+        if (value !== state.base[prop]) return value;
+        // Store drafts on the copy (when one exists).
+        drafts = state.copy;
+    }
+
+    return drafts[prop] = createDraft$1(value, state);
+}
+
+function set$1(state, prop, value) {
+    if (!state.modified) {
+        // Optimize based on value's truthiness. Truthy values are guaranteed to
+        // never be undefined, so we can avoid the `in` operator. Lastly, truthy
+        // values may be drafts, but falsy values are never drafts.
+        var isUnchanged = value ? is(state.base[prop], value) || value === state.drafts[prop] : is(state.base[prop], value) && prop in state.base;
+        if (isUnchanged) return true;
+        markChanged$1(state);
+    }
+    state.assigned[prop] = true;
+    state.copy[prop] = value;
+    return true;
+}
+
+function deleteProperty(state, prop) {
+    // The `undefined` check is a fast path for pre-existing keys.
+    if (state.base[prop] !== undefined || prop in state.base) {
+        state.assigned[prop] = false;
+        markChanged$1(state);
+    }
+    if (state.copy) delete state.copy[prop];
+    return true;
+}
+
+function getOwnPropertyDescriptor(state, prop) {
+    var owner = state.modified ? state.copy : has$2(state.drafts, prop) ? state.drafts : state.base;
+    var descriptor = Reflect.getOwnPropertyDescriptor(owner, prop);
+    if (descriptor && !(Array.isArray(owner) && prop === "length")) descriptor.configurable = true;
+    return descriptor;
+}
+
+function defineProperty$1() {
+    throw new Error("Immer does not support defining properties on draft objects.");
+}
+
+function markChanged$1(state) {
+    if (!state.modified) {
+        state.modified = true;
+        state.copy = assign(shallowCopy(state.base), state.drafts);
+        state.drafts = null;
+        if (state.parent) markChanged$1(state.parent);
+    }
+}
+
+var modernProxy = Object.freeze({
+	scopes: scopes$1,
+	currentScope: currentScope$1,
+	willFinalize: willFinalize$1,
+	createDraft: createDraft$1
+});
+
+function verifyMinified() {}
+
+var configDefaults = {
+    useProxies: typeof Proxy !== "undefined" && typeof Reflect !== "undefined",
+    autoFreeze: typeof process !== "undefined" ? process.env.NODE_ENV !== "production" : verifyMinified.name === "verifyMinified",
+    onAssign: null,
+    onDelete: null,
+    onCopy: null
+};
+
+var Immer = function () {
+    function Immer(config) {
+        classCallCheck(this, Immer);
+
+        assign(this, configDefaults, config);
+        this.setUseProxies(this.useProxies);
+        this.produce = this.produce.bind(this);
+    }
+
+    createClass(Immer, [{
+        key: "produce",
+        value: function produce(base, recipe, patchListener) {
+            var _this = this;
+
+            // curried invocation
+            if (typeof base === "function" && typeof recipe !== "function") {
+                var defaultBase = recipe;
+                recipe = base;
+
+                // prettier-ignore
+                return function () {
+                    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                        args[_key - 1] = arguments[_key];
+                    }
+
+                    var base = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultBase;
+                    return _this.produce(base, function (draft) {
+                        var _recipe;
+
+                        return (_recipe = recipe).call.apply(_recipe, [draft, draft].concat(args));
+                    });
+                };
+            }
+
+            // prettier-ignore
+            {
+                if (typeof recipe !== "function") throw new Error("if first argument is not a function, the second argument to produce should be a function");
+                if (patchListener !== undefined && typeof patchListener !== "function") throw new Error("the third argument of a producer should not be set or a function");
+            }
+
+            var result = void 0;
+            // Only create proxies for plain objects/arrays.
+            if (!isDraftable(base)) {
+                result = recipe(base);
+                if (result === undefined) return base;
+            }
+            // See #100, don't nest producers
+            else if (isDraft(base)) {
+                    result = recipe.call(base, base);
+                    if (result === undefined) return base;
+                }
+                // The given value must be proxied.
+                else {
+                        this.scopes.push([]);
+                        var baseDraft = this.createDraft(base);
+                        try {
+                            result = recipe.call(baseDraft, baseDraft);
+                            this.willFinalize(result, baseDraft, !!patchListener);
+
+                            // Never generate patches when no listener exists.
+                            var patches = patchListener && [],
+                                inversePatches = patchListener && [];
+
+                            // Finalize the modified draft...
+                            if (result === undefined || result === baseDraft) {
+                                result = this.finalize(baseDraft, [], patches, inversePatches);
+                            }
+                            // ...or use a replacement value.
+                            else {
+                                    // Users must never modify the draft _and_ return something else.
+                                    if (baseDraft[DRAFT_STATE].modified) throw new Error("An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft."); // prettier-ignore
+
+                                    // Finalize the replacement in case it contains (or is) a subset of the draft.
+                                    if (isDraftable(result)) result = this.finalize(result);
+
+                                    if (patchListener) {
+                                        patches.push({
+                                            op: "replace",
+                                            path: [],
+                                            value: result
+                                        });
+                                        inversePatches.push({
+                                            op: "replace",
+                                            path: [],
+                                            value: base
+                                        });
+                                    }
+                                }
+                        } finally {
+                            this.currentScope().forEach(function (state) {
+                                return state.revoke();
+                            });
+                            this.scopes.pop();
+                        }
+                        patchListener && patchListener(patches, inversePatches);
+                    }
+            // Normalize the result.
+            return result === NOTHING ? undefined : result;
+        }
+    }, {
+        key: "setAutoFreeze",
+        value: function setAutoFreeze(value) {
+            this.autoFreeze = value;
+        }
+    }, {
+        key: "setUseProxies",
+        value: function setUseProxies(value) {
+            this.useProxies = value;
+            assign(this, value ? modernProxy : legacyProxy);
+        }
+        /**
+         * @internal
+         * Finalize a draft, returning either the unmodified base state or a modified
+         * copy of the base state.
+         */
+
+    }, {
+        key: "finalize",
+        value: function finalize(draft, path, patches, inversePatches) {
+            var state = draft[DRAFT_STATE];
+            if (!state) {
+                if (Object.isFrozen(draft)) return draft;
+                return this.finalizeTree(draft);
+            }
+            // Never finalize drafts owned by an outer scope.
+            if (state.scope !== this.currentScope()) {
+                return draft;
+            }
+            if (!state.modified) return state.base;
+            if (!state.finalized) {
+                state.finalized = true;
+                this.finalizeTree(state.draft, path, patches, inversePatches);
+                if (this.onDelete) {
+                    var assigned = state.assigned;
+
+                    for (var prop in assigned) {
+                        assigned[prop] || this.onDelete(state, prop);
+                    }
+                }
+                if (this.onCopy) this.onCopy(state);
+
+                // Nested producers must never auto-freeze their result,
+                // because it may contain drafts from parent producers.
+                if (this.autoFreeze && this.scopes.length === 1) {
+                    Object.freeze(state.copy);
+                }
+
+                if (patches) generatePatches(state, path, patches, inversePatches);
+            }
+            return state.copy;
+        }
+        /**
+         * @internal
+         * Finalize all drafts in the given state tree.
+         */
+
+    }, {
+        key: "finalizeTree",
+        value: function finalizeTree(root, path, patches, inversePatches) {
+            var _this2 = this;
+
+            var state = root[DRAFT_STATE];
+            if (state) {
+                root = this.useProxies ? state.copy : state.copy = shallowCopy(state.draft);
+            }
+
+            var onAssign = this.onAssign;
+
+            var finalizeProperty = function finalizeProperty(prop, value, parent) {
+                // Only `root` can be a draft in here.
+                var inDraft = !!state && parent === root;
+
+                if (isDraft(value)) {
+                    // prettier-ignore
+                    parent[prop] = value =
+                    // Patches are never generated for assigned properties.
+                    patches && inDraft && !state.assigned[prop] ? _this2.finalize(value, path.concat(prop), patches, inversePatches) : _this2.finalize(value);
+
+                    // Unchanged drafts are ignored.
+                    if (inDraft && value === state.base[prop]) return;
+                }
+                // Unchanged draft properties are ignored.
+                else if (inDraft && is(value, state.base[prop])) {
+                        return;
+                    }
+                    // Search new objects for unfinalized drafts. Frozen objects should never contain drafts.
+                    else if (isDraftable(value) && !Object.isFrozen(value)) {
+                            each(value, finalizeProperty);
+                        }
+
+                if (inDraft && onAssign) {
+                    onAssign(state, prop, value);
+                }
+            };
+
+            each(root, finalizeProperty);
+            return root;
+        }
+    }]);
+    return Immer;
+}();
+
+var immer = new Immer();
+
+/**
+ * The `produce` function takes a value and a "recipe function" (whose
+ * return value often depends on the base state). The recipe function is
+ * free to mutate its first argument however it wants. All mutations are
+ * only ever applied to a __copy__ of the base state.
+ *
+ * Pass only a function to create a "curried producer" which relieves you
+ * from passing the recipe function every time.
+ *
+ * Only plain objects and arrays are made mutable. All other objects are
+ * considered uncopyable.
+ *
+ * Note: This function is __bound__ to its `Immer` instance.
+ *
+ * @param {any} base - the initial state
+ * @param {Function} producer - function that receives a proxy of the base state as first argument and which can be freely modified
+ * @param {Function} patchListener - optional function that will be called with all the patches produced here
+ * @returns {any} a new state, or the initial state if nothing was modified
+ */
+var produce = immer.produce;
+
+/**
+ * Apply an array of Immer patches to the first argument.
+ *
+ * This function is a producer, which means copy-on-write is in effect.
+ */
+var applyPatches$1 = produce(applyPatches);
+
+function _templateObject10() {
+  var data = _taggedTemplateLiteral(["\n\tfont-size: 0.8rem;\n"]);
+
+  _templateObject10 = function _templateObject10() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject9() {
+  var data = _taggedTemplateLiteral(["\n\t\t.wg-label {\n\t\t\tfont-size: 0.9rem;\n\t\t}\n\t"]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8() {
+  var data = _taggedTemplateLiteral(["\n\twidth: auto;\n\n\t", "\n\t", "\n\n  textarea {\n\t\tmax-width: 100%;\n\t\tresize: vertical;\n\t\tborder: none;\n\t\twidth: 100%;\n\t\toutline: none;\n\t\tbox-sizing: border-box;\n\t\tmin-width: 240px;\n\t\tpadding: 1rem 1.5rem;\n\t\tbackground: transparent;\n\t}\n"]);
+
+  _templateObject8 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject7$1() {
+  var data = _taggedTemplateLiteral(["\n\t\t&::after {\n\t\t\tcontent: \"\";\n\t\t\twidth: 12px;\n\t\t\theight: 12px;\n\t\t\tflex: 0 0 12px;\n\t\t\tright: 15px;\n\t\t\tpointer-events: none;\n\t\t\tposition: absolute;\n\t\t\tborder: solid 1px ", ";\n\t\t\ttransform: rotate(45deg) translate(-25%);\n\t\t\tborder-color: transparent #308ddb #308ddb transparent;\n\t\t}\n\t"]);
+
+  _templateObject7$1 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6$3() {
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tmargin-top: 10px;\n\talign-items: center;\n\tpadding: 0.5rem 1rem;\n\tbox-sizing: border-box;\n\n\t", ";\n\n\t&, & > * {\n\t\ttransition: all 0.3s ease-out;\n\t}\n\n\t", "\n\n\tinput, select {\n\t\toutline: none !important;\n\t\tborder: none;\n\t\t-webkit-appearance: none;\n\t\tappearance: none;\n\t\twidth: 100%;\n\t\tmin-height: 30px;\n\t\tbackground: transparent;\n\t}\n\n\tinput[type=\"number\"] {\n\t\ttext-align: right;\n\t}\n"]);
+
+  _templateObject6$3 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5$3() {
+  var data = _taggedTemplateLiteral(["\n\tdisplay: inline-block;\n\tmin-width: 250px;\n\t", "\n"]);
+
+  _templateObject5$3 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$3() {
+  var data = _taggedTemplateLiteral(["\n\t\tborder: none;\n\t\tbackground-color: whitesmoke;\n\n\t\t> .wg-label {\n\t\t\topacity: 0.5;\n\t\t\tbackground-color: transparent;\n\t\t}\n\t"]);
+
+  _templateObject4$3 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$4() {
+  var data = _taggedTemplateLiteral(["\n\t\tborder-color: ", ";\n\n\t\t.wg-label {\n\t\t\tfont-size: 0.9rem;\n\t\t\tpadding: 0 0.5rem;\n\t\t\tcolor: ", ";\n\t\t\ttransform: translate(0, -120%);\n\t\t}\n\t"]);
+
+  _templateObject3$4 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$4() {
+  var data = _taggedTemplateLiteral(["\n\t\t\tinput,\n\t\t\ttextarea {\n\t\t\t\ttext-indent: 15px;\n\t\t\t}\n\t\t\tselect {\n\t\t\t\ttext-indent: 5px;\n\t\t\t}\n\t\t\t.wg-label {\n\t\t\t\tcolor: black;\n\t\t\t\ttransform: translateX(1.8rem);\n\t\t\t}\n\t\t"]);
+
+  _templateObject2$4 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject$4() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  overflow: hidden;\n  width: 100%;\n  max-width: 800px;\n  flex-flow: column;\n  border-radius: 0 0 12px 12px;\n  box-shadow: 0 17px 9px 0px rgba(0, 0, 0, 0.1);\n\n  > input {\n    height: 50px;\n    color: white;\n    text-indent: 20px;\n    font-size: 16px;\n    background: transparent;\n    border: solid 1px white;\n\n    &::placeholder {\n      color: white;\n    }\n\n    &:focus {\n      border-width: 2px;\n    }\n  }\n\n  > .search-base {\n    height: 50px;\n    display: flex;\n    padding-left: 1rem;\n    padding-right: 1rem;\n    align-items: center;\n    font-family: 'Quicksand', sans-serif;\n    background-color: white;\n    color: ", ";\n\n    .tags {\n      flex: 1;\n      display: flex;\n      margin-left: 1rem;\n      justify-content: flex-start;\n    }\n\n    a {\n      padding: 0.5em 0.5em;\n      border-radius: 12px;\n      transition: all 0.3s ease-out;\n      cursor: pointer;\n\n      &:hover {\n        background-color: ", ";\n      }\n    }\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n\twidth: 100%;\n\tborder: solid ", " ", ";\n\tbackground: #ffffff;\n\tbox-sizing: border-box;\n\tborder-radius: 16px;\n\tposition: relative;\n\tcursor: text;\n\ttransition: all 0.3s ease-out;\n\n\t&,\n\tinput,\n\ttextarea,\n\tselect,\n\tbutton {\n\t\tfont-family: var(--input-font);\n\t\tfont-size: 1rem;\n\t}\n\n\t.wg-label {\n\t\ttop: calc((52px / 2) / 2);\n\t\tleft: 10px;\n\t\tline-height: 20px;\n\t\tpadding: 0 0.5rem;\n\t\tposition: absolute;\n\t\tborder-radius: 20px;\n\t\tdisplay: inline-block;\n\t\tbackground-color: white;\n\t\ttransition: all 0.3s ease-out;\n\t}\n\n\t", "\n\n\t", "\n\n\t", "\n"]);
 
   _templateObject$4 = function _templateObject() {
     return data;
@@ -3360,8 +4334,193 @@ function _templateObject$4() {
 
   return data;
 }
+var theme$1 = themeOr({
+  border: {
+    gray: "#e1e1e1",
+    width: "1px"
+  }
+});
+var ValidInputProps = ["placeholder", "name", "type", "min", "max", "maxLength", "minLength", "value", "id", "className", "style", "disabled", "autoComplete"];
+
+var attributesAndListeners = function attributesAndListeners(val, key) {
+  return ValidInputProps.includes(key) || /^on[A-Z]/.test(key);
+};
+
+var filterProps = pickBy(attributesAndListeners);
+var disabled = propIs("disabled", function (x) {
+  return x == true;
+});
+var sharedFocusStyle = styled.css(_templateObject$4(), theme$1("border.width"), theme$1("border.gray"), withProp("hasIcon", styled.css(_templateObject2$4())), withProp("focused")(styled.css(_templateObject3$4(), theme$1("primary"), theme$1("primary"))), disabled(styled.css(_templateObject4$3())));
+var MainWrapper = styled__default.div(_templateObject5$3(), fullWidth);
+var InputStyle$2 = styled__default.div(_templateObject6$3(), withProp("options")(styled.css(_templateObject7$1(), theme$1("primary"))), sharedFocusStyle);
+var TextWrapper = styled__default.div(_templateObject8(), sharedFocusStyle, withProp("focused")(styled.css(_templateObject9())));
+var Labelled = {};
+var createInput = curry(function (fn, initialState) {
+  var InputWrapper = function InputWrapper(props, ref) {
+    var _useState = React.useState(_objectSpread2({
+      focus: props.placeholder ? true : false
+    }, initialState)),
+        _useState2 = _slicedToArray(_useState, 2),
+        state = _useState2[0],
+        _setState = _useState2[1]; // please don't take out the event it's important
+    // eslint-disable-next-line
+
+
+    var setState = curry(function (fn, event) {
+      _setState(produce(state, fn));
+    });
+    var inputRef = React.useRef(null);
+    React.useImperativeHandle(ref, function () {
+      return inputRef.current;
+    });
+
+    var focus = function focus(state) {
+      state.focus = true;
+    };
+
+    var blur = function blur(state) {
+      if (!inputRef.current.value) {
+        state.focus = false;
+      }
+    };
+
+    var _props = _objectSpread2({
+      onFocus: setState(focus),
+      onBlur: setState(blur)
+    }, props);
+
+    return fn({
+      props: _props,
+      inputRef: inputRef,
+      state: state,
+      setState: setState,
+      focus: focus,
+      blur: blur
+    });
+  };
+
+  return React__default.forwardRef(InputWrapper);
+});
+var styleWrapper = curry(function (initialState, fn) {
+  return createInput(function (args) {
+    var props = args.props,
+        state = args.state,
+        inputRef = args.inputRef;
+    return /*#__PURE__*/React__default.createElement(MainWrapper, {
+      fullwidth: props.fullwidth
+    }, /*#__PURE__*/React__default.createElement(InputStyle$2, {
+      hasIcon: !!props.icon,
+      focused: state.focus,
+      disabled: props.disabled,
+      options: props.children,
+      onClick: function onClick() {
+        return inputRef.current.focus();
+      }
+    }, props.icon, /*#__PURE__*/React__default.createElement("span", {
+      className: "wg-label"
+    }, props.label), fn(args)), props.message);
+  }, initialState);
+});
+var closedInput = styleWrapper({});
+var makeAlwaysFocused = styleWrapper({
+  focus: true
+});
+Labelled.Input = closedInput(function (_ref) {
+  var props = _ref.props,
+      inputRef = _ref.inputRef,
+      state = _ref.state;
+  return /*#__PURE__*/React__default.createElement("input", _extends({}, filterProps(props), {
+    ref: inputRef,
+    placeholder: state.focus ? props.placeholder : "",
+    onChange: props.onChange
+  }));
+});
+Labelled.Number = closedInput(function (_ref2) {
+  var state = _ref2.state,
+      props = _ref2.props,
+      inputRef = _ref2.inputRef;
+
+  var sanitize = function sanitize(evt) {
+    var isAlpha = /^[A-Za-z]$/gi.test(evt.key);
+    var isKeyComb = evt.metaKey || evt.ctrlKey;
+
+    if (isAlpha && !isKeyComb) {
+      evt.preventDefault();
+    }
+  };
+
+  var handleChange = function handleChange(evt) {
+    if (props.onChange) props.onChange(evt);
+  };
+
+  return /*#__PURE__*/React__default.createElement("input", _extends({}, filterProps(props), {
+    ref: inputRef,
+    type: "text",
+    placeholder: state.focus ? props.placeholder : "",
+    className: "w-4/5 c-black",
+    onKeyDown: sanitize,
+    onChange: handleChange
+  }));
+});
+Labelled.Message = styled__default.div(_templateObject10());
+Labelled.Message.propTypes = {
+  children: propTypes.node.isRequired
+};
+Labelled.Select = makeAlwaysFocused(function (_ref3) {
+  var props = _ref3.props,
+      inputRef = _ref3.inputRef;
+  return /*#__PURE__*/React__default.createElement("select", _extends({}, filterProps(props), {
+    ref: inputRef,
+    className: "w-4/5 c-black appearance-none",
+    onChange: props.onChange
+  }), props.children);
+});
+
+Labelled.Select.Option = function Select_Option(_ref4) {
+  var value = _ref4.value,
+      text = _ref4.text,
+      selected = _ref4.selected;
+  return /*#__PURE__*/React__default.createElement("option", {
+    selected: selected,
+    value: value || text
+  }, text);
+};
+
+Labelled.Select.Option.propTypes = {
+  text: propTypes.string.isRequired,
+  value: propTypes.string,
+  selected: propTypes.bool
+};
+Labelled.Select.propTypes = {
+  children: propTypes.array.isRequired
+};
+Labelled.Textarea = createInput(function (_ref5) {
+  var props = _ref5.props,
+      inputRef = _ref5.inputRef,
+      state = _ref5.state;
+  return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(TextWrapper, {
+    focused: state.focus,
+    disabled: props.disabled,
+    className: "flex-1"
+  }, /*#__PURE__*/React__default.createElement("span", {
+    className: "wg-label rounded-full"
+  }, props.label), /*#__PURE__*/React__default.createElement("textarea", _extends({}, filterProps(props), {
+    ref: inputRef,
+    onChange: props.onChange
+  }))), props.message);
+}, {});
+
+function _templateObject$5() {
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\toverflow: hidden;\n\twidth: 100%;\n\tmax-width: 800px;\n\tflex-flow: column;\n\tborder-radius: 0 0 12px 12px;\n\tbox-shadow: 0 17px 9px 0px rgba(0, 0, 0, 0.1);\n\n\t> input {\n\t\theight: 50px;\n\t\tcolor: white;\n\t\ttext-indent: 20px;\n\t\tfont-size: 16px;\n\t\tbackground: transparent;\n\t\tborder: solid 1px white;\n\n\t\t&::placeholder {\n\t\t\tcolor: white;\n\t\t}\n\n\t\t&:focus {\n\t\t\tborder-width: 2px;\n\t\t}\n\t}\n\n\t> .search-base {\n\t\theight: 50px;\n\t\tdisplay: flex;\n\t\tpadding-left: 1rem;\n\t\tpadding-right: 1rem;\n\t\talign-items: center;\n\t\tfont-family: 'Quicksand', sans-serif;\n\t\tbackground-color: white;\n\t\tcolor: ", ";\n\n\t\t.tags {\n\t\t\tflex: 1;\n\t\t\tdisplay: flex;\n\t\t\tmargin-left: 1rem;\n\t\t\tjustify-content: flex-start;\n\t\t}\n\n\t\ta {\n\t\t\tpadding: 0.5em 0.5em;\n\t\t\tborder-radius: 12px;\n\t\t\ttransition: all 0.3s ease-out;\n\t\t\tcursor: pointer;\n\n\t\t\t&:hover {\n\t\t\t\tbackground-color: ", ";\n\t\t\t}\n\t\t}\n\t}\n"]);
+
+  _templateObject$5 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
 var CurrencyInput = NumberInput;
-var SearchStyle = styled__default.div(_templateObject$4(), function (props) {
+var SearchStyle = styled__default.div(_templateObject$5(), function (props) {
   return props.theme.primary;
 }, function (props) {
   return props.theme.whitesmoke;
@@ -3379,8 +4538,9 @@ var SearchComponent = function SearchComponent(props) {
     className: "search-base"
   }, /*#__PURE__*/React__default.createElement("b", null, "Search Tags:"), /*#__PURE__*/React__default.createElement("div", {
     className: "tags"
-  }, ["africandishes", "bouquet", "glamour"].map(function (e) {
+  }, ["africandishes", "bouquet", "glamour"].map(function (e, idx) {
     return /*#__PURE__*/React__default.createElement("a", {
+      key: idx,
       href: "#".concat(e)
     }, "#", e);
   }))));
@@ -3389,10 +4549,10 @@ SearchComponent.defaultProps = {
   onSubmit: function onSubmit() {}
 };
 
-function _templateObject$5() {
+function _templateObject$6() {
   var data = _taggedTemplateLiteral(["\n\theader {\n\t\tpadding: 0 0.5rem 0.5rem;\n\t\tmargin: -0.5rem -0.5rem .5rem;\n\t\tborder-bottom: solid 1px ", "\n\t}\n"]);
 
-  _templateObject$5 = function _templateObject() {
+  _templateObject$6 = function _templateObject() {
     return data;
   };
 
@@ -3400,7 +4560,7 @@ function _templateObject$5() {
 }
 var StyledCard = styled__default(CardStyle({
   shadow: true
-}))(_templateObject$5(), color("whitesmoke"));
+}))(_templateObject$6(), color("whitesmoke"));
 var Card = function Card(props) {
   return /*#__PURE__*/React__default.createElement(StyledCard, props);
 };
@@ -3411,40 +4571,40 @@ var CardHeader = function CardHeader(props) {
 
 Card.Header = CardHeader;
 
-function _templateObject4$3() {
+function _templateObject4$4() {
   var data = _taggedTemplateLiteral(["\n        visibility: visible;\n\n        .wg-dialog {\n            opacity: 1;\n\n            .wg-modal-content {\n                transform: translate(0, 0);\n            }\n        }\n        .wg-backdrop {\n            opacity: 1;\n        }\n    "]);
 
-  _templateObject4$3 = function _templateObject4() {
+  _templateObject4$4 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$4() {
+function _templateObject3$5() {
   var data = _taggedTemplateLiteral(["\n            max-width: 1000px;\n        "]);
 
-  _templateObject3$4 = function _templateObject3() {
+  _templateObject3$5 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$4() {
+function _templateObject2$5() {
   var data = _taggedTemplateLiteral(["\n            max-width: 400px;        \n        "]);
 
-  _templateObject2$4 = function _templateObject2() {
+  _templateObject2$5 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$6() {
+function _templateObject$7() {
   var data = _taggedTemplateLiteral(["\n    top: 0;\n    left: 0;\n    right: 0;\n    margin: 0 !important; \n    bottom: 0;\n    z-index: 999;\n    display: flex;\n    visibility: hidden;\n    position: fixed;\n    justify-content: center;\n    \n    &, .wg-dialog, .wg-modal-content, .wg-backdrop {\n        transition: all .3s cubic-bezier(.17, .84, .44, 1);\n    }\n\n    .wg-dialog {\n        opacity: 0;\n        width: 100%;\n        display: flex;\n        padding-top: 10vh;\n        overflow-y: scroll;\n        justify-content: center;\n        align-items: flex-start;\n    }\n\n    .wg-backdrop {\n        top: 0;\n        left: 0;\n        right: 0;\n        bottom: 0;\n        opacity: 0;\n        position: absolute;\n        background: rgba(0, 0, 0, 0.47); \n    }\n\n    .wg-modal-content {\n        width: 100%;\n        max-width: 800px;\n        transform: translate(0, -50%);\n\n        ", "\n\n        ", "\n    }\n\n    ", "\n\n"]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
@@ -3458,9 +4618,9 @@ var ModalSize = {
     return e === "lg";
   }
 };
-var DialogStyle = styled__default.section(_templateObject$6(), propIs("size")(ModalSize.small)(styled.css(_templateObject2$4())), propIs("size")(ModalSize.large)(styled.css(_templateObject3$4())), propIs("show")(function (show) {
+var DialogStyle = styled__default.section(_templateObject$7(), propIs("size")(ModalSize.small)(styled.css(_templateObject2$5())), propIs("size")(ModalSize.large)(styled.css(_templateObject3$5())), propIs("show")(function (show) {
   return show === true;
-})(styled.css(_templateObject4$3())));
+})(styled.css(_templateObject4$4())));
 var Modal = function Modal(props) {
   if (props.show) {
     document.body.style.overflow = "hidden";
@@ -3492,16 +4652,16 @@ Modal.propTypes = {
   size: propTypes.string.isRequired
 };
 
-function _templateObject$7() {
+function _templateObject$8() {
   var data = _taggedTemplateLiteral(["\n  width: 100%;\n  padding: 0;\n  box-sizing: border-box;\n\n  .list-item {\n    padding: 0.5rem 1rem;\n    & + .list-item {\n      border-top: solid 1px ", ";\n    }\n  }\n\n  li {\n    display: block;\n\n    a {\n      display: block;\n      text-decoration: none;\n      border: 0 solid 5px;\n      padding: 1rem 1.5rem;\n      color: ", ";\n      transition: border 0.3s cubic-bezier(0.74, 1.26, 0.99, 0.97);\n\n      &.active {\n        color: ", ";\n        background-color: ", ";\n        border-left: solid 5px ", ";\n      }\n    }\n  }\n"]);
 
-  _templateObject$7 = function _templateObject() {
+  _templateObject$8 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var FlatListStyle = styled__default.ul(_templateObject$7(), color("whitesmoke"), color("grey"), color("primary"), color("whitesmoke"), color("primary"));
+var FlatListStyle = styled__default.ul(_templateObject$8(), color("whitesmoke"), color("grey"), color("primary"), color("whitesmoke"), color("primary"));
 var FlatList = function FlatList(props) {
   return /*#__PURE__*/React__default.createElement(FlatListStyle, null, props.children);
 };
@@ -3522,10 +4682,10 @@ var FlatListLink = function FlatListLink(props) {
 
 FlatList.Link = FlatListLink;
 
-function _templateObject$8() {
+function _templateObject$9() {
   var data = _taggedTemplateLiteral(["\n  height: 0;\n  padding: 0 0;\n  overflow: hidden;\n  grid-column: 1 / 3;\n  transition: all 0.3s ease-out;\n\n  ul {\n    margin: 0;\n    padding: 0;\n    width: 100%;\n    display: block;\n  }\n"]);
 
-  _templateObject$8 = function _templateObject() {
+  _templateObject$9 = function _templateObject() {
     return data;
   };
 
@@ -3533,7 +4693,7 @@ function _templateObject$8() {
 }
 //add an morph property
 
-var CollapseStyle = styled__default.div(_templateObject$8());
+var CollapseStyle = styled__default.div(_templateObject$9());
 var Collapsible = function Collapsible(props) {
   var container = React.useRef();
 
@@ -3561,26 +4721,26 @@ Collapsible.defaultProps = {
   morph: false
 };
 
-function _templateObject2$5() {
+function _templateObject2$6() {
   var data = _taggedTemplateLiteral(["\n        &:hover {\n            &:before {\n                background-color: ", ";\n            }\n        }\n    "]);
 
-  _templateObject2$5 = function _templateObject2() {
+  _templateObject2$6 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$9() {
+function _templateObject$a() {
   var data = _taggedTemplateLiteral(["\n  padding: 0;\n  display: flex;\n  flex: 1;\n  flex-flow: column ;\n  box-sizing: border-box;\n  margin-left: ", "px;\n  border-left: solid 1px ", ";\n\n\n  .a-item {\n    display: block;\n    position: relative;\n    padding: .5rem 0 .5rem 1.5rem;\n\n    .msg {\n\n    }\n\n    .timestamp {\n        opacity: 0.7;\n        font-size: smaller;\n        font-style: italic;\n    }\n\n\n    ", "\n\n    &::before {\n        content: \"\";\n        width: 23px;\n        height: 23px;\n        top: 50%; left: 0;\n        position: absolute;\n        border-radius: 50%;\n        background-color: white;\n        transform: translate3d(-50%, -50%, 0);\n        box-shadow: 0 0 0 3px ", ";\n        border: solid 1px ", ";\n    }\n  }\n"]);
 
-  _templateObject$9 = function _templateObject() {
+  _templateObject$a = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var ActivityStyle = styled__default.ul(_templateObject$9(), 23 / 2, color("greylight"), withProp("hoverable")(styled.css(_templateObject2$5(), color("whitesmoke"))), color("bgcolor"), color("greylight"));
+var ActivityStyle = styled__default.ul(_templateObject$a(), 23 / 2, color("greylight"), withProp("hoverable")(styled.css(_templateObject2$6(), color("whitesmoke"))), color("bgcolor"), color("greylight"));
 var Activity = function Activity(props) {
   return /*#__PURE__*/React__default.createElement(ActivityStyle, props, props.entries.map(function (e, index) {
     return /*#__PURE__*/React__default.createElement("li", {
@@ -3598,47 +4758,6 @@ Activity.propTypes = {
   entries: propTypes.array,
   render: propTypes.func,
   hoverable: propTypes.bool
-};
-
-function _templateObject3$5() {
-  var data = _taggedTemplateLiteral(["\n\n    > * + * {\n      margin-top:  ", ";\n    }\n  "]);
-
-  _templateObject3$5 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2$6() {
-  var data = _taggedTemplateLiteral(["\n    > * {\n      margin-top: 0;\n      margin-bottom: 0;\n    }\n  "]);
-
-  _templateObject2$6 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$a() {
-  var data = _taggedTemplateLiteral(["\n  padding: 0.1px 0;\n  \n  ", "\n\n  > * + * {\n    margin-top: 1rem;\n  }\n\n  ", "\n\n"]);
-
-  _templateObject$a = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var propSizes = [["small", ".5rem"], ["medium", "1.5rem"], ["large", "2rem"]];
-var StackStyle = styled__default.div(_templateObject$a(), withProp("noExtraSpace")(styled.css(_templateObject2$6())), propSizes.map(function (_ref) {
-  var _ref2 = _slicedToArray(_ref, 2),
-      prop = _ref2[0],
-      size = _ref2[1];
-
-  return withProp(prop)(styled.css(_templateObject3$5(), size));
-}));
-var Stack = function Stack(props) {
-  return /*#__PURE__*/React__default.createElement(StackStyle, props);
 };
 
 function _templateObject2$7() {
@@ -3660,8 +4779,8 @@ function _templateObject$b() {
 
   return data;
 }
-var propSizes$1 = [["small", ".25rem"], ["medium", "1.2rem"], ["large", "1.5rem"]];
-var TabStyle = styled__default.div(_templateObject$b(), propSizes$1.map(function (_ref) {
+var propSizes = [["small", ".25rem"], ["medium", "1.2rem"], ["large", "1.5rem"]];
+var TabStyle = styled__default.div(_templateObject$b(), propSizes.map(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
       prop = _ref2[0],
       size = _ref2[1];
@@ -3672,20 +4791,30 @@ var Tab = function Tab(props) {
   return /*#__PURE__*/React__default.createElement(TabStyle, props);
 };
 
-function _templateObject5$3() {
-  var data = _taggedTemplateLiteral(["\n  padding: 2.5rem;\n"]);
+function _templateObject6$4() {
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tflex-grow: 1;\n\twidth: 100%;\n\tflex-direction: column;\n\talign-items: flex-start;\n"]);
 
-  _templateObject5$3 = function _templateObject5() {
+  _templateObject6$4 = function _templateObject6() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject4$4() {
-  var data = _taggedTemplateLiteral(["\n  padding: 1rem;\n"]);
+function _templateObject5$4() {
+  var data = _taggedTemplateLiteral(["\n\t\t\t\t> * + * { margin-top: unset }\n\t\t\t\t> * + *:not(:empty) {\n\t\t\t\t\tmargin-top: ", ";\n\t\t\t\t}\n\t\t\t"]);
 
-  _templateObject4$4 = function _templateObject4() {
+  _templateObject5$4 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$5() {
+  var data = _taggedTemplateLiteral(["\n\t\t\t> * + * {\n\t\t\t\tmargin-top: ", ";\n\t\t\t}\n\n\t\t\t", "\n\t\t"]);
+
+  _templateObject4$5 = function _templateObject4() {
     return data;
   };
 
@@ -3693,7 +4822,7 @@ function _templateObject4$4() {
 }
 
 function _templateObject3$6() {
-  var data = _taggedTemplateLiteral(["\n    padding-top: 0 !important;\n    padding-bottom: 0 !important;\n  "]);
+  var data = _taggedTemplateLiteral(["\n\t\t> * {\n\t\t\tmargin-top: 0;\n\t\t\tmargin-bottom: 0;\n\t\t}\n\t"]);
 
   _templateObject3$6 = function _templateObject3() {
     return data;
@@ -3703,7 +4832,7 @@ function _templateObject3$6() {
 }
 
 function _templateObject2$8() {
-  var data = _taggedTemplateLiteral(["\n    padding-left: 0 !important;\n    padding-right: 0 !important;\n  "]);
+  var data = _taggedTemplateLiteral(["\n\t\t> * + * { margin-top: unset }\n\t\t> * + *:not(:empty) {\n\t\t\tmargin-top: 1rem;\n\t\t}\n\t"]);
 
   _templateObject2$8 = function _templateObject2() {
     return data;
@@ -3713,7 +4842,7 @@ function _templateObject2$8() {
 }
 
 function _templateObject$c() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: 5rem;\n\n  ", "\n\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n\tpadding: 0.1px 0;\n\t\n\t> * + * {\n\t\tmargin-top: 1rem;\n\t}\n\t\n\t", "\n\n\t", "\n\n\t", "\n"]);
 
   _templateObject$c = function _templateObject() {
     return data;
@@ -3721,36 +4850,18 @@ function _templateObject$c() {
 
   return data;
 }
+var propSizes$1 = [["small", ".5rem"], ["medium", "1.5rem"], ["large", "2rem"]];
+var StackStyle = styled__default.div(_templateObject$c(), withProp("noEmpty", styled.css(_templateObject2$8())), withProp("noExtraSpace", styled.css(_templateObject3$6())), propSizes$1.map(function (_ref) {
+  var _ref2 = _slicedToArray(_ref, 2),
+      prop = _ref2[0],
+      size = _ref2[1];
 
-var addProps = function addProps(fn) {
-  fn.propTypes = {
-    horizontal: propTypes.bool,
-    vertical: propTypes.bool,
-    x: propTypes.bool,
-    y: propTypes.bool,
-    children: propTypes.node.isRequired
-  };
-  return fn;
+  return withProp(prop, styled.css(_templateObject4$5(), size, withProp("noEmpty", styled.css(_templateObject5$4(), size))));
+}));
+var Stack = function Stack(props) {
+  return /*#__PURE__*/React__default.createElement(StackStyle, props);
 };
-
-var withProps = function withProps(props) {
-  return function (style) {
-    return function ($props) {
-      return props.map(function (prop) {
-        return withProp(prop)(style)($props);
-      });
-    };
-  };
-};
-
-var LargeS = styled__default.span(_templateObject$c(), withProps(["vertical", "y"])(styled.css(_templateObject2$8())), withProps(["horizontal", "x"])(styled.css(_templateObject3$6())));
-var SmallS = styled__default(LargeS)(_templateObject4$4());
-var MediumS = styled__default(LargeS)(_templateObject5$3());
-var Cluster = addProps(MediumS);
-var Small = addProps(SmallS);
-var Large = addProps(LargeS);
-Cluster.Large = Large;
-Cluster.Small = Small;
+Stack.Flex = styled__default(Stack)(_templateObject6$4());
 
 function _templateObject2$9() {
   var data = _taggedTemplateLiteral(["\n  justify-content: flex-start;\n  grid-template-columns: repeat(auto-fill, ", ");\n"]);
@@ -3824,7 +4935,7 @@ GridView.propTypes = {
 };
 
 function _templateObject$e() {
-  var data = _taggedTemplateLiteral(["\n\twidth: 100%;\n\theight: 25vh;\n\tmin-height: 250px;\n\tobject-fit: cover;\n\tborder-radius: 12px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  box-sizing: border-box;\n  max-width: 100%;\n\n  .wg--hr_bounce {\n    transition-timing-function: cubic-bezier(0.78, 0.05, 0.41, 0.92);\n  }\n\n  #page-holder {\n    height: 100%;\n    width: 100%;\n    overflow: hidden;\n    box-sizing: border-box;\n    display: flex;\n    flex-wrap: nowrap;\n    boxsizing: border-box;\n    scroll-snap-type: x mandatory;\n    transition: height 0.3s ease-out;\n    transition-property: all;\n    transition-duration: 0.3s;\n\n    &.is-absolute {\n      width: 100%;\n      position: absolute;\n    }\n\n    .page {\n      height: 100%;\n      flex-shrink: 0;\n      margin-left: 0px;\n      scroll-snap-align: start;\n      display: inline-block;\n      box-sizing: border-box;\n\n      &:first-child {\n        margin-left: 0;\n      }\n    }\n  }\n"]);
 
   _templateObject$e = function _templateObject() {
     return data;
@@ -3832,51 +4943,7 @@ function _templateObject$e() {
 
   return data;
 }
-var StyleCoverImage = styled__default.img(_templateObject$e());
-var CoverImage = function CoverImage() {
-  return /*#__PURE__*/React__default.createElement(StyleCoverImage, {
-    className: "w-4/5",
-    src: "/images/vendor_banner.png"
-  });
-};
-
-function _templateObject2$a() {
-  var data = _taggedTemplateLiteral(["\n        * {\n            outline: solid 1px ", ";\n        }\n    "]);
-
-  _templateObject2$a = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$f() {
-  var data = _taggedTemplateLiteral(["\n    & > * {\n        outline: solid 1px ", ";\n    }\n\n    ", "\n"]);
-
-  _templateObject$f = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-var outlineColor = function outlineColor(props) {
-  return props.color || "orange";
-};
-
-var Outliner = styled__default.div(_templateObject$f(), outlineColor, withProp("all")(styled.css(_templateObject2$a(), outlineColor)));
-var Outline = Outliner;
-
-function _templateObject$g() {
-  var data = _taggedTemplateLiteral(["\n  box-sizing: border-box;\n  max-width: 100%;\n\n  .wg--hr_bounce {\n    transition-timing-function: cubic-bezier(0.78, 0.05, 0.41, 0.92);\n  }\n\n  #page-holder {\n    height: 100%;\n    width: 100%;\n    overflow: hidden;\n    box-sizing: border-box;\n    display: flex;\n    flex-wrap: nowrap;\n    boxsizing: border-box;\n    scroll-snap-type: x mandatory;\n    transition: height 0.3s ease-out;\n    transition-property: all;\n    transition-duration: 0.3s;\n\n    &.is-absolute {\n      width: 100%;\n      position: absolute;\n    }\n\n    .page {\n      height: 100%;\n      flex-shrink: 0;\n      margin-left: 0px;\n      scroll-snap-align: start;\n      display: inline-block;\n      box-sizing: border-box;\n\n      &:first-child {\n        margin-left: 0;\n      }\n    }\n  }\n"]);
-
-  _templateObject$g = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Wrap = styled__default.div(_templateObject$g());
+var Wrap = styled__default.div(_templateObject$e());
 var Pager = function Pager(props) {
   var cp = props.current;
 
@@ -3885,7 +4952,6 @@ var Pager = function Pager(props) {
       height = _useState2[0],
       setHeight = _useState2[1];
 
-  var pages = props.children;
   var slideLeft = React.useCallback(function (cp, slider) {
     return slider.current.clientWidth * cp;
   }, []);
@@ -3926,7 +4992,7 @@ var Pager = function Pager(props) {
     style: {
       height: height
     }
-  }, pages.map(function (child, index) {
+  }, React__default.Children.map(props.children, function (child, index) {
     return /*#__PURE__*/React__default.createElement(Slide, {
       key: index,
       ref: function ref(_ref) {
@@ -3966,8 +5032,88 @@ Slide.propTypes = {
   width: propTypes.string.isRequired
 };
 
+function _templateObject5$5() {
+  var data = _taggedTemplateLiteral(["\n  padding: 2.5rem;\n"]);
+
+  _templateObject5$5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$6() {
+  var data = _taggedTemplateLiteral(["\n  padding: 1rem;\n"]);
+
+  _templateObject4$6 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$7() {
+  var data = _taggedTemplateLiteral(["\n    padding-top: 0 !important;\n    padding-bottom: 0 !important;\n  "]);
+
+  _templateObject3$7 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$a() {
+  var data = _taggedTemplateLiteral(["\n    padding-left: 0 !important;\n    padding-right: 0 !important;\n  "]);
+
+  _templateObject2$a = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$f() {
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: 5rem;\n\n  ", "\n\n  ", "\n"]);
+
+  _templateObject$f = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+var addProps = function addProps(fn) {
+  fn.propTypes = {
+    horizontal: propTypes.bool,
+    vertical: propTypes.bool,
+    x: propTypes.bool,
+    y: propTypes.bool,
+    children: propTypes.node.isRequired
+  };
+  return fn;
+};
+
+var withProps = function withProps(props) {
+  return function (style) {
+    return function ($props) {
+      return props.map(function (prop) {
+        return withProp(prop)(style)($props);
+      });
+    };
+  };
+};
+
+var LargeS = styled__default.span(_templateObject$f(), withProps(["vertical", "y"])(styled.css(_templateObject2$a())), withProps(["horizontal", "x"])(styled.css(_templateObject3$7())));
+var SmallS = styled__default(LargeS)(_templateObject4$6());
+var MediumS = styled__default(LargeS)(_templateObject5$5());
+var Cluster = addProps(MediumS);
+var Small = addProps(SmallS);
+var Large = addProps(LargeS);
+Cluster.Large = Large;
+Cluster.Small = Small;
+
 function _templateObject2$b() {
-  var data = _taggedTemplateLiteral(["\n  background-color: ", ";\n  min-height: calc(100vh - 60px);\n  position: sticky;\n  top: 60px;\n"]);
+  var data = _taggedTemplateLiteral(["\n        * {\n            outline: solid 1px ", ";\n        }\n    "]);
 
   _templateObject2$b = function _templateObject2() {
     return data;
@@ -3976,8 +5122,25 @@ function _templateObject2$b() {
   return data;
 }
 
+function _templateObject$g() {
+  var data = _taggedTemplateLiteral(["\n    & > * {\n        outline: solid 1px ", ";\n    }\n\n    ", "\n"]);
+
+  _templateObject$g = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+var outlineColor = function outlineColor(props) {
+  return props.color || "orange";
+};
+
+var Outliner = styled__default.div(_templateObject$g(), outlineColor, withProp("all")(styled.css(_templateObject2$b(), outlineColor)));
+var Outline = Outliner;
+
 function _templateObject$h() {
-  var data = _taggedTemplateLiteral(["\n  min-height: calc(100vh - 80px);\n  background-color: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n\twidth: 100%;\n\theight: 25vh;\n\tmin-height: 250px;\n\tobject-fit: cover;\n\tborder-radius: 12px;\n"]);
 
   _templateObject$h = function _templateObject() {
     return data;
@@ -3985,20 +5148,12 @@ function _templateObject$h() {
 
   return data;
 }
-var JumbotronStyle = styled__default.div(_templateObject$h(), function (props) {
-  return props.theme.primary;
-});
-var Jumbotron = function Jumbotron(props) {
-  return /*#__PURE__*/React__default.createElement(JumbotronStyle, props, props.children);
-};
-var Container = function Container(props) {
-  return /*#__PURE__*/React__default.createElement("div", {
-    className: "container mx-auto"
-  }, props.children);
-};
-var SidebarStyle = styled__default.div(_templateObject2$b(), color("navbar"));
-var Sidebar = function Sidebar(props) {
-  return /*#__PURE__*/React__default.createElement(SidebarStyle, null, props.children);
+var StyleCoverImage = styled__default.img(_templateObject$h());
+var CoverImage = function CoverImage() {
+  return /*#__PURE__*/React__default.createElement(StyleCoverImage, {
+    className: "w-4/5",
+    src: "/images/vendor_banner.png"
+  });
 };
 
 function _templateObject$i() {
@@ -4156,7 +5311,6 @@ exports.Checkbox = Checkbox;
 exports.CircleButton = CircleButton;
 exports.Cluster = Cluster;
 exports.Collapsible = Collapsible;
-exports.Container = Container;
 exports.CoverImage = CoverImage;
 exports.CurrencyInput = CurrencyInput;
 exports.FlatList = FlatList;
@@ -4168,9 +5322,8 @@ exports.H3 = H3;
 exports.H4 = H4;
 exports.Heading = Heading;
 exports.IconButton = IconButton;
-exports.IconInput = IconInput;
 exports.Input = Input;
-exports.Jumbotron = Jumbotron;
+exports.Labelled = Labelled;
 exports.Modal = Modal;
 exports.Outline = Outline;
 exports.P = P;
@@ -4178,9 +5331,9 @@ exports.Pager = Pager;
 exports.RadioInput = RadioInput;
 exports.RadioLabel = RadioLabel;
 exports.SearchComponent = SearchComponent;
-exports.Sidebar = Sidebar;
 exports.Stack = Stack;
 exports.Tab = Tab;
+exports.TextWrapper = TextWrapper;
 exports.ThreeColumns = ThreeColumns;
 exports.TwoColumns = TwoColumns;
 exports.Type = Type;

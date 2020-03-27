@@ -28,6 +28,17 @@ storiesOf("Layouts", module).addDecorator(withKnobs)
 					<i>Observe the space between the child contents</i>
 				</P>
 			</Stack>
+
+			{/* Removes the margin top from empty elements */}
+			<Outline all>
+				<Stack large noEmpty>
+					<div></div>
+					<div></div>
+					<div></div>
+				</Stack>
+			</Outline>
+			{/* Removes the margin top from empty elements */}
+			
 			<Outline all>
 				<Stack>
 					<H2 light>Mocking Jay</H2>
@@ -138,6 +149,7 @@ storiesOf("Layouts", module).addDecorator(withKnobs)
 				<Stack noExtraSpace style={{ width: "100%" }}>
 					<H2>Pager</H2>
 					<Outline color="indigo">
+						<Pager /> {/* For Safety: Should throw error when no children */}
 						<Pager current={current} morph={boolean("Should Morph")}>
 							<ClusterOutline>
 								<Stack noExtraSpace>
