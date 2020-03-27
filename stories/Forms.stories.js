@@ -4,7 +4,6 @@ import { H3 } from "../components/typography/heading"
 import { Stack } from "../components/layouts"
 import { Theme } from "./styles/StyleComponents"
 import {
-	IconInput,
 	RadioInput,
 	RadioLabel,
 	CurrencyInput,
