@@ -37,6 +37,7 @@
   ],
   "homepage": "https://github.com/wigxel/react-components#readme",
   "dependencies": {
+    "husky": "^4.2.3",
     "lodash": "^4.17.15",
     "ramda": "^0.27.0",
     "react": "^16.13.1",
@@ -73,5 +74,11 @@
     "tap-spec": "^5.0.0",
     "tape": "^4.13.2",
     "tape-watch": "^2.3.0"
+  },
+   "husky": {
+    "hooks": {
+      "pre-commit": "clear && npm run -s lint",
+      "pre-push": "clear && npm run -s release"
+    }
   }
 }

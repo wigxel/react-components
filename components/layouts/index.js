@@ -1,6 +1,5 @@
 export * from "./Tab"
 export * from "./Stack"
-export * from "./Grids"
 export * from "./Pager"
 export * from "./Cluster"
 export * from "./Outline"
