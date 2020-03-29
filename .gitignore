@@ -2,8 +2,8 @@
 # Created by https://www.gitignore.io/api/git,node,react
 # Edit at https://www.gitignore.io/?templates=git,node,react
 
-build
-dist
+build/
+dist/
 ### Git ###
 # Created by git for backups. To disable backups in Git:
 # $ git config --global mergetool.keepBackup false
