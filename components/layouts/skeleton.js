@@ -1,4 +1,5 @@
 import React from "react"
+import t from "prop-types"
 import styled from "styled-components"
 
 const skel = (name) => props => props.theme.skeleton[name]
@@ -28,4 +29,8 @@ const SkeletonStyle = styled.div`
 export const SkeletonWrapper = props => {
 	const { width, height } = props
 	return <SkeletonStyle {...props} style={{ width, height }} />
+}
+SkeletonWrapper.propTypes = {
+	width: t.number.isRequired,
+	height: t.number.isRequired
 }

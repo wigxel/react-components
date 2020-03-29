@@ -1009,6 +1009,85 @@ _curry2(function path(pathAr, obj) {
 });
 
 /**
+ * Returns a function that when supplied an object returns the indicated
+ * property of that object, if it exists.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category Object
+ * @typedefn Idx = String | Int
+ * @sig Idx -> {s: a} -> a | Undefined
+ * @param {String|Number} p The property name or array index
+ * @param {Object} obj The object to query
+ * @return {*} The value at `obj.p`.
+ * @see R.path, R.nth
+ * @example
+ *
+ *      R.prop('x', {x: 100}); //=> 100
+ *      R.prop('x', {}); //=> undefined
+ *      R.prop(0, [100]); //=> 100
+ *      R.compose(R.inc, R.prop('x'))({ x: 3 }) //=> 4
+ */
+
+var prop =
+/*#__PURE__*/
+_curry2(function prop(p, obj) {
+  return path([p], obj);
+});
+
+/**
+ * Returns a single item by iterating through the list, successively calling
+ * the iterator function and passing it an accumulator value and the current
+ * value from the array, and then passing the result to the next call.
+ *
+ * The iterator function receives two values: *(acc, value)*. It may use
+ * [`R.reduced`](#reduced) to shortcut the iteration.
+ *
+ * The arguments' order of [`reduceRight`](#reduceRight)'s iterator function
+ * is *(value, acc)*.
+ *
+ * Note: `R.reduce` does not skip deleted or unassigned indices (sparse
+ * arrays), unlike the native `Array.prototype.reduce` method. For more details
+ * on this behavior, see:
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
+ *
+ * Dispatches to the `reduce` method of the third argument, if present. When
+ * doing so, it is up to the user to handle the [`R.reduced`](#reduced)
+ * shortcuting, as this is not implemented by `reduce`.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig ((a, b) -> a) -> a -> [b] -> a
+ * @param {Function} fn The iterator function. Receives two values, the accumulator and the
+ *        current element from the array.
+ * @param {*} acc The accumulator value.
+ * @param {Array} list The list to iterate over.
+ * @return {*} The final, accumulated value.
+ * @see R.reduced, R.addIndex, R.reduceRight
+ * @example
+ *
+ *      R.reduce(R.subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
+ *      //          -               -10
+ *      //         / \              / \
+ *      //        -   4           -6   4
+ *      //       / \              / \
+ *      //      -   3   ==>     -3   3
+ *      //     / \              / \
+ *      //    -   2           -1   2
+ *      //   / \              / \
+ *      //  0   1            0   1
+ *
+ * @symb R.reduce(f, a, [b, c, d]) = f(f(f(a, b), c), d)
+ */
+
+var reduce =
+/*#__PURE__*/
+_curry3(_reduce);
+
+/**
  * Makes a shallow clone of an object, setting or overriding the specified
  * property with the given value. Note that this copies and flattens prototype
  * properties onto the new object as well. All non-primitive properties are
@@ -1167,6 +1246,10 @@ _curry1(function curry(fn) {
   return curryN(fn.length, fn);
 });
 
+function _cloneRegExp(pattern) {
+  return new RegExp(pattern.source, (pattern.global ? 'g' : '') + (pattern.ignoreCase ? 'i' : '') + (pattern.multiline ? 'm' : '') + (pattern.sticky ? 'y' : '') + (pattern.unicode ? 'u' : ''));
+}
+
 /**
  * Gives a single-word string description of the (native) type of a value,
  * returning such answers as 'Object', 'Number', 'Array', or 'Null'. Does not
@@ -1198,6 +1281,201 @@ var type =
 _curry1(function type(val) {
   return val === null ? 'Null' : val === undefined ? 'Undefined' : Object.prototype.toString.call(val).slice(8, -1);
 });
+
+function _pipe(f, g) {
+  return function () {
+    return g.call(this, f.apply(this, arguments));
+  };
+}
+
+/**
+ * This checks whether a function has a [methodname] function. If it isn't an
+ * array it will execute that function otherwise it will default to the ramda
+ * implementation.
+ *
+ * @private
+ * @param {Function} fn ramda implemtation
+ * @param {String} methodname property to check for a custom implementation
+ * @return {Object} Whatever the return value of the method is.
+ */
+
+function _checkForMethod(methodname, fn) {
+  return function () {
+    var length = arguments.length;
+
+    if (length === 0) {
+      return fn();
+    }
+
+    var obj = arguments[length - 1];
+    return _isArray(obj) || typeof obj[methodname] !== 'function' ? fn.apply(this, arguments) : obj[methodname].apply(obj, Array.prototype.slice.call(arguments, 0, length - 1));
+  };
+}
+
+/**
+ * Returns the elements of the given list or string (or object with a `slice`
+ * method) from `fromIndex` (inclusive) to `toIndex` (exclusive).
+ *
+ * Dispatches to the `slice` method of the third argument, if present.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.4
+ * @category List
+ * @sig Number -> Number -> [a] -> [a]
+ * @sig Number -> Number -> String -> String
+ * @param {Number} fromIndex The start index (inclusive).
+ * @param {Number} toIndex The end index (exclusive).
+ * @param {*} list
+ * @return {*}
+ * @example
+ *
+ *      R.slice(1, 3, ['a', 'b', 'c', 'd']);        //=> ['b', 'c']
+ *      R.slice(1, Infinity, ['a', 'b', 'c', 'd']); //=> ['b', 'c', 'd']
+ *      R.slice(0, -1, ['a', 'b', 'c', 'd']);       //=> ['a', 'b', 'c']
+ *      R.slice(-3, -1, ['a', 'b', 'c', 'd']);      //=> ['b', 'c']
+ *      R.slice(0, 3, 'ramda');                     //=> 'ram'
+ */
+
+var slice =
+/*#__PURE__*/
+_curry3(
+/*#__PURE__*/
+_checkForMethod('slice', function slice(fromIndex, toIndex, list) {
+  return Array.prototype.slice.call(list, fromIndex, toIndex);
+}));
+
+/**
+ * Returns all but the first element of the given list or string (or object
+ * with a `tail` method).
+ *
+ * Dispatches to the `slice` method of the first argument, if present.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig [a] -> [a]
+ * @sig String -> String
+ * @param {*} list
+ * @return {*}
+ * @see R.head, R.init, R.last
+ * @example
+ *
+ *      R.tail([1, 2, 3]);  //=> [2, 3]
+ *      R.tail([1, 2]);     //=> [2]
+ *      R.tail([1]);        //=> []
+ *      R.tail([]);         //=> []
+ *
+ *      R.tail('abc');  //=> 'bc'
+ *      R.tail('ab');   //=> 'b'
+ *      R.tail('a');    //=> ''
+ *      R.tail('');     //=> ''
+ */
+
+var tail =
+/*#__PURE__*/
+_curry1(
+/*#__PURE__*/
+_checkForMethod('tail',
+/*#__PURE__*/
+slice(1, Infinity)));
+
+/**
+ * Performs left-to-right function composition. The first argument may have
+ * any arity; the remaining arguments must be unary.
+ *
+ * In some libraries this function is named `sequence`.
+ *
+ * **Note:** The result of pipe is not automatically curried.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category Function
+ * @sig (((a, b, ..., n) -> o), (o -> p), ..., (x -> y), (y -> z)) -> ((a, b, ..., n) -> z)
+ * @param {...Function} functions
+ * @return {Function}
+ * @see R.compose
+ * @example
+ *
+ *      const f = R.pipe(Math.pow, R.negate, R.inc);
+ *
+ *      f(3, 4); // -(3^4) + 1
+ * @symb R.pipe(f, g, h)(a, b) = h(g(f(a, b)))
+ */
+
+function pipe() {
+  if (arguments.length === 0) {
+    throw new Error('pipe requires at least one argument');
+  }
+
+  return _arity(arguments[0].length, reduce(_pipe, arguments[0], tail(arguments)));
+}
+
+/**
+ * Returns a new list or string with the elements or characters in reverse
+ * order.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig [a] -> [a]
+ * @sig String -> String
+ * @param {Array|String} list
+ * @return {Array|String}
+ * @example
+ *
+ *      R.reverse([1, 2, 3]);  //=> [3, 2, 1]
+ *      R.reverse([1, 2]);     //=> [2, 1]
+ *      R.reverse([1]);        //=> [1]
+ *      R.reverse([]);         //=> []
+ *
+ *      R.reverse('abc');      //=> 'cba'
+ *      R.reverse('ab');       //=> 'ba'
+ *      R.reverse('a');        //=> 'a'
+ *      R.reverse('');         //=> ''
+ */
+
+var reverse =
+/*#__PURE__*/
+_curry1(function reverse(list) {
+  return _isString(list) ? list.split('').reverse().join('') : Array.prototype.slice.call(list, 0).reverse();
+});
+
+/**
+ * Performs right-to-left function composition. The last argument may have
+ * any arity; the remaining arguments must be unary.
+ *
+ * **Note:** The result of compose is not automatically curried.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category Function
+ * @sig ((y -> z), (x -> y), ..., (o -> p), ((a, b, ..., n) -> o)) -> ((a, b, ..., n) -> z)
+ * @param {...Function} ...functions The functions to compose
+ * @return {Function}
+ * @see R.pipe
+ * @example
+ *
+ *      const classyGreeting = (firstName, lastName) => "The name's " + lastName + ", " + firstName + " " + lastName
+ *      const yellGreeting = R.compose(R.toUpper, classyGreeting);
+ *      yellGreeting('James', 'Bond'); //=> "THE NAME'S BOND, JAMES BOND"
+ *
+ *      R.compose(Math.abs, R.add(1), R.multiply(2))(-4) //=> 7
+ *
+ * @symb R.compose(f, g, h)(a, b) = f(g(h(a, b)))
+ */
+
+function compose() {
+  if (arguments.length === 0) {
+    throw new Error('compose requires at least one argument');
+  }
+
+  return pipe.apply(this, reverse(arguments));
+}
 
 function _arrayFromIterator(iter) {
   var list = [];
@@ -1828,6 +2106,32 @@ _curry2(function invoker(arity, method) {
   });
 });
 
+function _isNumber(x) {
+  return Object.prototype.toString.call(x) === '[object Number]';
+}
+
+/**
+ * Returns the number of elements in the array by returning `list.length`.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.3.0
+ * @category List
+ * @sig [a] -> Number
+ * @param {Array} list The array to inspect.
+ * @return {Number} The length of the array.
+ * @example
+ *
+ *      R.length([]); //=> 0
+ *      R.length([1, 2, 3]); //=> 3
+ */
+
+var length =
+/*#__PURE__*/
+_curry1(function length(list) {
+  return list != null && _isNumber(list.length) ? list.length : NaN;
+});
+
 /**
  * Returns a lens for the given getter and setter functions. The getter "gets"
  * the value of the focus; the setter "sets" the value of the focus. The setter
@@ -1954,6 +2258,38 @@ _curry2(function pickBy(test, obj) {
 var split =
 /*#__PURE__*/
 invoker(1, 'split');
+
+function _isRegExp(x) {
+  return Object.prototype.toString.call(x) === '[object RegExp]';
+}
+
+/**
+ * Determines whether a given string matches a given regular expression.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.12.0
+ * @category String
+ * @sig RegExp -> String -> Boolean
+ * @param {RegExp} pattern
+ * @param {String} str
+ * @return {Boolean}
+ * @see R.match
+ * @example
+ *
+ *      R.test(/^x/, 'xyz'); //=> true
+ *      R.test(/^y/, 'xyz'); //=> false
+ */
+
+var test =
+/*#__PURE__*/
+_curry2(function test(pattern, str) {
+  if (!_isRegExp(pattern)) {
+    throw new TypeError('‘test’ requires a value of type RegExp as its first argument; received ' + toString$1(pattern));
+  }
+
+  return _cloneRegExp(pattern).test(str);
+});
 
 /**
  * Converts an object into an array of key, value arrays. Only the object's
@@ -4511,7 +4847,7 @@ Labelled.Textarea = createInput(function (_ref5) {
 }, {});
 
 function _templateObject$5() {
-  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\toverflow: hidden;\n\twidth: 100%;\n\tmax-width: 800px;\n\tflex-flow: column;\n\tborder-radius: 0 0 12px 12px;\n\tbox-shadow: 0 17px 9px 0px rgba(0, 0, 0, 0.1);\n\n\t> input {\n\t\theight: 50px;\n\t\tcolor: white;\n\t\ttext-indent: 20px;\n\t\tfont-size: 16px;\n\t\tbackground: transparent;\n\t\tborder: solid 1px white;\n\n\t\t&::placeholder {\n\t\t\tcolor: white;\n\t\t}\n\n\t\t&:focus {\n\t\t\tborder-width: 2px;\n\t\t}\n\t}\n\n\t> .search-base {\n\t\theight: 50px;\n\t\tdisplay: flex;\n\t\tpadding-left: 1rem;\n\t\tpadding-right: 1rem;\n\t\talign-items: center;\n\t\tfont-family: 'Quicksand', sans-serif;\n\t\tbackground-color: white;\n\t\tcolor: ", ";\n\n\t\t.tags {\n\t\t\tflex: 1;\n\t\t\tdisplay: flex;\n\t\t\tmargin-left: 1rem;\n\t\t\tjustify-content: flex-start;\n\t\t}\n\n\t\ta {\n\t\t\tpadding: 0.5em 0.5em;\n\t\t\tborder-radius: 12px;\n\t\t\ttransition: all 0.3s ease-out;\n\t\t\tcursor: pointer;\n\n\t\t\t&:hover {\n\t\t\t\tbackground-color: ", ";\n\t\t\t}\n\t\t}\n\t}\n"]);
+  var data = _taggedTemplateLiteral(["\n\twidth: 100%;\n\tfont-size: 1em;\n\n\t* {\n\t\ttransition: all 1s ease-out;\n\t}\n\n\t.assertion {\n\t\tposition: relative;\n\t\tpadding-left: 2em;\n\n\t\t&::before {\n\t\t\tcontent: \"\";\n\t\t\tleft: 0;\n\t\t\theight: 10px;\n\t\t\twill-change: right;\n\t\t\tposition: absolute;\n\t\t\tborder-radius: 13px;\n\t\t\ttop: calc(50% - 5px);\n\t\t\tbackground-color: ", ";\n\t\t\tright: calc(100% - 10px);\n\t\t\ttransition: left 0.3s ease-out, right 0.3s ease-out;\n\t\t}\n\t}\n\n\t.-stroke {\n\t\t.assertion {\n\t\t\tcolor: ", ";\n\n\t\t\t&::before {\n\t\t\t\tleft: 1.5rem;\n\t\t\t\tright: 0;\n\t\t\t\topacity: 0.5;\n\t\t\t\tbackground: ", ";\n\t\t\t}\n\t\t}\n\t}\n\n\t.red {\n\t\tcolor: ", ";\n\t}\n"]);
 
   _templateObject$5 = function _templateObject() {
     return data;
@@ -4519,8 +4855,95 @@ function _templateObject$5() {
 
   return data;
 }
+var theme$2 = themeOr({
+  danger: "crimson",
+  primary: "#4a6dd2"
+});
+var Progress = styled__default.div(_templateObject$5(), theme$2("danger"), theme$2("primary"), theme$2("primary"), theme$2("danger"));
+
+var assert = function assert(pwd) {
+  return function (e) {
+    return test(e, pwd);
+  };
+};
+
+var testRegex = function testRegex(pwd) {
+  return compose(assert(pwd), prop("regex"));
+};
+
+var setPassword = function setPassword(pwd) {
+  return compose(function (length) {
+    return length == 0;
+  }, length, filter(function (result) {
+    return result == false;
+  }), map(testRegex(pwd)));
+};
+
+var PasswordValidator = function PasswordValidator(_ref) {
+  var password = _ref.password,
+      onStatus = _ref.onStatus,
+      rules = _ref.rules;
+
+  var _useState = React.useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      lock = _useState2[0],
+      setLock = _useState2[1];
+
+  var passedAll = React.useCallback(setPassword(password), []);
+
+  if (!lock) {
+    if (passedAll(rules)) {
+      if (onStatus) onStatus({
+        passed: true
+      });
+      setLock(true);
+    }
+  }
+
+  return /*#__PURE__*/React__default.createElement(Progress, null, /*#__PURE__*/React__default.createElement("b", null, "Password must contain:"), /*#__PURE__*/React__default.createElement("div", {
+    style: {
+      padding: ".2rem 0"
+    }
+  }, rules.map(function (_ref2, idx) {
+    var message = _ref2.message,
+        regex = _ref2.regex;
+    return /*#__PURE__*/React__default.createElement("div", {
+      key: idx,
+      className: test(regex, password || "") ? "-stroke" : ""
+    }, /*#__PURE__*/React__default.createElement("span", {
+      className: "assertion"
+    }, message));
+  })));
+};
+PasswordValidator.defaultProps = {
+  rules: [{
+    message: "at leaset one Capital Letter (A - Z)",
+    regex: /[A-Z]{1}/
+  }, {
+    message: "a minimum of 6 characters",
+    regex: /\S{6,}/i
+  }, {
+    message: "at least a digit number",
+    regex: /\d{1}/
+  }]
+};
+PasswordValidator.propTypes = {
+  rules: propTypes.array,
+  onStatus: propTypes.func,
+  password: propTypes.string.isRequired
+};
+
+function _templateObject$6() {
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\toverflow: hidden;\n\twidth: 100%;\n\tmax-width: 800px;\n\tflex-flow: column;\n\tborder-radius: 0 0 12px 12px;\n\tbox-shadow: 0 17px 9px 0px rgba(0, 0, 0, 0.1);\n\n\t> input {\n\t\theight: 50px;\n\t\tcolor: white;\n\t\ttext-indent: 20px;\n\t\tfont-size: 16px;\n\t\tbackground: transparent;\n\t\tborder: solid 1px white;\n\n\t\t&::placeholder {\n\t\t\tcolor: white;\n\t\t}\n\n\t\t&:focus {\n\t\t\tborder-width: 2px;\n\t\t}\n\t}\n\n\t> .search-base {\n\t\theight: 50px;\n\t\tdisplay: flex;\n\t\tpadding-left: 1rem;\n\t\tpadding-right: 1rem;\n\t\talign-items: center;\n\t\tfont-family: 'Quicksand', sans-serif;\n\t\tbackground-color: white;\n\t\tcolor: ", ";\n\n\t\t.tags {\n\t\t\tflex: 1;\n\t\t\tdisplay: flex;\n\t\t\tmargin-left: 1rem;\n\t\t\tjustify-content: flex-start;\n\t\t}\n\n\t\ta {\n\t\t\tpadding: 0.5em 0.5em;\n\t\t\tborder-radius: 12px;\n\t\t\ttransition: all 0.3s ease-out;\n\t\t\tcursor: pointer;\n\n\t\t\t&:hover {\n\t\t\t\tbackground-color: ", ";\n\t\t\t}\n\t\t}\n\t}\n"]);
+
+  _templateObject$6 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
 var CurrencyInput = NumberInput;
-var SearchStyle = styled__default.div(_templateObject$5(), function (props) {
+var SearchStyle = styled__default.div(_templateObject$6(), function (props) {
   return props.theme.primary;
 }, function (props) {
   return props.theme.whitesmoke;
@@ -4549,10 +4972,10 @@ SearchComponent.defaultProps = {
   onSubmit: function onSubmit() {}
 };
 
-function _templateObject$6() {
+function _templateObject$7() {
   var data = _taggedTemplateLiteral(["\n\theader {\n\t\tpadding: 0 0.5rem 0.5rem;\n\t\tmargin: -0.5rem -0.5rem .5rem;\n\t\tborder-bottom: solid 1px ", "\n\t}\n"]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
@@ -4560,7 +4983,7 @@ function _templateObject$6() {
 }
 var StyledCard = styled__default(CardStyle({
   shadow: true
-}))(_templateObject$6(), color("whitesmoke"));
+}))(_templateObject$7(), color("whitesmoke"));
 var Card = function Card(props) {
   return /*#__PURE__*/React__default.createElement(StyledCard, props);
 };
@@ -4601,10 +5024,10 @@ function _templateObject2$5() {
   return data;
 }
 
-function _templateObject$7() {
+function _templateObject$8() {
   var data = _taggedTemplateLiteral(["\n    top: 0;\n    left: 0;\n    right: 0;\n    margin: 0 !important; \n    bottom: 0;\n    z-index: 999;\n    display: flex;\n    visibility: hidden;\n    position: fixed;\n    justify-content: center;\n    \n    &, .wg-dialog, .wg-modal-content, .wg-backdrop {\n        transition: all .3s cubic-bezier(.17, .84, .44, 1);\n    }\n\n    .wg-dialog {\n        opacity: 0;\n        width: 100%;\n        display: flex;\n        padding-top: 10vh;\n        overflow-y: scroll;\n        justify-content: center;\n        align-items: flex-start;\n    }\n\n    .wg-backdrop {\n        top: 0;\n        left: 0;\n        right: 0;\n        bottom: 0;\n        opacity: 0;\n        position: absolute;\n        background: rgba(0, 0, 0, 0.47); \n    }\n\n    .wg-modal-content {\n        width: 100%;\n        max-width: 800px;\n        transform: translate(0, -50%);\n\n        ", "\n\n        ", "\n    }\n\n    ", "\n\n"]);
 
-  _templateObject$7 = function _templateObject() {
+  _templateObject$8 = function _templateObject() {
     return data;
   };
 
@@ -4618,7 +5041,7 @@ var ModalSize = {
     return e === "lg";
   }
 };
-var DialogStyle = styled__default.section(_templateObject$7(), propIs("size")(ModalSize.small)(styled.css(_templateObject2$5())), propIs("size")(ModalSize.large)(styled.css(_templateObject3$5())), propIs("show")(function (show) {
+var DialogStyle = styled__default.section(_templateObject$8(), propIs("size")(ModalSize.small)(styled.css(_templateObject2$5())), propIs("size")(ModalSize.large)(styled.css(_templateObject3$5())), propIs("show")(function (show) {
   return show === true;
 })(styled.css(_templateObject4$4())));
 var Modal = function Modal(props) {
@@ -4652,16 +5075,16 @@ Modal.propTypes = {
   size: propTypes.string.isRequired
 };
 
-function _templateObject$8() {
+function _templateObject$9() {
   var data = _taggedTemplateLiteral(["\n  width: 100%;\n  padding: 0;\n  box-sizing: border-box;\n\n  .list-item {\n    padding: 0.5rem 1rem;\n    & + .list-item {\n      border-top: solid 1px ", ";\n    }\n  }\n\n  li {\n    display: block;\n\n    a {\n      display: block;\n      text-decoration: none;\n      border: 0 solid 5px;\n      padding: 1rem 1.5rem;\n      color: ", ";\n      transition: border 0.3s cubic-bezier(0.74, 1.26, 0.99, 0.97);\n\n      &.active {\n        color: ", ";\n        background-color: ", ";\n        border-left: solid 5px ", ";\n      }\n    }\n  }\n"]);
 
-  _templateObject$8 = function _templateObject() {
+  _templateObject$9 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var FlatListStyle = styled__default.ul(_templateObject$8(), color("whitesmoke"), color("grey"), color("primary"), color("whitesmoke"), color("primary"));
+var FlatListStyle = styled__default.ul(_templateObject$9(), color("whitesmoke"), color("grey"), color("primary"), color("whitesmoke"), color("primary"));
 var FlatList = function FlatList(props) {
   return /*#__PURE__*/React__default.createElement(FlatListStyle, null, props.children);
 };
@@ -4682,10 +5105,10 @@ var FlatListLink = function FlatListLink(props) {
 
 FlatList.Link = FlatListLink;
 
-function _templateObject$9() {
+function _templateObject$a() {
   var data = _taggedTemplateLiteral(["\n  height: 0;\n  padding: 0 0;\n  overflow: hidden;\n  grid-column: 1 / 3;\n  transition: all 0.3s ease-out;\n\n  ul {\n    margin: 0;\n    padding: 0;\n    width: 100%;\n    display: block;\n  }\n"]);
 
-  _templateObject$9 = function _templateObject() {
+  _templateObject$a = function _templateObject() {
     return data;
   };
 
@@ -4693,7 +5116,7 @@ function _templateObject$9() {
 }
 //add an morph property
 
-var CollapseStyle = styled__default.div(_templateObject$9());
+var CollapseStyle = styled__default.div(_templateObject$a());
 var Collapsible = function Collapsible(props) {
   var container = React.useRef();
 
@@ -4731,16 +5154,16 @@ function _templateObject2$6() {
   return data;
 }
 
-function _templateObject$a() {
+function _templateObject$b() {
   var data = _taggedTemplateLiteral(["\n  padding: 0;\n  display: flex;\n  flex: 1;\n  flex-flow: column ;\n  box-sizing: border-box;\n  margin-left: ", "px;\n  border-left: solid 1px ", ";\n\n\n  .a-item {\n    display: block;\n    position: relative;\n    padding: .5rem 0 .5rem 1.5rem;\n\n    .msg {\n\n    }\n\n    .timestamp {\n        opacity: 0.7;\n        font-size: smaller;\n        font-style: italic;\n    }\n\n\n    ", "\n\n    &::before {\n        content: \"\";\n        width: 23px;\n        height: 23px;\n        top: 50%; left: 0;\n        position: absolute;\n        border-radius: 50%;\n        background-color: white;\n        transform: translate3d(-50%, -50%, 0);\n        box-shadow: 0 0 0 3px ", ";\n        border: solid 1px ", ";\n    }\n  }\n"]);
 
-  _templateObject$a = function _templateObject() {
+  _templateObject$b = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var ActivityStyle = styled__default.ul(_templateObject$a(), 23 / 2, color("greylight"), withProp("hoverable")(styled.css(_templateObject2$6(), color("whitesmoke"))), color("bgcolor"), color("greylight"));
+var ActivityStyle = styled__default.ul(_templateObject$b(), 23 / 2, color("greylight"), withProp("hoverable")(styled.css(_templateObject2$6(), color("whitesmoke"))), color("bgcolor"), color("greylight"));
 var Activity = function Activity(props) {
   return /*#__PURE__*/React__default.createElement(ActivityStyle, props, props.entries.map(function (e, index) {
     return /*#__PURE__*/React__default.createElement("li", {
@@ -4770,17 +5193,17 @@ function _templateObject2$7() {
   return data;
 }
 
-function _templateObject$b() {
+function _templateObject$c() {
   var data = _taggedTemplateLiteral(["\n  > * + * {\n    margin-left:  0.5rem;\n  }\n\n  ", "\n"]);
 
-  _templateObject$b = function _templateObject() {
+  _templateObject$c = function _templateObject() {
     return data;
   };
 
   return data;
 }
 var propSizes = [["small", ".25rem"], ["medium", "1.2rem"], ["large", "1.5rem"]];
-var TabStyle = styled__default.div(_templateObject$b(), propSizes.map(function (_ref) {
+var TabStyle = styled__default.div(_templateObject$c(), propSizes.map(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
       prop = _ref2[0],
       size = _ref2[1];
@@ -4841,17 +5264,17 @@ function _templateObject2$8() {
   return data;
 }
 
-function _templateObject$c() {
+function _templateObject$d() {
   var data = _taggedTemplateLiteral(["\n\tpadding: 0.1px 0;\n\t\n\t> * + * {\n\t\tmargin-top: 1rem;\n\t}\n\t\n\t", "\n\n\t", "\n\n\t", "\n"]);
 
-  _templateObject$c = function _templateObject() {
+  _templateObject$d = function _templateObject() {
     return data;
   };
 
   return data;
 }
 var propSizes$1 = [["small", ".5rem"], ["medium", "1.5rem"], ["large", "2rem"]];
-var StackStyle = styled__default.div(_templateObject$c(), withProp("noEmpty", styled.css(_templateObject2$8())), withProp("noExtraSpace", styled.css(_templateObject3$6())), propSizes$1.map(function (_ref) {
+var StackStyle = styled__default.div(_templateObject$d(), withProp("noEmpty", styled.css(_templateObject2$8())), withProp("noExtraSpace", styled.css(_templateObject3$6())), propSizes$1.map(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
       prop = _ref2[0],
       size = _ref2[1];
@@ -4873,10 +5296,10 @@ function _templateObject2$9() {
   return data;
 }
 
-function _templateObject$d() {
+function _templateObject$e() {
   var data = _taggedTemplateLiteral(["\n  display: grid;\n  grid-gap: 1.5rem;\n  position: relative;\n  justify-content: space-between;\n  grid-template-columns: repeat(auto-fill, minmax(200px, 250px));\n"]);
 
-  _templateObject$d = function _templateObject() {
+  _templateObject$e = function _templateObject() {
     return data;
   };
 
@@ -4914,7 +5337,7 @@ var ThreeColumns = function ThreeColumns(props) {
 var FourColumnGrid = function FourColumnGrid(props) {
   return /*#__PURE__*/React__default.createElement(FourColumnGridStyle, props, props.children);
 };
-var FourColumnGridStyle = styled__default.section(_templateObject$d());
+var FourColumnGridStyle = styled__default.section(_templateObject$e());
 
 var addPixel = function addPixel(number) {
   var isWithoutUnit = RegExp("\\d$").test(number);
@@ -4934,16 +5357,16 @@ GridView.propTypes = {
   width: propTypes.oneOfType([propTypes.number, propTypes.string]).isRequired
 };
 
-function _templateObject$e() {
+function _templateObject$f() {
   var data = _taggedTemplateLiteral(["\n  box-sizing: border-box;\n  max-width: 100%;\n\n  .wg--hr_bounce {\n    transition-timing-function: cubic-bezier(0.78, 0.05, 0.41, 0.92);\n  }\n\n  #page-holder {\n    height: 100%;\n    width: 100%;\n    overflow: hidden;\n    box-sizing: border-box;\n    display: flex;\n    flex-wrap: nowrap;\n    boxsizing: border-box;\n    scroll-snap-type: x mandatory;\n    transition: height 0.3s ease-out;\n    transition-property: all;\n    transition-duration: 0.3s;\n\n    &.is-absolute {\n      width: 100%;\n      position: absolute;\n    }\n\n    .page {\n      height: 100%;\n      flex-shrink: 0;\n      margin-left: 0px;\n      scroll-snap-align: start;\n      display: inline-block;\n      box-sizing: border-box;\n\n      &:first-child {\n        margin-left: 0;\n      }\n    }\n  }\n"]);
 
-  _templateObject$e = function _templateObject() {
+  _templateObject$f = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Wrap = styled__default.div(_templateObject$e());
+var Wrap = styled__default.div(_templateObject$f());
 var Pager = function Pager(props) {
   var cp = props.current;
 
@@ -5072,10 +5495,10 @@ function _templateObject2$a() {
   return data;
 }
 
-function _templateObject$f() {
+function _templateObject$g() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: 5rem;\n\n  ", "\n\n  ", "\n"]);
 
-  _templateObject$f = function _templateObject() {
+  _templateObject$g = function _templateObject() {
     return data;
   };
 
@@ -5103,7 +5526,7 @@ var withProps = function withProps(props) {
   };
 };
 
-var LargeS = styled__default.span(_templateObject$f(), withProps(["vertical", "y"])(styled.css(_templateObject2$a())), withProps(["horizontal", "x"])(styled.css(_templateObject3$7())));
+var LargeS = styled__default.span(_templateObject$g(), withProps(["vertical", "y"])(styled.css(_templateObject2$a())), withProps(["horizontal", "x"])(styled.css(_templateObject3$7())));
 var SmallS = styled__default(LargeS)(_templateObject4$6());
 var MediumS = styled__default(LargeS)(_templateObject5$5());
 var Cluster = addProps(MediumS);
@@ -5122,10 +5545,10 @@ function _templateObject2$b() {
   return data;
 }
 
-function _templateObject$g() {
+function _templateObject$h() {
   var data = _taggedTemplateLiteral(["\n    & > * {\n        outline: solid 1px ", ";\n    }\n\n    ", "\n"]);
 
-  _templateObject$g = function _templateObject() {
+  _templateObject$h = function _templateObject() {
     return data;
   };
 
@@ -5136,28 +5559,11 @@ var outlineColor = function outlineColor(props) {
   return props.color || "orange";
 };
 
-var Outliner = styled__default.div(_templateObject$g(), outlineColor, withProp("all")(styled.css(_templateObject2$b(), outlineColor)));
+var Outliner = styled__default.div(_templateObject$h(), outlineColor, withProp("all")(styled.css(_templateObject2$b(), outlineColor)));
 var Outline = Outliner;
 
-function _templateObject$h() {
-  var data = _taggedTemplateLiteral(["\n\twidth: 100%;\n\theight: 25vh;\n\tmin-height: 250px;\n\tobject-fit: cover;\n\tborder-radius: 12px;\n"]);
-
-  _templateObject$h = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var StyleCoverImage = styled__default.img(_templateObject$h());
-var CoverImage = function CoverImage() {
-  return /*#__PURE__*/React__default.createElement(StyleCoverImage, {
-    className: "w-4/5",
-    src: "/images/vendor_banner.png"
-  });
-};
-
 function _templateObject$i() {
-  var data = _taggedTemplateLiteral(["\n  font-family: var(--heading-font, 'Avenir', 'Helvetica Neue', 'Segoe UI', sans-serif);\n  font-weight: ", ";\n  font-size: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n\twidth: 100%;\n\theight: 25vh;\n\tmin-height: 250px;\n\tobject-fit: cover;\n\tborder-radius: 12px;\n"]);
 
   _templateObject$i = function _templateObject() {
     return data;
@@ -5165,7 +5571,24 @@ function _templateObject$i() {
 
   return data;
 }
-var Heading = styled__default.span(_templateObject$i(), function (props) {
+var StyleCoverImage = styled__default.img(_templateObject$i());
+var CoverImage = function CoverImage() {
+  return /*#__PURE__*/React__default.createElement(StyleCoverImage, {
+    className: "w-4/5",
+    src: "/images/vendor_banner.png"
+  });
+};
+
+function _templateObject$j() {
+  var data = _taggedTemplateLiteral(["\n  font-family: var(--heading-font, 'Avenir', 'Helvetica Neue', 'Segoe UI', sans-serif);\n  font-weight: ", ";\n  font-size: ", ";\n"]);
+
+  _templateObject$j = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Heading = styled__default.span(_templateObject$j(), function (props) {
   return props.bold ? "bold" : props.light ? "300" : "400";
 }, function (props) {
   return props.$fontSize;
@@ -5205,16 +5628,16 @@ function _templateObject2$c() {
   return data;
 }
 
-function _templateObject$j() {
+function _templateObject$k() {
   var data = _taggedTemplateLiteral(["\n  font-family: var(--text-font), 'Lato', sans-serif;\n  font-size: 16px;\n\n  ", "\n"]);
 
-  _templateObject$j = function _templateObject() {
+  _templateObject$k = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var ParagraphStyle = styled__default.p(_templateObject$j(), function (props) {
+var ParagraphStyle = styled__default.p(_templateObject$k(), function (props) {
   return props.small && styled.css(_templateObject2$c());
 });
 var P = ParagraphStyle;
@@ -5328,6 +5751,7 @@ exports.Modal = Modal;
 exports.Outline = Outline;
 exports.P = P;
 exports.Pager = Pager;
+exports.PasswordValidator = PasswordValidator;
 exports.RadioInput = RadioInput;
 exports.RadioLabel = RadioLabel;
 exports.SearchComponent = SearchComponent;

@@ -105,6 +105,7 @@ Modal.propTypes = {
 	onClose: t.func,
 	show: t.bool.isRequired,
 	size: t.string.isRequired,
+	children: t.node.isRequired,
 }
 
 export default Modal

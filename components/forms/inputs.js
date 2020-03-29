@@ -1,4 +1,5 @@
 import React from "react"
+import t from "prop-types"
 import { fullWidth, theme, withProp } from "../helpers"
 import styled, { css } from "styled-components"
 
@@ -161,6 +162,9 @@ export const RadioLabel = props => {
 RadioLabel.defaultProps = {
 	label: "Something"
 }
+RadioLabel.propTypes = {
+	label: t.string.isRequired
+}
 
 const CheckboxStyle = styled(RadioStyle)`
 	margin-right: 5px;
@@ -171,11 +175,11 @@ const CheckboxStyle = styled(RadioStyle)`
 	}
 `
 
-export const Checkbox = props => {
+export const Checkbox = React.forwardRef(function Checkbox(props, ref) {
 	return (
 		<CheckboxStyle>
-			<input type="checkbox" {...props} />
+			<input ref={ref} type="checkbox" {...props} />
 			<span />
 		</CheckboxStyle>
 	)
-}
+})

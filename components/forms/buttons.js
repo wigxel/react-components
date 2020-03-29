@@ -1,7 +1,6 @@
 import React from "react"
 import t from "prop-types"
 import styled, { css } from "styled-components"
-import { filterKeys } from "../../libs/helpers"
 import { fullWidth, withProp, color } from "../helpers"
 
 const ButtonStyle = styled.button`
@@ -78,8 +77,6 @@ const ButtonStyle = styled.button`
 `
 
 export const Button = ButtonStyle
-
-const iconProps = props => filterKeys(props, ["color", "icon"])
 
 export const IconButton = props => {
 	return (

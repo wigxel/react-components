@@ -1,11 +1,10 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { storiesOf } from "@storybook/react"
-import { withKnobs, boolean } from "@storybook/addon-knobs"
+import { withKnobs } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
 import { Activity } from "../components/lists"
-import { H4, P } from "../components/typography"
-import { Stack } from "../components/layouts"
+import { H4 } from "../components/typography"
 
 
 const entries = [

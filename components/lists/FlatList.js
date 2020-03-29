@@ -1,4 +1,5 @@
 import React from "react"
+import t from "prop-types"
 import styled from "styled-components"
 import { NavLink as Link } from "react-router-dom"
 import { color } from "../helpers"
@@ -52,6 +53,10 @@ const FlatListLink = props => {
 		</FlatList.Item>
 	)
 }
+FlatList.propTypes = FlatListLink.propTypes = {
+	children: t.node.isRequired
+}
+
 FlatList.Link = FlatListLink
 
 export default FlatList

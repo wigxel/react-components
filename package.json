@@ -1,19 +1,22 @@
 {
   "name": "@wigxel/react-components",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "UI Component library by Wigxel corp.",
   "main": "dist/prod.js",
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "tape-watch -r @babel/register components/**/*.test.js -p tap-spec",
+    "test:watch": "NODE_ENV=development npm run test -- --watch --clear",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepublishOnly": "npm run release",
     "release": "npm run build:dev && npm run build:prod",
     "build:prod": "NODE_ENV=production rollup -c",
     "build:dev": "NODE_ENV=development rollup -c",
-    "lint": "eslint --config=.eslintrc.js components/** stories/**",
-    "fix": "eslint --fix components/** stories/**"
+    "lint": "eslint --quiet --fix components/** libs/** stories/** && echo 'Lint complete.'",
+    "watch": "watch 'clear && npm run lint' libs components stories"
   },
   "repository": {
     "type": "git",
@@ -39,12 +42,13 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "styled-components": "^4.4.0"
+    "styled-components": "^4.4.0",
+    "watch": "^1.0.2"
   },
   "peerDependencies": {
     "react": "16.x",
     "lodash": "4.x",
-    "styled-components": "4.x"
+    "styled-components": "^4.x"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -65,6 +69,9 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-terser": "^5.3.0",
-    "storybook": "^5.3.17"
+    "storybook": "^5.3.17",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.13.2",
+    "tape-watch": "^2.3.0"
   }
 }

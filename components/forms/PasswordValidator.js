@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useEffect, useCallback } from "react"
 import t from "prop-types"
 import styled from "styled-components"
 import { themeOr } from "../helpers"
@@ -53,26 +53,25 @@ const Progress = styled.div`
 	}
 `
 
-const assert = pwd => e => R.test(e, pwd)
-const testRegex = pwd => R.compose(assert(pwd), R.prop("regex"))
-const setPassword = pwd =>
-	R.compose(
-		length => length == 0,
+export const forRules = rules => str => {
+	const textRegex = regex => R.test(regex)
+	const passedAll = R.compose(
+		R.equals(rules.length),
 		R.length,
-		R.filter(result => result == false),
-		R.map(testRegex(pwd))
+		R.filter(fn => fn(str)),
+		R.map(R.compose(textRegex, R.prop("regex")))
 	)
 
-export const PasswordValidator = ({ password, onStatus, rules }) => {
-	const [lock, setLock] = useState(false)
-	const passedAll = useCallback(setPassword(password), [])
+	return passedAll(rules)
+}
 
-	if (!lock) {
-		if (passedAll(rules)) {
-			if (onStatus) onStatus({ passed: true })
-			setLock(true)
+export const PasswordValidator = ({ password, onStatus, rules }) => {
+	const testStr = useCallback(forRules(rules), [])
+	useEffect(() => {
+		if (onStatus) {
+			onStatus({ passed: testStr(password) })
 		}
-	}
+	}, [password, onStatus])
 
 	return (
 		<Progress>

@@ -113,7 +113,7 @@ const baseStyle = css`
 	}
 `
 
-export default function Checker(props) {
+export const Checker = (props) => {
 	const [index, setIndex] = useState(-1)
 	const updateIndex = useCallback(
 		curryN(2, idx => {
@@ -223,3 +223,5 @@ const DotStyle = styled.div`
 	}
 `
 Checker.Styles = { Dot: DotStyle, Flat: FlatStyle }
+
+export default Checker

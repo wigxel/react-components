@@ -19,6 +19,7 @@ const ValidInputProps = [
 	"type",
 	"min",
 	"max",
+	"list",
 	"maxLength",
 	"minLength",
 	"value",
@@ -108,8 +109,9 @@ const sharedFocusStyle = css`
 `
 
 const MainWrapper = styled.div`
-	display: inline-block;
 	min-width: 250px;
+	display: inline-block;
+	flex-direction: column;
 	${fullWidth}
 `
 
@@ -145,6 +147,7 @@ const InputStyle = styled.div`
 		outline: none !important;
 		border: none;
 		-webkit-appearance: none;
+		-moz-appearance: none;
 		appearance: none;
 		width: 100%;
 		min-height: 30px;
@@ -157,6 +160,7 @@ const InputStyle = styled.div`
 `
 
 export const TextWrapper = styled.div`
+	flex: 1;
 	width: auto;
 
 	${sharedFocusStyle}
@@ -282,7 +286,6 @@ Labelled.Number = closedInput(({ state, props, inputRef }) => {
 			ref={inputRef}
 			type="text"
 			placeholder={state.focus ? props.placeholder : ""}
-			className="w-4/5 c-black"
 			onKeyDown={sanitize}
 			onChange={handleChange}
 		/>
@@ -302,7 +305,6 @@ Labelled.Select = makeAlwaysFocused(({ props, inputRef }) => {
 		<select
 			{...filterProps(props)}
 			ref={inputRef}
-			className="w-4/5 c-black appearance-none"
 			onChange={props.onChange}
 		>
 			{props.children}
@@ -310,7 +312,7 @@ Labelled.Select = makeAlwaysFocused(({ props, inputRef }) => {
 	)
 })
 
-Labelled.Select.Option = function Select_Option({ value, text, selected }) {
+function Select_Option({ value, text, selected }) {
 	return (
 		<option selected={selected} value={value || text}>
 			{text}
@@ -318,12 +320,12 @@ Labelled.Select.Option = function Select_Option({ value, text, selected }) {
 	)
 }
 
-Labelled.Select.Option.propTypes = {
+Select_Option.propTypes = {
 	text: t.string.isRequired,
 	value: t.string,
 	selected: t.bool,
 }
-
+Labelled.Select.Option = Select_Option
 Labelled.Select.propTypes = {
 	children: t.array.isRequired
 }
@@ -333,9 +335,8 @@ Labelled.Textarea = createInput(({ props, inputRef, state }) => {
 		<div>
 			<TextWrapper 
 				focused={state.focus}
-				disabled={props.disabled}
-				className="flex-1">
-				<span className="wg-label rounded-full">{props.label}</span>
+				disabled={props.disabled}>
+				<span className="wg-label">{props.label}</span>
 				<textarea
 					{...filterProps(props)}
 					ref={inputRef}

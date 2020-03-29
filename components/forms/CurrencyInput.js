@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import styled, { css } from "styled-components"
-import _ from "lodash"
-import { compose } from "lodash/fp"
 import t from "prop-types"
+import styled, { css } from "styled-components"
+import { compose } from "lodash/fp"
+import _ from "lodash"
 
 import Naira from "../../assets/svgs/naira_symbol.svg"
 import { color, fullWidth } from "../helpers"
@@ -77,7 +77,7 @@ const handleNaN = fn => value => {
 }
 export const clean = value => _.replace(String(value), /,/gm, "")
 
-const NumberInput = React.forwardRef((props, ref) => {
+export const CurrencyInput = React.forwardRef(( props, ref) => {
 	const [prop, setProp] = useState({
 		value: ""
 	})
@@ -98,9 +98,9 @@ const NumberInput = React.forwardRef((props, ref) => {
 			<img src={Naira} alt="cur" title="currency" />
 			<input
 				type="text"
+				ref={ref}
 				name={props.name}
 				placeholder="0.0"
-				ref={ref}
 				value={prop.value}
 				onKeyDown={evt => {
 					evt.keyCode === 13 ? evt.target.blur() : validateInput(evt)
@@ -127,7 +127,7 @@ const NumberInput = React.forwardRef((props, ref) => {
 	)
 })
 
-NumberInput.defaultProps = {
+CurrencyInput.defaultProps = {
 	isInvalid: (message) => { 
 		throw Error(message)
 	},
@@ -136,8 +136,9 @@ NumberInput.defaultProps = {
 	fullWidth: false
 }
 
-NumberInput.propTypes = {
+CurrencyInput.propTypes = {
 	isInvalid: t.func,
+	name: t.string.isRequired
 }
 
-export default NumberInput
+export default CurrencyInput

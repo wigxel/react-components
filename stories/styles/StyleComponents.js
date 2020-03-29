@@ -26,6 +26,7 @@ SubHeading.propTypes = { text: t.string.isRequired }
 export const Theme = props => (
 	<ThemeProvider theme={Light}>
 		<Router>
+			{/* eslint-disable-next-line */}
 			{props.children}
 			<GlobalStyle />
 		</Router>

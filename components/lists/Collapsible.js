@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react"
+import t from "prop-types"
 import styled from "styled-components"
 
 // TODO: complete the collapsibla component
@@ -37,6 +38,10 @@ export const Collapsible = props => {
 
 Collapsible.defaultProps = {
 	morph: false
+}
+Collapsible.propTypes = {
+	open: t.bool,
+	children: t.node.isRequired
 }
 
 export default Collapsible
