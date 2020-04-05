@@ -1,31 +1,34 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import SingleSignup from "../components/special/SingleForm"
+import { Theme } from "./styles/StyleComponents"
+import SingleForm from "../components/special/SingleForm"
 
-const Fields = {
-	"full name": {
-		value: "",
+const Fields = [
+	{
+		name: "username",
 		type: "text",
 		icon: "mdi-account",
-		regexp: /.+/
+		regex: /(\w)\.(\w)/gi
 	},
-	email: {
-		value: "",
+	{
+		name: "email",
 		type: "text",
 		icon: "mdi-email",
-		regexp: /^.+@.+\..+$/
+		regex: /^.+@.+\..+$/
 	},
-	password: {
-		value: "",
+	{
+		name: "password",
 		type: "password",
 		icon: "mdi-lock",
-		regexp: /[A-z0-9_-]+/
+		regex: /[A-z0-9_-]+/
 	},
-}
+]
 
 storiesOf("Special.Form", module)
 	.add("Single Signup", () => {
-		return <div>
-			<SingleSignup form={Fields} />
-		</div>
+		return <Theme>
+			<SingleForm
+				form={Fields} onSubmit={console.log} 
+				message={<span>You&apos;re welcome</span>}/>
+		</Theme>
 	})

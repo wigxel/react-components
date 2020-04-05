@@ -1,265 +1,78 @@
 import React from "react"
 import t from "prop-types"
-import styled from "styled-components"
-// import { log } from "../../libs/helpers"
-// const delay = (duration) => new Promise((res) => setTimeout(res, duration))
+import * as R from "ramda"
+import { propIs } from "../helpers"
+import styled, { css } from "styled-components"
 
-// const Identity = (x) => {
-// 	return {
-// 		map: (fun) => {
-// 			return Identity(fun(x))
-// 		},
-// 		delay: async (duration) => {
-// 			await delay(duration)
-// 			return Identity(x)
-// 		},
-// 		bounceOut: () => {
-// 			x.style.left = 0
-// 			return Identity(x)
-// 		}
-// 	}
-// }
+const wiggleEffect = propIs(
+	"animation",
+	x => x == "wiggle", 
+	css`
+		animation-name: wg-ss_wiggle;
+		animation-iteration-count: 1;
+		animation-duration: 300ms;
+		animation-timing-function: cubic-bezier(0.01, 0.14, 0.56, 1.74);
 
-// const IconAnimation = Object.freeze({
-// 	hide: (el) => {
-// 		el.style.visibility = "hidden"
-// 		return el
-// 	},
-// 	bounceOut: (el) => {
-// 		el.style.left = 0
-// 		el.style.opacity = 1
-// 		return el
-// 	},
-// 	slideRight: (offset) => (el) => {
-// 		el.style.transform = `translateX(${offset}px) rotateY(180deg)`
-// 		el.style.opacity = 0
-// 		return el
-// 	}
-// })
+		@keyframes wg-ss_wiggle {
+			0% {
+				transform: translateX(0)
+			}
 
-// const IconHolder = () => {
-// 	let left = 0
-// 	const holder = document.querySelector(".wg-ss__icon_holder")
-// 	let icons = [].slice.call(holder.children).map(x => Identity(x))
+			25% {
+				transform: translateX(-15px)
+			}
 
-// 	return {
-// 		init() {
-// 			icons.map((e, index) => {
-// 				e.map((x) => {
-// 					x.style.left = `${left}px`
-// 					if (index > 0) {
-// 						x.style.borderColor = "#FFFFFF"
-// 						x.style.opacity = "0.1"
-// 					}
-// 					left += 5
-// 				})
-// 				return e
-// 			}).reverse().map((e, index) => {
-// 				e.map(x => {
-// 					x.style.zIndex = index
-// 				})
-// 			})
-// 		},
-// 		fetchIcon(index) {
-// 			if (typeof index === "number") {
-// 				return icons[+index]
-// 			} else {
-// 				throw Error("invalid index arguemnt, excepted a Number got " + typeof index)
-// 			}
-// 		}
-// 	}
-// }
+			50% {
+				transform: translateX(0px)
+			}
 
-// function FormError(message, code) {
-// 	this.message = message
-// 	this.code = code
-// 	this.name = "Form Error"
-// }
+			75% {
+				transform: translateX(15px)
+			}
 
-// const fakeFields = {
-// 	"full name": {
-// 		value: "",
-// 		icon: "mdi-account",
-// 		regexp: /.+/
-// 	},
-// 	email: {
-// 		value: "",
-// 		icon: "mdi-email",
-// 		regexp: /^.+@.+\..+$/
-// 	},
-// 	password: {
-// 		value: "",
-// 		icon: "mdi-lock",
-// 		regexp: /[A-z0-9_-]+/
-// 	},
-// }
+			100% {
+				transform: translateX(0)
+			}
+		}
+	`
+)
 
-// const SS = (obj) => {
-// 	const ssInput = document.querySelector(".wg-ss__input"),
-// 		span = document.querySelector("#enter"),
-// 		input = document.createElement("input")
-// 	icon = ssInput.querySelector(".wg-ss__icon"),
-// 	label = ssInput.querySelector(".wg-ss__text_holder > label"),
-// 	submitButton = ssInput.querySelector(".wg-ss__submit"),
-// 	iconHolder = IconHolder(),
-// 	fields = obj || fakeFields
-		
-// 	let counter = 0
-// 	const EVENTS = {}
-// 	const getOffset = () => Math.abs(ssInput.clientWidth)
-// 	const current = () => Object.keys(fields)[counter]
-// 	const getRegExp = () => {
-// 		const input = fields[current()]
-// 		return input.regexp.test(input.value)
-// 	}
-// 	const isFinished = () => counter > (Object.keys(fields).length - 1)
-// 	const changeLabel = () => label.innerText = current()
-// 	const hideLabel = () => label.style.display = "none"
-// 	const makeDots = () => "<span class=\"dots\"></span>"
-// 	const updateWidth = (width) => {
-// 		let holder = document.querySelector(".wg-ss__text_holder")
-// 		ssInput.style.width = typeof width !== "undefined" ? width : `${(holder.clientWidth + 100)}px`
-// 	}
+const shakeEffect = propIs(
+	"animation", 
+	x => x === "wiggle", 
+	css`
+		animation-name: hr-shaking;
+		animation-iteration-count: 1;
+		animation-duration: 300ms;
+		animation-timing-function: ease-out;
 
-// 	const shakeButton = () => {
-// 		ssInput.classList.add("wiggle")
-// 		submitButton.classList.add("shake")
+		@keyframes hr-shaking {
+			0% {
+				transform: rotate(0)
+			}
 
-// 		setTimeout(() => {
-// 			ssInput.classList.remove("wiggle")
-// 			submitButton.classList.remove("shake")
-// 		}, 600)
-// 	}
+			50% {
+				transform: rotate(-35deg)
+			}
 
-// 	const animateCurrentIcon = () => {
-// 		iconHolder
-// 			.fetchIcon(counter)
-// 			.map(IconAnimation.slideRight(getOffset()))
-// 			.delay(1000).then((icon) => {
-// 				icon.map(IconAnimation.hide).delay(300)
-// 					.then(icon => icon.map(resizeInput))
-// 			})
-// 	}
+			100% {
+				transform: rotate(0deg)
+			}
+		}
+	`
+)
 
-// 	const animateNexIcon = () => {
-// 		const next = counter
-// 		isFinished() ||
-// 						iconHolder.fetchIcon(next).delay(300)
-// 							.then(icon => icon.map(IconAnimation.bounceOut))
-// 	}
-
-// 	const submit = () => {
-// 		if (!isFinished()) {
-// 			animateCurrentIcon();
-// 			(counter += 1)
-// 			animateNexIcon()
-// 		}
-// 		if (isFinished())
-// 			throw new FormError("Field fields Finished!", 54)
-// 	}
-
-// 	const resizeInput = () => {
-// 		updateWidth()
-// 		Promise.resolve().then(delay(1000))
-// 			.then(() => updateWidth("auto"))
-// 	}
-
-// 	const clearText = () => {
-// 		input.value = ""
-// 		span.innerText = ""
-// 	}
-
-// 	const playFinalAnimation = () => {
-// 		clearText()
-// 		resizeInput()
-// 		hideLabel()
-// 	}
-
-// 	return {
-// 		init() {
-// 			changeLabel()
-// 			iconHolder.init()
-// 			ssInput.appendChild(input)
-
-// 			ssInput.addEventListener("click", this.focusIn.bind(this))
-// 			submitButton.addEventListener("click", this.send.bind(this))
-// 			input.addEventListener("blur", () => ssInput.classList.remove("focused"))
-// 			window.requestAnimationFrame(this.typeIn)
-// 			return this
-// 		},
-// 		focusIn() {
-// 			input.focus()
-// 			ssInput.classList.add("focused")
-// 			input.addEventListener("keyup", this.typeIn.bind(this))
-// 		},
-// 		typeIn(event) {
-// 			if (event.keyCode === 13) {
-// 				this.send.bind(this)()
-// 				return
-// 			}
-// 			const currentField = fields[current()]
-
-// 			if (current() === "password") {
-// 				currentField.value = [].slice.call(input.value).join("")
-// 				span.innerHTML = currentField.value.split("").map(makeDots).join("")
-// 			} else {
-// 				span.innerHTML = currentField.value = [].slice.call(input.value).join("").replace(" ", "&nbsp;")
-// 			}
-// 			updateWidth()
-// 		},
-// 		send() {
-// 			(isFinished()) ||
-// 						this.validate()
-// 							.then(submit)
-// 							.then(delay(120))
-// 							.then(changeLabel)
-// 							.then(clearText)
-// 							.catch(err => {
-// 								if (err.code === 54) {
-// 									this.destruct()
-// 								} else {
-// 									shakeButton()
-// 								}
-// 								this.fireEvent("error", err)
-// 							})
-// 		},
-// 		async validate() {
-// 			if (getRegExp()) return ""
-// 			throw Error("Validation Failed for field: " + current())
-// 		},
-// 		on(action, callback) {
-// 			EVENTS[action] = callback
-// 			return this
-// 		},
-// 		fireEvent(eventname, ...args) {
-// 			if (Object.keys(EVENTS).includes(eventname))
-// 				switch (eventname) {
-// 				case "complete":
-// 					args = [fields]
-// 				default:
-// 					EVENTS[eventname].apply(this, [...args])
-// 				}
-// 		},
-// 		destruct() {
-// 			Promise.resolve().then(playFinalAnimation).then(delay(300))
-// 				.then(() => {
-// 					ssInput.classList.remove("focused")
-// 					ssInput.classList.add("finished")
-// 				})
-// 			ssInput.removeEventListener("click", this.focusIn.bind(this))
-// 			submitButton.removeEventListener("click", this.send.bind(this))
-// 			input.outerHTML = ""
-// 			submitButton.outerHTML = ""
-// 			this.fireEvent("complete")
-// 		}
-// 	}
-// }
+// CSS VARIABLES
+// --ss-bg: white;
+// --ss-btn-bg: #333;
+// --ss-btn-color: #fff;
+// --ss-height: 100px;
+// --ss-border-width: 1px;
+// --ss-text-color: #333;
+// --ss-border-color: gray;
+// --ss-icon-bg: whitesmoke;
 
 const StyleWrap = styled.div`
-	--ss-height: 150px;
-	--w-ss-background: white;
-	--ss-border-width: 2px;
-
 	font-family: "Sen";
 	position: relative;
 	overflow: hidden;
@@ -270,12 +83,10 @@ const StyleWrap = styled.div`
 	height: var(--ss-height);
 	min-width:  calc(var(--ss-height) * 5);
 	border-radius: calc( var(--ss-height) / 2);
-	border: solid var(--ss-border-width) black;
-	transition: width .3s cubic-bezier(0.07, 0.27, 0.15, 0.95);
+	border: solid var(--ss-border-width) var(--ss-border-color, black);
+	transition: width .2s cubic-bezier(0.07, 0.27, 0.15, 0.95);
 
-	* {
-		// outline: solid 1px red;
-	}
+	${wiggleEffect}
 
 	& > input {
 		width: 0.1px;
@@ -286,6 +97,9 @@ const StyleWrap = styled.div`
 	.wg-ss__holder {
 		width: 100%;
 		display: flex;
+		position: relative;
+		transition-duration: .2s;
+		justify-content: space-between;
 	}
 
 	.wg-ss__icon_holder {
@@ -298,6 +112,11 @@ const StyleWrap = styled.div`
 			top: 0;
 			left: 0;
 			z-index: 0;
+			
+			&.hide {
+				transform: translateX(100vw) rotateY(180deg);
+				opacity: 0;
+			}
 		}
 
 		.wg-ss__icon {
@@ -312,8 +131,8 @@ const StyleWrap = styled.div`
 			border-radius: calc( var(--ss-height) / 2);
 			left: calc(var(--index) * 5px);
 			opacity: calc(1 / var(--index));
-			border: solid var(--ss-border-width) black;
-			background-color: var(--w-ss-background, #333);
+			border: solid var(--ss-border-width) var(--ss-border-color, black);
+			background-color: var(--ss-icon-bg, #333);
 			transition: all .3s cubic-bezier(0.7, 0.1, 0.27, 0.99);
 		}
 	}
@@ -324,7 +143,7 @@ const StyleWrap = styled.div`
 	}
 
 	.wg-ss__text_holder {
-		flex: 1 0;
+		flex: 0 0 calc( 100% - calc(var(--ss-height) * 2));
 		display: grid;
 		white-space: nowrap;
 		justify-content: start;
@@ -332,13 +151,13 @@ const StyleWrap = styled.div`
 		grid-template-column: minmax(40vw, 80vw);
 		grid-template-rows:  calc(var(--ss-height) * .3)  calc(var(--ss-height) * .7);
 
-		input[type=password] {
+		.dot {
 			width: 15px;
-			height:
-			background: white;
-			display: inline-block;
+			height: 15px;
 			margin-right: 3px;
 			border-radius: 50px;
+			display: inline-block;
+			background: var(--ss-text-color);
 
 			&::selection {
 				color: pink;
@@ -347,17 +166,18 @@ const StyleWrap = styled.div`
 		}
 		
 		span#enter {
-			padding-left: 5px;
-			font-size: 5rem;
 			flex: 1 1 70%;
+			padding-left: 5px;
+			color: var(--ss-text-color);
+			font-size: calc(var(--ss-height) * .5);
 		}
 
 		input {
 			z-index: 0;
-			border: none;
-			position: absolute;
 			opacity: 0;
+			border: none;
 			top: 0; right: 0;
+			position: absolute;
 			background-color: transparent;
 
 			&:focus {
@@ -366,23 +186,25 @@ const StyleWrap = styled.div`
 		}
 		
 		label {
-			display: block;
-			color: #333;
-			text-transform: uppercase;
+			color: var(--ss-text-color);
 			font-size: 1em;
+			display: block;
 			text-indent: 10px;
-			margin-top: -5px;
-			height: calc(var(--ss-height) * .3);
+			text-transform: uppercase;
+			font-size: calc(var(--ss-height) * .2);
 			line-height: calc(var(--ss-height) * .3);
 		}
 	}
 
-	.wg-ss__submit {
+	.submit {
 		--arc-space: calc( var(--ss-height) * 0.2);
 		--submit-height: calc( var(--ss-height) - var(--arc-space) );
+
 		width: var(--submit-height);
 		height: var(--submit-height);
-		flex: 0 0 var(--submit-height);
+		flex-grow: 0;
+		flex-shrink: 0;
+		flex-basis: var(--submit-height);
 		margin-right: calc(var(--arc-space) - calc(var(--ss-height)* 0.1));
 		align-self: center;
 		border: none;
@@ -390,104 +212,63 @@ const StyleWrap = styled.div`
 		box-sizing: border-box;
 		text-align: center;
 		border-radius: calc(var(--ss-height) / 2);
-		background-color: blue;
+		background-color: var(--ss-btn-bg);
+		color: var(--ss-btn-color);
 		transition: .3s;
 		animation-delay: 300ms;
+
+		${shakeEffect}
 	}
 
-	.wg-ss__submit:focus {
+	.submit:focus {
 		transform: scale(0.8);
 	}
 
-	.shake {
-		animation-name: hr-shaking;
-		animation-iteration-count: 1;
-		animation-duration: 300ms;
-		animation-timing-function: ease-out;
-	}
-
-	&.wiggle {
-		animation-name: wg-ss_wiggle;
-		animation-iteration-count: 1;
-		animation-duration: 300ms;
-		animation-timing-function: cubic-bezier(0.01, 0.14, 0.56, 1.74);
-	}
-
-	@keyframes hr-shaking {
-		0% {
-			transform: rotate(0)
-		}
-
-		50% {
-			transform: rotate(-35deg)
-		}
-
-		100% {
-			transform: rotate(0deg)
-		}
-	}
-
-	@keyframes wg-ss_wiggle {
-		0% {
-			transform: scale(2.5) translateX(0)
-		}
-
-		25% {
-			transform: scale(2.5) translateX(-15px)
-		}
-
-		50% {
-			transform: scale(2.5) translateX(0px)
-		}
-
-		75% {
-			transform: scale(2.5) translateX(15px)
-		}
-
-		100% {
-			transform: scale(2.5) translateX(0)
-		}
-	}
-
-	& .wg-ss__finished {
-		color: black;
-		position: absolute;
+	.wg-ss__finished {
 		z-index: 100;
 		opacity: 0;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
+		inset: 0;
 		display: flex;
-		justify-content: center;
+		position: absolute;
 		align-items: center;
 		pointer-events: none;
+		justify-content: center;
+		color: var(--ss-text-color);
+		font-size: calc(var(--ss-height) * .3);
+
+		@supports not (inset: 0) {
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
 	}
+	
 	&.finishd, 
 	.wg-ss__finished {
 		transition: all 1s ease-out;
 	}
 
 	&.finished {
-		border-width: 0;
-	}
+		.wg-ss__finished {
+			opacity: 1;
+		}
 
-	&.finished .wg-ss__finished {
-		opacity: 1;
+		.wg-ss__holder {
+			opacity: 0;
+			transform: translateY(-100%);
+		}
 	}
 `
 
-const transform = (form ) => Object.entries(form)
-	.map(([key, e]) => { 
-		return { name: key, ...e }
-	})
-
-
-export const Icons = ({ icons }) => {
+export const Icons = ({ icons, current }) => {
+	const reverse = (idx) => Math.abs(idx - (icons.length - 1))
 	return (
 		<div className="wg-ss__icon_holder">
 			{icons.map((e, idx) => 
-				<span key={idx} className="wg-ss__icon" style={{ "--index": Math.abs(idx - (icons.length - 1)) }}>
+				<span key={idx}
+					className={"wg-ss__icon ".concat(current > reverse(idx) ? "hide" : "")} 
+					style={{ "--index": reverse(idx) - current }}>
 					{e}
 				</span>)}
 		</div>
@@ -495,58 +276,112 @@ export const Icons = ({ icons }) => {
 } 
 
 Icons.propTypes = {
-	icons: t.array.isRequired
+	icons: t.array.isRequired,
+	current: t.number.isRequired,
 }
 
-export function SingleSignup({ form }) {
-	const [fields] = React.useState(transform(form))
-	const [current] = React.useState(0)
-	const [values, setValues] = React.useState({ })
-	const [focused, setFocus] = React.useState(false)
+function useAnimation(className) {
+	const [state, setState] = React.useState({ isAnimating: false, timeout_id: 0 })
+	const [animation, setAnimation] = React.useState(className)
+	const _setAnimation  = (name, timeout) => {
+		clearTimeout(state.timeout_id)
+		const t_id = setTimeout(() => {
+			setState({ ...state, isAnimating: false })
+			setAnimation("")
+		}, timeout)
+		setState({ ...state, isAnimating: true, timeout_id: t_id })
+		setAnimation(name)
+	}
+
+	return { animation, isAnimating: state.isAnimating, setAnimation: _setAnimation }
+}
+
+const useDots = R.compose(
+	arr => arr.map((_, idx) => <span key={"dot/."+idx} className="dot"></span>), 
+	R.split(""), 
+	String
+)
+
+export function SingleSignup({ form, onSubmit, message }) {
 	const inputRef = React.useRef()
 	const spanRef = React.useRef()
+	const [fields] = React.useState(form)
+	const [current, setCurrent] = React.useState(0)
+	const { animation, isAnimating, setAnimation } = useAnimation("shake")
+	const [values, setValues] = React.useState({ })
 
-	const calculate = () => {
-		return spanRef.current ? spanRef.current.offsetWidth : 0
-	}
-
-	const setValue = field => (evt) => {
+	const currentField = () => fields[current]
+	const isLast = () => fields.length - 1 == current
+	const calculate = () => spanRef.current ? spanRef.current.offsetWidth : 0
+	const setValue = R.curry((field, evt) => {
 		const {value} = evt.target
-		console.log("input value", value)
 		setValues({ ...values, [field]: value })
-	}
-	console.log(calculate())
+	})
+	const validate = R.curryN(2, current => {
+		if (isAnimating) return 
+		const { regex, name } = currentField()
+
+		if (regex.test(values[name] || "")) {
+			if (isLast()) {
+				setValues({ ...values, finished: true })
+				return onSubmit(values)
+			}
+			inputRef.current.value = ""
+			setCurrent(current + 1)
+		} else {
+			setAnimation("wiggle", 600)
+		}
+	})
 
 	return (
-		<StyleWrap focused={focused} 
-			className="wg-ss__input wg-light-theme" onClick={() => {
-				setFocus(true)
-				inputRef.current.focus()
-			}}>
+		<StyleWrap
+			animation={animation}
+			className={"wg-ss__input". concat(values.finished ? " finished" : "")}
+			style={{ width: `calc( ${calculate() + 15}px + calc( var(--ss-height) * 2 ) )` }}
+			onClick={() => inputRef.current.focus() }>
 			<div className="wg-ss__holder">
-				<Icons icons={fields.map((e, idx) => <span key={idx}>{e.icon[0].toUpperCase()}</span>)} />
+				<Icons current={current} icons={fields.map((e, idx) => <span key={idx}>{e.icon[0].toUpperCase()}</span>)} />
 				<div className="wg-ss__text_holder">
-					<label htmlFor="">{fields[current].name}</label>
-					<span id="enter" ref={spanRef}>{values[fields[current].name]}</span>
-					<input ref={inputRef} 
-						type={fields[current].type}
-						value={values[fields[current].name]}
-						onChange={setValue(fields[current].name)} 
-						onBlur={() => setFocus(false)}/>
+					<label htmlFor="">{currentField().name}</label>
+					<span id="enter" ref={spanRef}>{
+						currentField().type === "password" 
+							? useDots(values[fields[current].name] || "")
+							: values[fields[current].name]
+					}</span>
+					<input tab="10"
+						ref={inputRef}
+						onChange={setValue(currentField().name)} 
+						onKeyUp={evt => evt.keyCode === 13 && validate(current, evt)} />
 				</div>
 				<button
-					className="wg-ss__submit"
-				>
-					<embed src="assets/submit-icon.svg" style={{width: 40}}/>
+					tab="20"
+					className="submit"
+					onClick={validate(current)}
+				> 
+					<span style={{fontSize: "2rem"}}> &gt; </span>
 				</button>
 			</div>
-			<div className="wg-ss__finished">Thanks</div>
+			<div className="wg-ss__finished">{values.finished && message}</div>
 		</StyleWrap>
 	)
 }
 
-SingleSignup.propTypes = {
-	form: t.array.isRequired
+const FormProp = t.exact({ 
+	name: t.string.isRequired, 
+	type: t.oneOf(["password", "text"]).isRequired, 
+	icon: t.oneOfType([ t.string, t.node ]).isRequired,
+	regex: t.instanceOf(RegExp).isRequired
+})
+
+SingleSignup.defaultProps = {
+	message: "Success!"
 }
+
+SingleSignup.propTypes = {
+	form: t.arrayOf(FormProp),
+	onSubmit: t.func.isRequired,
+	message: t.node
+}
+
 
 export default SingleSignup

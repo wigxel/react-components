@@ -8,6 +8,15 @@ const GlobalStyle = createGlobalStyle`
 	:root {
 		--heading-font: 'Poppins';
     --input-font: "Poppins";
+
+		--ss-bg: white;
+		--ss-btn-bg: #333;
+		--ss-btn-color: #fff;
+		--ss-height: 100px;
+		--ss-border-width: 1px;
+		--ss-text-color: #333;
+		--ss-border-color: gray;
+		--ss-icon-bg: whitesmoke;
 	}
 
   body {
