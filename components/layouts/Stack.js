@@ -1,6 +1,6 @@
 import React from "react"
 import styled, { css } from "styled-components"
-import { withProp } from "../helpers"
+import { withProp, propsOr } from "../helpers"
 
 const propSizes = [
 	["small", ".5rem"],
@@ -15,33 +15,49 @@ const StackStyle = styled.div`
 		margin-top: 1rem;
 	}
 	
-	${withProp("noEmpty", css`
-		> * + * { margin-top: unset }
-		> * + *:not(:empty) {
-			margin-top: 1rem;
-		}
-	`)}
+	${withProp(
+		"noEmpty",
+		css`
+      > * + * {
+        margin-top: unset;
+      }
+      > * + *:not(:empty) {
+        margin-top: 1rem;
+      }
+    `
+	)}
 
-	${withProp("noExtraSpace", css`
-		> * {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-	`)}
-
+	${withProp(
+		"noExtraSpace",
+		css`
+      > * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    `
+	)}
+	
 	${propSizes.map(([prop, size]) =>
-		withProp(prop, css`
-			> * + * {
-				margin-top: ${size};
-			}
+		withProp(
+			prop,
+			css`
+        > * + * {
+          margin-top: ${size};
+        }
 
-			${withProp("noEmpty", css`
-				> * + * { margin-top: unset }
-				> * + *:not(:empty) {
-					margin-top: ${size};
-				}
-			`)}
-		`)
+        ${withProp(
+		"noEmpty",
+		css`
+            > * + * {
+              margin-top: unset;
+            }
+            > * + *:not(:empty) {
+              margin-top: ${size};
+            }
+          `
+	)}
+      `
+		)
 	)}
 `
 
@@ -50,11 +66,15 @@ export const Stack = props => {
 }
 
 Stack.Flex = styled(Stack)`
-	display: flex;
-	flex-grow: 1;
-	width: 100%;
-	flex-direction: column;
-	align-items: flex-start;
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  flex-direction: column;
+  ${propsOr({
+		"align-items": "flex-start",
+		"justify-content": "flex-start",
+		"align-content": "flex-end"
+	})}
 `
 
 export default Stack

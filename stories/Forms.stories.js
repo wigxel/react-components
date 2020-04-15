@@ -31,19 +31,32 @@ storiesOf("Form.Regular", module)
 			</section>
 		</Theme>
 	))
-	.add("Radio", () => (
+	.add("Checker", () => (
 		<Theme>
-			<H3>Checkbox</H3>
-			<Checker
-				label="Choose Hobby"
-				buttons={["Creative", "Modern", "Traditional"]} 
-				onChange={val => { console.log(val) }}/>
-			<Checker
-				style={Checker.Styles.Flat} 
-				label="Choose Hobby"
-				disabled={true}
-				buttons={["Design", "Laugh", "Cry", "Joker"]} 
-				onChange={val => { console.log(val) }}/>
+			<section style={{ fontSize: "12px" }}>
+				<div>
+					<Checker
+						style={Checker.Styles.Flat}
+						buttons={["I Am", "Without", "A Label"]} 
+						onChange={val => { console.log(val) }}/>
+				</div>
+				<div>
+					<Checker
+						label="Choose Hobby"
+						buttons={["Creative", "Modern", "Traditional"]} 
+						onChange={val => { console.log(val) }}/>
+				</div>
+				<Checker
+					style={Checker.Styles.Flat} 
+					label="Choose Hobby"
+					disabled={true}
+					buttons={["Design", "Laugh", "Cry", "Joker"]} 
+					onChange={val => { console.log(val) }}/>
+			</section>
+		</Theme>
+	))
+	.add("Radio/Checkbox", () => (
+		<Theme>
 			<H3>Radio</H3>
 			<RadioInput name="poor" value="Mobbi" /> Male
 			<RadioLabel name="poor" value="Antelope" fullwidth />
