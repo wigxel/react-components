@@ -2,6 +2,7 @@
  * Styled components helpers
  * @author Joseph Julius Owonvown
  */
+import * as R from "ramda"
 import { isArray } from "lodash"
 import styled, { css } from "styled-components"
 import { curry, split, lensPath, view } from "ramda"
@@ -18,11 +19,36 @@ export const themeOr = curry((fallback, key, props) => {
 	return keyFrom(props) || keyFrom({ theme: fallback })
 })
 
-export const withProp = curry((key , style , props) => {
+export const withProp = curry((key, style, props) => {
 	return props[key] && style
 })
 
-export const propIs = curry((prop, functor, style , props) => functor(props[prop]) && style)
+export const propIs = curry(
+	(prop, functor, style, props) => functor(props[prop]) && style
+)
+
+export const propOr = (prop, defValue) => props => props[prop] || defValue
+
+const capitalize = str => R.toUpper(R.head(str)) + R.toLower(R.tail(str))
+const capitalizeTail = R.compose(R.join(""), R.map(capitalize), R.tail)
+const camelCase = R.curry((str, split = "") => {
+	const words = split(str)
+	return R.concat(R.head(words), capitalizeTail(words))
+})
+
+const makeCamel = ([property, defValue]) => {
+	const propInCamel = camelCase(property, R.split("-"))
+	return { property, propInCamel, defValue }
+}
+
+const conv = props => ({ property, propInCamel, defValue }) => {
+	const get = propOr(propInCamel, defValue)
+	return props[propInCamel] ? `${property}: ${get(props)};` : ""
+}
+
+// propsOr :: Map -> String
+export const propsOr = objects => props =>
+	R.pipe(R.toPairs, R.map(makeCamel), R.map(conv(props)))(objects)
 
 export const CardStyle = (con = {}) => styled.article`
 	padding: 18px 20px;
@@ -30,32 +56,50 @@ export const CardStyle = (con = {}) => styled.article`
 	box-sizing: border-box;
 	background-color: ${color("bgcolor")};
 	transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	
+	${withProp(
+		"static",
+		css`
+      box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
+    `,
+		con
+	)}
 
-	${withProp("static", css`
-		box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
-	`, con)}
+	${withProp(
+		"clickable",
+		css`
+      cursor: pointer;
+    `,
+		con
+	)}
 
-	${withProp("clickable", css`
-		cursor: pointer;
-	`, con)}
+	${withProp(
+		"shadow",
+		css`
+      box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
+      &:hover {
+        box-shadow: 0 3px 12px -5px rgba(0, 0, 0, 0.3);
+      }
+    `,
+		con
+	)}
 
-	${withProp("shadow", css`
-		box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.3);
-		&:hover {
-			box-shadow: 0 3px 12px -5px rgba(0, 0, 0, 0.3);
-		}
-	`, con)}
-
-	${withProp("outlineDanger", css`
-		border: solid 1px ${color("danger")};
-		box-shadow: none !important;
-	`)}
+	${withProp(
+		"outlineDanger",
+		css`
+      border: solid 1px ${color("danger")};
+      box-shadow: none !important;
+    `
+	)}
 `
 
-export const fullWidth = withProp("fullwidth", css`
-	display: flex;
-	width: 100%;
-`)
+export const fullWidth = withProp(
+	"fullwidth",
+	css`
+    display: flex;
+    width: 100%;
+  `
+)
 
 export const color = theme
 
@@ -69,10 +113,10 @@ const sizes = {
 // Iterate through the sizes and create a media template
 export const media = Object.keys(sizes).reduce((acc, label) => {
 	acc[label] = (...args) => css`
-		@media (max-width: ${sizes[label] / 16}em) {
-			${css(...args)}
-		}
-	`
+    @media (max-width: ${sizes[label] / 16}em) {
+      ${css(...args)}
+    }
+  `
 
 	return acc
 }, {})

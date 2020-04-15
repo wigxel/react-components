@@ -9,6 +9,9 @@ const Generic = {
 		6: "2rem",
 		12: "2.5rem",
 	},
+	alert: {
+		custom: { bg: "beige", text: "dodgerblue" }
+	},
 	check: {
 		// labelBg: "#705DF5"
 	}
