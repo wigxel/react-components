@@ -12,10 +12,16 @@ module.exports = {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
+    "settings": {
+	    "react": {
+	      "version": "detect"
+	    }
+	  },
     "plugins": [
         "react"
     ],
     "rules": {
+    		"no-console": 1,
         "indent": [
             "error",
             "tab"

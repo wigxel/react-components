@@ -6,10 +6,12 @@ import { themeOr, withProp, fullWidth } from "./helpers"
 const theme = themeOr({
 	alert: {
 		radius: "12px",
-		warning: { bg: "#ffe86e", text: "#7b6f2e" },
+		dark: { bg: "#334", text: "#9acdff" },
+		light: { bg: "#fff", text: "dodgerblue" },
+		info: { bg: "#9acdff", text: "#004c97" },
 		success: { bg: "#a6ffa6", text: "#3b883b" },
+		warning: { bg: "#ffe86e", text: "#7b6f2e" },
 		danger: { bg: "#fdc0c0", text: "#ac0728" },
-		info: { bg: "#334", text: "dodgerblue" },
 	}
 })
 
@@ -22,12 +24,10 @@ const StyledAlert = styled.div`
   border-radius: ${theme("alert.radius")};
   background-color: ${props => theme(["alert", props.type, "bg"])(props)};
 	color: ${props => theme(["alert", props.type, "text"])(props) || "white"};
-	
- 	${props => console.log("Props: ", props)}
+
 	${fullWidth}
   ${withProp("shadow", css`
-  	box-shadow: 0 4px 6px -6px rgba(0,0,0,0.56), 
-  							0 6px 10px rgba(0,0,0,0.16);
+  	box-shadow: 0 10px 10px -10px rgba(0,0,0,0.16);
   `)}
 	
 	picture {
@@ -77,7 +77,7 @@ const StyledAlert = styled.div`
 	`)}
 `
 
-export default function Alert(props) {
+export const Alert = (props) => {
 	const children = props.message || props.children
 	return <StyledAlert {...props}>
 		{props.icon && <picture>{props.icon}</picture>}
@@ -93,7 +93,7 @@ export default function Alert(props) {
 
 Alert.defaultProps = {
 	type: "info",
-	shadow: true
+	shadow: false
 }
 
 Alert.propTypes = {
@@ -105,3 +105,5 @@ Alert.propTypes = {
 	collapsible: t.bool,
 	children: t.node.isRequired,
 }
+
+export default Alert

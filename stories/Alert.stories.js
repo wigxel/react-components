@@ -1,8 +1,8 @@
 import React from "react"
+import Alert from "../components/Alert"
 import { storiesOf } from "@storybook/react"
 import { Stack } from "../components/layouts"
 import { Theme, SubHeading } from "./styles/StyleComponents"
-import Alert from "../components/Alert"
 
 storiesOf("Alert", module)
 	.add("Default", () => (
@@ -14,12 +14,16 @@ storiesOf("Alert", module)
 						<b>Sorry,</b> action not accepted!
 					</Alert>
 				</div>
-				<Alert type="success" shadow={false} message="Account created successfully." style={{ width: "50vw" }}/>
-				<Alert message="Sorry, action not accepted!" shadow={false}  fullwidth />
-				<Alert message="Sorry, action not accepted!" shadow={false} style={{ width: "70vw" }} />
-				<Alert type="danger" shadow={false} message="Sorry, action not accepted!" />
-				<Alert type="warning" shadow={false} message="Sorry, action not accepted!" />
+				<Alert type="success" message="Account created successfully." style={{ width: "50vw" }}/>
+				<Alert message="Sorry, action not accepted!"  fullwidth />
+				<Alert message="Sorry, action not accepted!" style={{ width: "70vw" }} />
+				<Alert type="danger" message="Sorry, action not accepted!" />
+				<Alert type="warning" message="Sorry, action not accepted!" />
 				{/* with icon */}
+				<SubHeading text="WITH SHADOW" />
+				<Alert type="danger" shadow icon={<Icon />} 
+					message="Sorry, action not accepted!" />
+
 				<SubHeading text="ICONS" />
 				<Alert type="danger" icon={<Icon />} shadow message="Sorry, action not accepted!" />
 
@@ -37,14 +41,21 @@ storiesOf("Alert", module)
 					onClose={() => console.log("closing!")}>
 					<i>Sorry, action not accepted!</i>
 				</Alert>
-				<SubHeading text="CUSTOM & TEXT WRAPPING" />
-				<Alert type="custom" 
-					icon={<Icon />} 
+				<SubHeading text="TEXT WRAPPING" />
+				<Alert type="light" 
 					shadow
+					collapsible
+					style={{ width: "40vw" }}
+					onClose={() => console.log("closing!")}>
+					<span style={{fontSize: ".9em" }}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis voluptatem nostrum, debitis. Ipsum, adipisci, totam!</span>
+				</Alert>
+				<SubHeading text="CUSTOM &" />
+				<Alert type="custom"
+					icon={<Icon />} 
 					style={{ width: "40vw" }}
 					collapsible
 					onClose={() => console.log("closing!")}>
-					<span style={{fontSize: ".8em" }}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis voluptatem nostrum, debitis. Ipsum, adipisci, totam!</span>
+					<span style={{fontSize: ".9em" }}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis voluptatem nostrum, debitis. Ipsum, adipisci, totam!</span>
 				</Alert>
 			</Stack.Flex>
 		</Theme>
