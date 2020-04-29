@@ -20,11 +20,15 @@ const Message = () => (
 )
 
 storiesOf("Form.Labelled", module)
-	.add("Label Input", () => (
-		<Theme>
+	.add("Label Input", () => {
+		const formRef = React.useRef()
+		console.log("FormRef", formRef)
+
+		return <Theme>
 			<Stack large noExtraSpace>
 				<Stack>
 					<SubHeading text="FULL-WIDTH INPUT" />
+					<Input ref={formRef} type="text" label="Enter Email" icon={<span style={{ fontSize: "1rem" }}>@</span>} fullwidth />
 					<Input type="text" label="Interests" fullwidth />
 					<Textarea label="Biography" />
 				</Stack>
@@ -47,7 +51,7 @@ storiesOf("Form.Labelled", module)
 				</Stack>
 			</Stack>
 		</Theme>
-	))
+	})
 	.add("Select", () => (
 		<Theme>
 			<H3>Select and Options</H3>

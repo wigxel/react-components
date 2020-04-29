@@ -1,7 +1,7 @@
 
 # Created by https://www.gitignore.io/api/git,node,react
 # Edit at https://www.gitignore.io/?templates=git,node,react
-
+storybook-static/
 build/
 dist/
 ### Git ###
