@@ -1,37 +1,44 @@
-import resolve from 'rollup-plugin-node-resolve';
-// import { terser } from 'rollup-plugin-terser';
-import replace from 'rollup-plugin-replace';
-import commonjs from 'rollup-plugin-commonjs';
-import svg from 'rollup-plugin-svg';
-import babel from 'rollup-plugin-babel';
+import resolve from "rollup-plugin-node-resolve";
+import { terser } from "rollup-plugin-terser";
+import commonjs from "rollup-plugin-commonjs";
+import babel from "rollup-plugin-babel";
+import svg from "rollup-plugin-svg";
 
-const NODE_ENV = process.env.NODE_ENV || "development";
-const outputFile = NODE_ENV === "production" ? "./dist/prod.js" : "./dist/dev.js";
+const NODE_ENV = "production";
 
 export default {
-  input: 'main.js',
-  output: [{
-    file: outputFile,
-    format: 'cjs',
-    exports: "named",
-  }, {
-    file: './dist/dev.esm.js',
-    format: 'esm',
-    exports: "named",
-  }],
-  external: id => {
-    return /^(react|lodash|styled-components)/.test(id)
-  },
-  plugins: [
-    replace({
-      ENVIRONMENT: JSON.stringify(NODE_ENV)
-    }),
-    babel({
-      exclude: "node_modules/**"
-    }),
-    resolve(),
-    commonjs(),
-    svg(),
-    // terser(),
-  ]
+	input: [
+		"main.js",
+		"components/alert.js",
+		"components/layouts/layout.js",
+		"components/cards/cards.js",
+		"components/forms/form.js",
+		"components/buttons/buttons.js",
+		"components/typography/type.js",
+		"components/lists/lists.js",
+	],
+	output: [
+		{
+			dir: "./dist/",
+			format: "cjs",
+			exports: "named",
+		},
+		// {
+		// 	dir: "./dist/es",
+		// 	format: "esm",
+		// 	exports: "named",
+		// },
+	],
+	external: (id) => {
+		return /^(react|lodash|styled-components)/.test(id);
+	},
+	plugins: [
+		babel({
+			exclude: "node_modules/**",
+		}),
+		resolve(),
+		commonjs(),
+		svg(),
+		terser(),
+	],
 };
