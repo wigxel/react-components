@@ -1,7 +1,8 @@
 import React from "react"
 import t from "prop-types"
-import { fullWidth, theme, withProp } from "../helpers"
+import { theme, withProp } from "../helpers"
 import styled, { css } from "styled-components"
+import { fullWidth } from "../../libs/styled.helpers"
 
 const InputStyle = styled.input`
 	background-color: ${theme("whitesmoke")};
@@ -11,7 +12,7 @@ const InputStyle = styled.input`
 	border-radius: 6px;
 	text-indent: 15px;
 	font-size: 13px;
-	font-family: var(--heading-font, 'Quicksand');
+	font-family: var(--heading-font, "Quicksand");
 	transition: all 0.3s ease-out;
 	border-color: ${theme("primary")};
 	caret-color: ${theme("primary")};
@@ -30,23 +31,22 @@ const InputStyle = styled.input`
 	&:focus {
 		border: solid 1px ${theme("primary")};
 		${withProp("large")(css`
-				border: solid 2px ${theme("primary")};
+			border: solid 2px ${theme("primary")};
 		`)}
 	}
 
 	${fullWidth()}
 	${withProp("large")(css`
-			height: 50px;
-			font-size: 16px;
-			border-radius: 12px;
-			border: solid 2px transparent;
-		`)}
+		height: 50px;
+		font-size: 16px;
+		border-radius: 12px;
+		border: solid 2px transparent;
+	`)}
 `
 
 export const Input = React.forwardRef(function SimpleInput(props, ref) {
-	return (<InputStyle {...props} ref={ref} />)
+	return <InputStyle {...props} ref={ref} />
 })
-
 
 // const IconInputStyle = styled.div`
 // 	--input-mb: 0;
@@ -120,20 +120,14 @@ const RadioStyle = styled.label`
 	}
 `
 
-export const RadioInput = React.forwardRef(
-	function RadioInput(props, ref) {  
-		return (
-			<RadioStyle>
-				<input
-					ref={ref}
-					type="radio"
-					{...props}
-				/>
-				<span />
-			</RadioStyle>
-		)
-	}
-)
+export const RadioInput = React.forwardRef(function RadioInput(props, ref) {
+	return (
+		<RadioStyle>
+			<input ref={ref} type="radio" {...props} />
+			<span />
+		</RadioStyle>
+	)
+})
 
 const RadioLabelStyle = styled.div`
 	display: inline-flex;
@@ -150,7 +144,7 @@ const RadioLabelStyle = styled.div`
 	}
 `
 
-export const RadioLabel = props => {
+export const RadioLabel = (props) => {
 	return (
 		<RadioLabelStyle {...props}>
 			<RadioInput {...props} />
@@ -160,10 +154,10 @@ export const RadioLabel = props => {
 }
 
 RadioLabel.defaultProps = {
-	label: "Something"
+	label: "Something",
 }
 RadioLabel.propTypes = {
-	label: t.string.isRequired
+	label: t.string.isRequired,
 }
 
 const CheckboxStyle = styled(RadioStyle)`

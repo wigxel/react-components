@@ -3,7 +3,8 @@ import t from "prop-types"
 import styled, { css } from "styled-components"
 import { replace, compose } from "ramda"
 import Naira from "../../assets/svgs/naira_symbol.svg"
-import { color, fullWidth } from "../helpers"
+import { color } from "../helpers"
+import { fullWidth } from "../../libs/styled.helpers"
 import { numberFormat } from "../../libs/numbers/currency.js"
 
 const InputStyle = styled.div`
@@ -36,28 +37,28 @@ const InputStyle = styled.div`
     font-family: var(--input-font);
   }
 
-  ${props =>
+  ${(props) =>
 		props.focus &&
-    css`
-      border: solid 1px ${color("primary")};
-    `}
+		css`
+			border: solid 1px ${color("primary")};
+		`}
   ${fullWidth()}
 
-  ${props =>
+  ${(props) =>
 		props.large &&
-    css`
-      height: 50px;
-      img {
-        height: 40px;
-      }
-      input {
-        font-size: 1.7rem;
-      }
-    `}
+		css`
+			height: 50px;
+			img {
+				height: 40px;
+			}
+			input {
+				font-size: 1.7rem;
+			}
+		`}
 `
 
 const INVALID_MESSAGE = "Invalid Number provided"
-const validateInput = evt => {
+const validateInput = (evt) => {
 	const char = parseInt(evt.key)
 	const allowedCodes = [8, 9, 190, 37, 38, 39, 40]
 	// log(evt.keyCode);
@@ -66,16 +67,16 @@ const validateInput = evt => {
 	evt.preventDefault()
 }
 
-const handleNaN = fn => value => {
+const handleNaN = (fn) => (value) => {
 	if (value !== "NaN") return value
 	fn()
 	return 0
 }
 export const clean = replace(/,/gm, "")
 
-export const CurrencyInput = React.forwardRef(( props, ref) => {
+export const CurrencyInput = React.forwardRef((props, ref) => {
 	const [prop, setProp] = useState({
-		value: ""
+		value: "",
 	})
 	const [focus, setFocus] = useState(false)
 
@@ -96,24 +97,24 @@ export const CurrencyInput = React.forwardRef(( props, ref) => {
 				name={props.name}
 				placeholder="0.0"
 				value={prop.value}
-				onKeyDown={evt => {
+				onKeyDown={(evt) => {
 					evt.keyCode === 13 ? evt.target.blur() : validateInput(evt)
 				}}
 				onChange={({ target }) =>
 					setProp({
-						value: clean(target.value)
+						value: clean(target.value),
 					})
 				}
 				onFocus={({ target }) => {
 					setFocus(true)
 					setProp({
-						value: clean(target.value)
+						value: clean(target.value),
 					})
 				}}
 				onBlur={({ target }) => {
 					setFocus(false)
 					setProp({
-						value: formatValue(target.value)
+						value: formatValue(target.value),
 					})
 				}}
 			/>
@@ -122,17 +123,17 @@ export const CurrencyInput = React.forwardRef(( props, ref) => {
 })
 
 CurrencyInput.defaultProps = {
-	isInvalid: (message) => { 
+	isInvalid: (message) => {
 		throw Error(message)
 	},
 	large: false,
 	name: "wg-input",
-	fullWidth: false
+	fullWidth: false,
 }
 
 CurrencyInput.propTypes = {
 	isInvalid: t.func,
-	name: t.string.isRequired
+	name: t.string.isRequired,
 }
 
 export default CurrencyInput

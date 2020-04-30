@@ -1,19 +1,29 @@
 import React, { useState } from "react"
 import t from "prop-types"
 import styled, { css } from "styled-components"
-import { curry, curryN, pickBy, __, contains, nthArg, compose, not } from "ramda"
-import { withProp, themeOr, fullWidth, propIs } from "../helpers"
+import {
+	curry,
+	curryN,
+	pickBy,
+	__,
+	contains,
+	nthArg,
+	compose,
+	not,
+} from "ramda"
+import { withProp, themeOr, propIs } from "../helpers"
+import { fullWidth } from "../../libs/styled.helpers"
 
 const theme = themeOr({
 	border: {
 		gray: "#e1e1e1",
-		width: "1px"
-	}
+		width: "1px",
+	},
 })
 
 const blacklist = ["fullwidth", "icon"]
 const removeBacklist = pickBy(compose(not, contains(__, blacklist), nthArg(1)))
-const disabled = propIs("disabled", x => x == true)
+const disabled = propIs("disabled", (x) => x == true)
 const sharedFocusStyle = css`
 	width: 100%;
 	border: solid ${theme("border.width")} ${theme("border.gray")};
@@ -113,7 +123,8 @@ const InputStyle = styled.label`
 		}
 	`)};
 
-	&, & > * {
+	&,
+	& > * {
 		transition: all 0.3s ease-out;
 	}
 
@@ -168,12 +179,12 @@ export const TextWrapper = styled.div`
 export const Labelled = {}
 
 const canFocus = (props) => props.placeholder
-	
+
 const createInput = curry((fn, initialState) => {
 	return React.forwardRef(function InputWrapper(props, ref) {
 		const [state, setState] = useState({
 			focus: canFocus(props),
-			...initialState
+			...initialState,
 		})
 
 		const inputRef = ref ? ref : React.useRef()
@@ -182,11 +193,11 @@ const createInput = curry((fn, initialState) => {
 			setState(fn)
 		})
 
-		const focus = state => {
+		const focus = (state) => {
 			return { ...state, focus: true }
 		}
 
-		const blur = state => {
+		const blur = (state) => {
 			if (!inputRef.current.value) {
 				return { ...state, focus: canFocus(props) }
 			}
@@ -196,7 +207,7 @@ const createInput = curry((fn, initialState) => {
 		const _props = {
 			onFocus: action(focus),
 			onBlur: action(blur),
-			...props
+			...props,
 		}
 
 		return fn({
@@ -204,13 +215,13 @@ const createInput = curry((fn, initialState) => {
 			inputRef,
 			state,
 			focus,
-			blur
+			blur,
 		})
 	})
 })
 
 const styleWrapper = curry((initialState, component) => {
-	return createInput(args => {
+	return createInput((args) => {
 		const { props, state } = args
 
 		return (
@@ -248,7 +259,7 @@ Labelled.Input = closedInput(({ props, inputRef, state }) => {
 })
 
 Labelled.Number = closedInput(({ state, props, inputRef }) => {
-	const sanitize = evt => {
+	const sanitize = (evt) => {
 		const isAlpha = /^[A-Za-z]$/gi.test(evt.key)
 		const isKeyComb = evt.metaKey || evt.ctrlKey
 		if (isAlpha && !isKeyComb) {
@@ -256,7 +267,7 @@ Labelled.Number = closedInput(({ state, props, inputRef }) => {
 		}
 	}
 
-	const handleChange = evt => {
+	const handleChange = (evt) => {
 		if (props.onChange) props.onChange(evt)
 	}
 
@@ -277,25 +288,19 @@ Labelled.Message = styled.div`
 `
 
 Labelled.Message.propTypes = {
-	children: t.node.isRequired
+	children: t.node.isRequired,
 }
 
 Labelled.Select = makeAlwaysFocused(({ props, inputRef }) => {
 	return (
-		<select
-			{...removeBacklist(props)}
-			ref={inputRef}
-			onChange={props.onChange}
-		>
+		<select {...removeBacklist(props)} ref={inputRef} onChange={props.onChange}>
 			{props.children}
 		</select>
 	)
 })
 
 function Select_Option({ value, text }) {
-	return (
-		<option value={value || text}>{text}</option>
-	)
+	return <option value={value || text}>{text}</option>
 }
 
 Select_Option.propTypes = {
@@ -310,9 +315,7 @@ Labelled.Select.propTypes = {
 Labelled.Textarea = createInput(({ props, inputRef, state }) => {
 	return (
 		<div>
-			<TextWrapper 
-				focused={state.focus}
-				disabled={props.disabled}>
+			<TextWrapper focused={state.focus} disabled={props.disabled}>
 				<span className="wg-label">{props.label}</span>
 				<textarea
 					{...removeBacklist(props)}
