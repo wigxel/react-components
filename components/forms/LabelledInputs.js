@@ -134,6 +134,11 @@ const InputStyle = styled.label`
 	input[type="number"] {
 		text-align: right;
 	}
+
+	.icn {
+		flex: 1 0 0;
+		max-width: 30px;
+	}
 `
 
 export const TextWrapper = styled.div`
@@ -217,7 +222,7 @@ const styleWrapper = curry((initialState, component) => {
 					options={props.children}
 					disabled={props.disabled}
 				>
-					<span>{props.icon}</span>
+					{props.icon && <span className="icn">{props.icon}</span>}
 					<span className="wg-label">{props.label}</span>
 					{component(args)}
 				</InputStyle>
@@ -287,22 +292,19 @@ Labelled.Select = makeAlwaysFocused(({ props, inputRef }) => {
 	)
 })
 
-function Select_Option({ value, text, selected }) {
+function Select_Option({ value, text }) {
 	return (
-		<option selected={selected} value={value || text}>
-			{text}
-		</option>
+		<option value={value || text}>{text}</option>
 	)
 }
 
 Select_Option.propTypes = {
 	text: t.string.isRequired,
-	value: t.string,
-	selected: t.bool,
+	value: t.string.isRequired,
 }
 Labelled.Select.Option = Select_Option
 Labelled.Select.propTypes = {
-	children: t.array.isRequired
+	children: t.array.isRequired,
 }
 
 Labelled.Textarea = createInput(({ props, inputRef, state }) => {

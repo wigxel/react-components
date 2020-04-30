@@ -103,7 +103,7 @@ Alert.propTypes = {
 	shadow: t.bool,
 	onClose: t.func,
 	collapsible: t.bool,
-	children: t.node.isRequired,
+	children: t.node,
 }
 
 export default Alert

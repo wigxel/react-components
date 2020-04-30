@@ -22,7 +22,6 @@ const Message = () => (
 storiesOf("Form.Labelled", module)
 	.add("Label Input", () => {
 		const formRef = React.useRef()
-		console.log("FormRef", formRef)
 
 		return <Theme>
 			<Stack large noExtraSpace>
@@ -57,6 +56,7 @@ storiesOf("Form.Labelled", module)
 			<H3>Select and Options</H3>
 			<Select
 				label="Choose Lifestyle"
+				value={"Creative"}
 				icon={<HashIcon />}
 				onChange={val => {
 					console.log("New Value", val.target.value)
@@ -64,10 +64,7 @@ storiesOf("Form.Labelled", module)
 			>
 				{["Fun", "Blank", "Creative"].map((val, idx) => (
 					<Select.Option
-						key={idx}
-						fullwidth
-						value={val} text={val} 
-						selected={val === "Blank"} />
+						key={idx} value={val}  text={val} />
 				))}
 			</Select>
 		</Theme>
