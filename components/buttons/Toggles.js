@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components"
-import { themeOr, propIs } from "../helpers"
+import { themeOr, color, propIs } from "../helpers"
 
 const theme = themeOr({
 	toggle: {
 		inside: "whitesmoke",
-		active: "green",
+		active: color("primary"),
 		inactive: "white"
 	}
 })
@@ -132,10 +132,12 @@ const Line = styled(Rounded)`
 	`)}
 `
 
-export default { 
+export const Toggle = { 
 	Rounded,
 	Circle,
 	Binary,
 	Square,
 	Line,
 }
+
+export default Toggle

@@ -2,7 +2,8 @@ import React from "react"
 import { storiesOf } from "@storybook/react"
 import { Theme } from "./styles/StyleComponents"
 import Dropdown from "../components/forms/Select"
-import SingleForm from "../components/special/SingleForm"
+import { log, trace } from "../libs/helpers"
+import { CurrencyInput, SingleForm } from "../components/special"
 
 const Fields = [
 	{
@@ -37,3 +38,16 @@ storiesOf("Special.Form", module)
 			<Dropdown style={{width: "230px"}} options={Dropdown.options(["Male - Category Menu", "Dance", "Cry"])}/>
 		</Theme>
 	})
+	.add("Number Input", () => (
+		<Theme>
+			<h1>Currency Input</h1>
+			<p>Enter a number</p>
+			<CurrencyInput onChange={e => log(e.target.value)} /> <br />
+			<br />
+			<p>Large</p>
+			<CurrencyInput large />
+			<p>Large & Fullwidth</p>
+			<CurrencyInput fullwidth large isInvalid={trace("Message")} />
+		</Theme>
+	))
+

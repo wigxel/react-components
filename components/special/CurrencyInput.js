@@ -1,12 +1,9 @@
 import React, { useState } from "react"
 import t from "prop-types"
 import styled, { css } from "styled-components"
-import { compose } from "lodash/fp"
-import _ from "lodash"
-
+import { replace, compose } from "ramda"
 import Naira from "../../assets/svgs/naira_symbol.svg"
 import { color, fullWidth } from "../helpers"
-// import { log, trace } from '../../libs/helpers';
 import { numberFormat } from "../../libs/numbers/currency.js"
 
 const InputStyle = styled.div`
@@ -60,12 +57,11 @@ const InputStyle = styled.div`
 `
 
 const INVALID_MESSAGE = "Invalid Number provided"
-const number = char => _.isNumber(char) && !_.isNaN(char)
 const validateInput = evt => {
 	const char = parseInt(evt.key)
 	const allowedCodes = [8, 9, 190, 37, 38, 39, 40]
 	// log(evt.keyCode);
-	if (allowedCodes.includes(evt.keyCode) || number(char)) return
+	if (allowedCodes.includes(evt.keyCode) || !Object.is(NaN, +char)) return
 	// log('I prevented');
 	evt.preventDefault()
 }
@@ -75,7 +71,7 @@ const handleNaN = fn => value => {
 	fn()
 	return 0
 }
-export const clean = value => _.replace(String(value), /,/gm, "")
+export const clean = replace(/,/gm, "")
 
 export const CurrencyInput = React.forwardRef(( props, ref) => {
 	const [prop, setProp] = useState({
@@ -87,9 +83,7 @@ export const CurrencyInput = React.forwardRef(( props, ref) => {
 	const formatValue = compose(
 		// trace('returning to zero(0)'),
 		handleNaN(() => props.isInvalid(INVALID_MESSAGE)),
-		// trace('naira'),
 		numberFormat,
-		// trace('cleaned')
 		clean
 	)
 

@@ -1,16 +1,24 @@
 import React from "react"
 import styled, { css } from "styled-components"
 import t from "prop-types"
-import { color, withProp } from "../helpers"
+import { themeOr, withProp } from "../helpers"
+
+const theme = themeOr({
+	timeline: {
+		borderColor: "#848484",
+		bgColor: "#fff",
+		hoverColor: "whitesmoke",
+	}
+})
 
 const ActivityStyle = styled.ul `
+  flex: 1;
   padding: 0;
   display: flex;
-  flex: 1;
   flex-flow: column ;
   box-sizing: border-box;
   margin-left: ${23 / 2}px;
-  border-left: solid 1px ${color("greylight")};
+  border-left: solid 1px ${theme("timeline.borderColor")};
 
 
   .a-item {
@@ -32,7 +40,7 @@ const ActivityStyle = styled.ul `
     ${withProp("hoverable")(css`
         &:hover {
             &:before {
-                background-color: ${color("whitesmoke")};
+                background-color: ${theme("timeline.hoverColor")};
             }
         }
     `)}
@@ -46,8 +54,8 @@ const ActivityStyle = styled.ul `
         border-radius: 50%;
         background-color: white;
         transform: translate3d(-50%, -50%, 0);
-        box-shadow: 0 0 0 3px ${color("bgcolor")};
-        border: solid 1px ${color("greylight")};
+        box-shadow: 0 0 0 3px ${theme("timeline.bgColor")};
+        border: solid 1px ${theme("timeline.borderColor")};
     }
   }
 `

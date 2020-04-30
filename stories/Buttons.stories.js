@@ -4,11 +4,11 @@ import {
 	Button,
 	IconButton,
 	CircleButton
-} from "../components/forms/buttons"
+} from "../components/buttons"
 import { Theme } from "./styles/StyleComponents"
 import { Tab } from "../components/layouts"
 
-storiesOf("Form.Button", module)
+storiesOf("Buttons", module)
 	.add("Overview", () => (
 		<Theme>
 			<Tab>

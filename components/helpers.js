@@ -4,6 +4,7 @@
  */
 import * as R from "ramda"
 import { isArray } from "lodash"
+import camelCase from "lodash/fp/camelCase"
 import styled, { css } from "styled-components"
 import { curry, split, lensPath, view } from "ramda"
 
@@ -13,6 +14,8 @@ export const theme = curry((key, props) => {
 
 	return getPath(props.theme)
 })
+
+export const color = name => theme(["colors", name])
 
 export const themeOr = curry((fallback, key, props) => {
 	const keyFrom = theme(key)
@@ -28,13 +31,6 @@ export const propIs = curry(
 )
 
 export const propOr = (prop, defValue) => props => props[prop] || defValue
-
-const capitalize = str => R.toUpper(R.head(str)) + R.toLower(R.tail(str))
-const capitalizeTail = R.compose(R.join(""), R.map(capitalize), R.tail)
-const camelCase = R.curry((str, split = "") => {
-	const words = split(str)
-	return R.concat(R.head(words), capitalizeTail(words))
-})
 
 const makeCamel = ([property, defValue]) => {
 	const propInCamel = camelCase(property, R.split("-"))
@@ -101,22 +97,3 @@ export const fullWidth = withProp(
   `
 )
 
-export const color = theme
-
-const sizes = {
-	bigDestktop: 1800, // 1800 above
-	tabletLand: 1200,
-	tabletPort: 900,
-	phone: 600
-}
-
-// Iterate through the sizes and create a media template
-export const media = Object.keys(sizes).reduce((acc, label) => {
-	acc[label] = (...args) => css`
-    @media (max-width: ${sizes[label] / 16}em) {
-      ${css(...args)}
-    }
-  `
-
-	return acc
-}, {})

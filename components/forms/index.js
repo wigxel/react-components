@@ -1,6 +1,4 @@
 export * from "./inputs"
-export * from "./buttons"
 export * from "./Checker"
-export * from "./CurrencyInput"
 export * from "./LabelledInputs"
 export * from "./PasswordValidator"

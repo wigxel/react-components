@@ -302,7 +302,7 @@ const useDots = R.compose(
 	String
 )
 
-export function SingleSignup({ form, onSubmit, message }) {
+export function SingleForm({ form, onSubmit, message }) {
 	const inputRef = React.useRef()
 	const spanRef = React.useRef()
 	const [fields] = React.useState(form)
@@ -373,15 +373,15 @@ const FormProp = t.exact({
 	regex: t.instanceOf(RegExp).isRequired
 })
 
-SingleSignup.defaultProps = {
+SingleForm.defaultProps = {
 	message: "Success!"
 }
 
-SingleSignup.propTypes = {
+SingleForm.propTypes = {
 	form: t.arrayOf(FormProp),
 	onSubmit: t.func.isRequired,
 	message: t.node
 }
 
 
-export default SingleSignup
+export default SingleForm

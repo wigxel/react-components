@@ -1,16 +1,22 @@
 const Generic = {
-	primary: "#705DF5",
-	accent: "#FFAA00",
-	danger: "#E56464",
-	grey: "#878787",
-	greylight: "#848484",
-	navbar: "#FDFDFD",
+	colors: {
+		primary: "#705DF5",
+		accent: "#FFAA00",
+		danger: "#E56464",
+		grey: "#878787",
+		greylight: "#848484",
+		navbar: "#FDFDFD",
+	},
 	padding: {
 		6: "2rem",
 		12: "2.5rem",
 	},
 	alert: {
 		custom: { bg: "beige", text: "dodgerblue" }
+	},
+	timeline: {
+		borderColor: "blue",
+		hoverColor: "whitesmoke"
 	},
 	check: {
 		// labelBg: "#705DF5"

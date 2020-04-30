@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { storiesOf } from "@storybook/react"
 import { withKnobs, boolean } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
-import Toggle from "../components/special/Toggles"
+import { Toggle } from "../components/buttons"
 import Stack from "../components/layouts/Stack"
 
 const Sp = styled.div`
@@ -12,7 +12,7 @@ const Sp = styled.div`
 	width: min(500px, 50vw);
 `
 
-storiesOf("Special.Buttons", module)
+storiesOf("Buttons", module)
 	.addDecorator(withKnobs)
 	.add("Toggles/Switch", () => {
 		const state = boolean("Toggle")

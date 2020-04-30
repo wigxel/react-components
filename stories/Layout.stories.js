@@ -5,7 +5,7 @@ import { Theme } from "./styles/StyleComponents"
 import { H1, H2, H3, P } from "../components/typography"
 import { Stack, Cluster, Outline } from "../components/layouts/"
 import { Pager }  from "../components/layouts/Pager"
-import { Button } from "../components/forms/buttons"
+import { Button } from "../components/buttons"
 
 // eslint-disable-next-line
 const ClusterOutline = ({ children }) => {
