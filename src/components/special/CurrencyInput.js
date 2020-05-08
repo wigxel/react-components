@@ -3,7 +3,7 @@ import t from "prop-types"
 import styled, { css } from "styled-components"
 import { replace, compose } from "ramda"
 import Naira from "../../assets/svgs/naira_symbol.svg"
-import { color } from "../helpers"
+import { color } from "../../libs/styled.helpers"
 import { fullWidth } from "../../libs/styled.helpers"
 import { numberFormat } from "../../libs/numbers/currency.js"
 

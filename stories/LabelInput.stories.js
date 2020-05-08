@@ -1,9 +1,9 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import { H3 } from "../src/components/typography/type"
-import { Stack } from "../src/components/layouts/layout"
+import { H3 } from "../src/components/typography"
+import { Stack } from "../src/components/layouts"
 import { Theme, SubHeading } from "./styles/StyleComponents"
-import { Labelled } from "../src/components/forms/form"
+import { Labelled } from "../src/components/forms"
 
 const { Input, Select, Textarea } = Labelled
 

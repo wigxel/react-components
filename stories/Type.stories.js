@@ -1,8 +1,8 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import { Stack } from "../src/components/layouts/layout"
+import { Stack } from "../src/components/layouts"
 import { Theme } from "./styles/StyleComponents"
-import { H1, H2, H3, H4, Type } from "../src/components/typography/type"
+import { H1, H2, H3, H4, Type } from "../src/components/typography"
 
 storiesOf("Type", module)
 	.add("Headings", () => (

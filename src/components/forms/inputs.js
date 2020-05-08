@@ -1,6 +1,6 @@
 import React from "react"
 import t from "prop-types"
-import { theme, withProp } from "../helpers"
+import { theme, withProp } from "../../libs/styled.helpers"
 import styled, { css } from "styled-components"
 import { fullWidth } from "../../libs/styled.helpers"
 

@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { storiesOf } from "@storybook/react"
 import { withKnobs, text } from "@storybook/addon-knobs"
-import { H3, P } from "../src/components/typography/type"
-import { Stack, Cluster } from "../src/components/layouts/layout"
-import { PasswordValidator, Labelled } from "../src/components/forms/form"
+import { H3, P } from "../src/components/typography"
+import { Stack, Cluster } from "../src/components/layouts"
+import { PasswordValidator, Labelled } from "../src/components/forms"
 import { Theme, SubHeading } from "./styles/StyleComponents"
 
 const { Input } = Labelled

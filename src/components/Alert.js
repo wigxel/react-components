@@ -1,8 +1,7 @@
 import React from "react"
 import t from "prop-types"
 import styled, { css } from "styled-components"
-import { themeOr, withProp } from "./helpers"
-import { fullWidth } from "../libs/styled.helpers"
+import { themeOr, withProp, fullWidth } from "../libs/styled.helpers"
 
 const theme = themeOr({
 	alert: {

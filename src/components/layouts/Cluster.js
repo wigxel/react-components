@@ -1,6 +1,6 @@
 import t from "prop-types"
 import styled, { css } from "styled-components"
-import { withProp } from "../helpers"
+import { withProp } from "../../libs/styled.helpers"
 
 const addProps = (fn) => {
 	fn.propTypes = {

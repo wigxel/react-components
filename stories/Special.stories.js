@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react"
 import { Theme } from "./styles/StyleComponents"
 import Dropdown from "../src/components/forms/Select"
 import { log, trace } from "../src/libs/helpers"
-import { CurrencyInput, SingleForm } from "../src/components/special/special"
+import { CurrencyInput, SingleForm } from "../src/components/special"
 
 const Fields = [
 	{

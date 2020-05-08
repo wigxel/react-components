@@ -1,8 +1,8 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import { Button, IconButton, CircleButton } from "../src/components/buttons/buttons"
+import { Button, IconButton, CircleButton } from "../src/components/buttons"
 import { Theme } from "./styles/StyleComponents"
-import { Tab } from "../src/components/layouts/layout"
+import { Tab } from "../src/components/layouts"
 
 storiesOf("Buttons", module)
 	.add("Overview", () => (

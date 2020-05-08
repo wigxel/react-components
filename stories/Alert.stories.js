@@ -1,6 +1,6 @@
 import React from "react"
 import Alert from "../src/components/Alert"
-import { Stack } from "../src/components/layouts/layout"
+import { Stack } from "../src/components/layouts"
 import { storiesOf } from "@storybook/react"
 import { Theme, SubHeading } from "./styles/StyleComponents"
 

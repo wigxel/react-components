@@ -2,9 +2,9 @@ import React from "react"
 import { storiesOf } from "@storybook/react"
 import { withKnobs, boolean, number } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
-import { H1, H2, H3, P } from "../src/components/typography/type"
-import { Pager, Stack, Cluster, Outline } from "../src/components/layouts/layout"
-import { Button } from "../src/components/buttons/buttons"
+import { H1, H2, H3, P } from "../src/components/typography"
+import { Pager, Stack, Cluster, Outline } from "../src/components/layouts"
+import { Button } from "../src/components/buttons"
 
 // eslint-disable-next-line
 const ClusterOutline = ({ children }) => {

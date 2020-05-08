@@ -1,6 +1,6 @@
 import React from "react"
 import styled, { css } from "styled-components"
-import { withProp, propsOr } from "../helpers"
+import { withProp, propsOr } from "../../libs/styled.helpers"
 
 const propSizes = [
 	["small", ".5rem"],

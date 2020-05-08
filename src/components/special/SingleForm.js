@@ -1,7 +1,7 @@
 import React from "react"
 import t from "prop-types"
 import * as R from "ramda"
-import { propIs } from "../helpers"
+import { propIs } from "../../libs/styled.helpers"
 import styled, { css } from "styled-components"
 
 const wiggleEffect = propIs(

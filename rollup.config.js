@@ -7,22 +7,28 @@ import svg from "rollup-plugin-svg";
 const NODE_ENV = "production";
 
 export default {
-	input: [
-		"src/main.js",
-		"src/components/alert.js",
-		"src/components/cards/cards.js",
-		"src/components/forms/form.js",
-		"src/components/lists/lists.js",
-		"src/components/layouts/layout.js",
-		"src/components/buttons/buttons.js",
-		"src/components/typography/type.js",
-		"src/components/special/special.js",
-	],
+	external: (id) => {
+		return /^(react|lodash|styled-components)/.test(id);
+	},
+	input: {
+		"main": "src/main.js",
+		"alert": "src/components/alert.js",
+		"cards": "src/components/cards/index.js",
+		"form": "src/components/forms/index.js",
+		"lists": "src/components/lists/index.js",
+		"layout": "src/components/layouts/index.js",
+		"buttons": "src/components/buttons/index.js",
+		"typography": "src/components/typography/index.js",
+		"special": "src/components/special/index.js",
+	},
 	output: [
 		{
 			dir: "./lib/",
 			format: "cjs",
 			exports: "named",
+			globals: {
+	      "styled-components": "styled"
+	    }
 		},
 		// {
 		// 	dir: "./dist/es",
@@ -30,9 +36,6 @@ export default {
 		// 	exports: "named",
 		// },
 	],
-	external: (id) => {
-		return /^(react|lodash|styled-components)/.test(id);
-	},
 	plugins: [
 		babel({
 			exclude: "node_modules/**",

@@ -1,6 +1,6 @@
 import React from "react"
 import styled, { css } from "styled-components"
-import { color, themeOr, withProp } from "../helpers"
+import { color, themeOr, withProp } from "../../libs/styled.helpers"
 
 const theme = themeOr({
 	card: {

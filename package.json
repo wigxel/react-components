@@ -7,7 +7,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
-    "test": "tape-watch -1 -r @babel/register components/**/*.test.js -p tap-spec",
+    "test": "tape-watch -1 -r @babel/register src/**/*.test.js -p tap-spec",
     "test:watch": "NODE_ENV=development npm run test -- --watch --clear",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",

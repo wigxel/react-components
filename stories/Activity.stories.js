@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 import { storiesOf } from "@storybook/react"
 import { withKnobs } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
-import { Activity } from "../src/components/lists/lists"
-import { H4 } from "../src/components/typography/type"
+import { Activity } from "../src/components/lists"
+import { H4 } from "../src/components/typography"
 
 const entries = [
 	"created a new event",

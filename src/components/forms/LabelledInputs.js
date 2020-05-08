@@ -11,7 +11,7 @@ import {
 	compose,
 	not,
 } from "ramda"
-import { withProp, themeOr, propIs } from "../helpers"
+import { withProp, themeOr, propIs } from "../../libs/styled.helpers"
 import { fullWidth } from "../../libs/styled.helpers"
 
 const theme = themeOr({

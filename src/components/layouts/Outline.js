@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import { withProp } from "../helpers"
+import { withProp } from "../../libs/styled.helpers"
 
 const outlineColor = props => props.color || "orange"
 

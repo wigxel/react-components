@@ -3,8 +3,8 @@ import styled from "styled-components"
 import { storiesOf } from "@storybook/react"
 import { withKnobs, boolean } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
-import { Toggle } from "../src/components/buttons/buttons"
-import { Stack } from "../src/components/layouts/layout"
+import { Toggle } from "../src/components/buttons"
+import { Stack } from "../src/components/layouts"
 
 const Sp = styled.div`
 	display: flex;

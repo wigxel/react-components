@@ -1,7 +1,7 @@
 import React from "react"
 import styled, { css } from "styled-components"
 import t from "prop-types"
-import { themeOr, withProp } from "../helpers"
+import { themeOr, withProp } from "../../libs/styled.helpers"
 
 const theme = themeOr({
 	timeline: {

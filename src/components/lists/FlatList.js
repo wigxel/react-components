@@ -2,7 +2,7 @@ import React from "react"
 import t from "prop-types"
 import styled from "styled-components"
 import { NavLink as Link } from "react-router-dom"
-import { color } from "../helpers"
+import { color } from "../../libs/styled.helpers"
 
 const FlatListStyle = styled.ul`
   width: 100%;

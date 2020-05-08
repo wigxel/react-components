@@ -1,9 +1,9 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import { H3 } from "../src/components/typography/type"
-import { Stack } from "../src/components/layouts/layout"
+import { H3 } from "../src/components/typography"
+import { Stack } from "../src/components/layouts"
 import { Theme } from "./styles/StyleComponents"
-import { RadioInput, RadioLabel, Checkbox, Checker, Input } from "../src/components/forms/form"
+import { RadioInput, RadioLabel, Checkbox, Checker, Input } from "../src/components/forms"
 
 storiesOf("Form.Regular", module)
 	.add("Inputs Fields", () => (

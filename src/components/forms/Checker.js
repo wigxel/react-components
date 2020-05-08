@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react"
 import styled, { css } from "styled-components"
 import { curryN } from "ramda"
-import { themeOr, withProp, propIs } from "../helpers"
+import { themeOr, withProp, propIs } from "../../libs/styled.helpers"
 import t from "prop-types"
 
 const theme = themeOr({

@@ -2,7 +2,7 @@ import React from "react"
 import t from "prop-types"
 import { has } from "ramda"
 import styled, { css } from "styled-components"
-import { propIs } from "../helpers"
+import { propIs } from "../../libs/styled.helpers"
 import { useModal } from "../../hooks/modal"
 import Card from "./Card"
 
