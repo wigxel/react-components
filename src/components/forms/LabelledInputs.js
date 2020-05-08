@@ -309,7 +309,7 @@ Select_Option.propTypes = {
 }
 Labelled.Select.Option = Select_Option
 Labelled.Select.propTypes = {
-	children: t.array.isRequired,
+	children: t.node.isRequired,
 }
 
 Labelled.Textarea = createInput(({ props, inputRef, state }) => {

@@ -1,12 +1,8 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import {
-	Button,
-	IconButton,
-	CircleButton
-} from "../components/buttons"
+import { Button, IconButton, CircleButton } from "../src/components/buttons/buttons"
 import { Theme } from "./styles/StyleComponents"
-import { Tab } from "../components/layouts"
+import { Tab } from "../src/components/layouts/layout"
 
 storiesOf("Buttons", module)
 	.add("Overview", () => (
@@ -16,11 +12,11 @@ storiesOf("Buttons", module)
 				<Button>Hello Button</Button>
 				<Button danger>Stop Now</Button>
 				<Button large primary>
-          Primary
+					Primary
 				</Button>
 				<Button outline>Outline</Button>
 				<Button danger outline large>
-          Outline Large
+					Outline Large
 				</Button>
 			</Tab>
 		</Theme>
@@ -29,13 +25,13 @@ storiesOf("Buttons", module)
 		<Theme>
 			<Tab>
 				<Button danger outline>
-          Danger
+					Danger
 				</Button>
 				<Button warning outline>
-          Warning
+					Warning
 				</Button>
 				<Button primary outline large>
-          Primary
+					Primary
 				</Button>
 			</Tab>
 		</Theme>
@@ -44,10 +40,10 @@ storiesOf("Buttons", module)
 		<Theme>
 			<Tab>
 				<IconButton icon="dashboard" color="#fff">
-          Add Vendor
+					Add Vendor
 				</IconButton>
 				<IconButton icon="home" color="#fff" primary large>
-          Add Profile Info
+					Add Profile Info
 				</IconButton>
 			</Tab>
 		</Theme>

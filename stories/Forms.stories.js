@@ -1,15 +1,9 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import { H3 } from "../components/typography/heading"
-import { Stack } from "../components/layouts"
+import { H3 } from "../src/components/typography/type"
+import { Stack } from "../src/components/layouts/layout"
 import { Theme } from "./styles/StyleComponents"
-import {
-	RadioInput,
-	RadioLabel,
-	Checkbox,
-	Checker,
-	Input
-} from "../components/forms"
+import { RadioInput, RadioLabel, Checkbox, Checker, Input } from "../src/components/forms/form"
 
 storiesOf("Form.Regular", module)
 	.add("Inputs Fields", () => (
@@ -35,21 +29,30 @@ storiesOf("Form.Regular", module)
 				<div>
 					<Checker
 						style={Checker.Styles.Flat}
-						buttons={["I Am", "Without", "A Label"]} 
-						onChange={val => { console.log(val) }}/>
+						buttons={["I Am", "Without", "A Label"]}
+						onChange={(val) => {
+							console.log(val)
+						}}
+					/>
 				</div>
 				<div>
 					<Checker
 						label="Choose Hobby"
-						buttons={["Creative", "Modern", "Traditional"]} 
-						onChange={val => { console.log(val) }}/>
+						buttons={["Creative", "Modern", "Traditional"]}
+						onChange={(val) => {
+							console.log(val)
+						}}
+					/>
 				</div>
 				<Checker
-					style={Checker.Styles.Flat} 
+					style={Checker.Styles.Flat}
 					label="Choose Hobby"
 					disabled={true}
-					buttons={["Design", "Laugh", "Cry", "Joker"]} 
-					onChange={val => { console.log(val) }}/>
+					buttons={["Design", "Laugh", "Cry", "Joker"]}
+					onChange={(val) => {
+						console.log(val)
+					}}
+				/>
 			</section>
 		</Theme>
 	))

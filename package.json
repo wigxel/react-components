@@ -2,7 +2,7 @@
   "name": "@wigxel/react-components",
   "version": "1.0.8",
   "description": "UI Component library by Wigxel corp.",
-  "main": "dist/prod.js",
+  "main": "lib/main.js",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
@@ -13,16 +13,17 @@
     "build-storybook": "build-storybook",
     "prepublishOnly": "npm run release",
     "release": "npm run build:dev && npm run build:prod",
-    "build:prod": "NODE_ENV=production rollup -c",
-    "build:dev": "NODE_ENV=development rollup -c",
-    "lint": "eslint --quiet --fix components/** libs/** stories/** && echo 'Lint complete.'",
-    "watch": "watch 'clear && npm run lint' libs components stories"
+    "build": "rollup -c",
+    "lint": "eslint --quiet --fix src/ stories/ && echo 'Lint complete.'",
+    "watch": "watch 'clear && npm run lint' src stories"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wigxel/react-components.git"
   },
   "keywords": [
+  	"styled-components",
+  	"customizible components",
     "react-components",
     "wigxel-ui-components",
     "wigxel"
@@ -33,7 +34,7 @@
     "url": "https://github.com/wigxel/react-components/issues"
   },
   "files": [
-    "dist"
+    "lib"
   ],
   "homepage": "https://github.com/wigxel/react-components#readme",
   "dependencies": {
@@ -47,7 +48,7 @@
   "peerDependencies": {
     "react": "16.x",
     "lodash": "4.x",
-    "styled-components": "^4.x"
+    "styled-components": ">=4.x"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

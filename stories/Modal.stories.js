@@ -2,11 +2,11 @@ import React from "react"
 import { storiesOf } from "@storybook/react"
 import { withKnobs, boolean, text } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
-import { Modal, Card } from "../components/cards"
-import { Button } from "../components/buttons"
-import { H4, P } from "../components/typography"
-import { Stack, Tab } from "../components/layouts"
-import { ModalProvider, useModal } from "../hooks/modal"
+import { Modal, Card } from "../src/components/cards/cards"
+import { Button } from "../src/components/buttons/buttons"
+import { H4, P } from "../src/components/typography/type"
+import { Stack, Tab } from "../src/components/layouts/layout"
+import { ModalProvider, useModal } from "../src/hooks/modal"
 
 const Buttons = () => {
 	const { toggle } = useModal()

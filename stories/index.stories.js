@@ -4,8 +4,7 @@ import { storiesOf } from "@storybook/react"
 // import { action } from '@storybook/addon-actions';
 // import { linkTo } from '@storybook/addon-links';
 
-import { H2 } from "../components/typography/heading"
-import { P } from "../components/typography/text"
+import { H2, P } from "../src/components/typography/type"
 
 storiesOf("Welcome", module).add("to Storybook", () => (
 	<div>

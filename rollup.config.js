@@ -8,18 +8,19 @@ const NODE_ENV = "production";
 
 export default {
 	input: [
-		"main.js",
-		"components/alert.js",
-		"components/layouts/layout.js",
-		"components/cards/cards.js",
-		"components/forms/form.js",
-		"components/buttons/buttons.js",
-		"components/typography/type.js",
-		"components/lists/lists.js",
+		"src/main.js",
+		"src/components/alert.js",
+		"src/components/cards/cards.js",
+		"src/components/forms/form.js",
+		"src/components/lists/lists.js",
+		"src/components/layouts/layout.js",
+		"src/components/buttons/buttons.js",
+		"src/components/typography/type.js",
+		"src/components/special/special.js",
 	],
 	output: [
 		{
-			dir: "./dist/",
+			dir: "./lib/",
 			format: "cjs",
 			exports: "named",
 		},
