@@ -1,4 +1,5 @@
 export * from "./inputs"
+export * from "./Radio"
 export * from "./Checker"
 export * from "./LabelledInputs"
 export * from "./PasswordValidator"

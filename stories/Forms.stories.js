@@ -3,7 +3,14 @@ import { storiesOf } from "@storybook/react"
 import { H3 } from "../src/components/typography"
 import { Stack } from "../src/components/layouts"
 import { Theme } from "./styles/StyleComponents"
-import { RadioInput, RadioLabel, Checkbox, Checker, Input } from "../src/components/forms"
+import { 
+	Radio, Radio1, 
+	//RadioLabel, 
+	Checkbox, 
+	Checkbox1, 
+	Checker, 
+	Input 
+} from "../src/components/forms"
 
 storiesOf("Form.Regular", module)
 	.add("Inputs Fields", () => (
@@ -59,14 +66,21 @@ storiesOf("Form.Regular", module)
 	.add("Radio/Checkbox", () => (
 		<Theme>
 			<H3>Radio</H3>
-			<RadioInput name="poor" value="Mobbi" /> Male
-			<RadioLabel name="poor" value="Antelope" fullwidth />
+			<Radio.Pill>
+				<Radio name="poor" value="lorem" />
+				<span>&nbsp; Style 1</span>
+			</Radio.Pill>
+			<Radio.Pill>
+				<Radio1 name="poor" value="lorem" />
+				<span>&nbsp; Style 2</span>
+			</Radio.Pill>
+			{/** <RadioLabel name="poor" value="ipsum" label="Style 3" fullwidth /> **/}
 			<H3>Checkbox</H3>
-			<div>
+			<Radio.Pill>
 				<Checkbox fullwidth name="rich" value="Antelope" /> Designer
-			</div>
-			<div>
-				<Checkbox fullwidth name="rich" value="Antelope" /> Morpheus
-			</div>
+			</Radio.Pill>
+			<Radio.Pill>
+				<Checkbox1 fullwidth name="rich" value="Antelope" /> Morpheus
+			</Radio.Pill>
 		</Theme>
 	))

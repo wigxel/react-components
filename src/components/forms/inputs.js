@@ -1,8 +1,6 @@
 import React from "react"
-import t from "prop-types"
-import { theme, withProp } from "../../libs/styled.helpers"
 import styled, { css } from "styled-components"
-import { fullWidth } from "../../libs/styled.helpers"
+import { fullWidth, theme, withProp } from "../../libs/styled.helpers"
 
 const InputStyle = styled.input`
 	background-color: ${theme("whitesmoke")};
@@ -83,97 +81,3 @@ export const Input = React.forwardRef(function SimpleInput(props, ref) {
 // 			`}
 // 	}
 // `
-
-// export const IconInput = props => <div>Change This</div>
-
-const RadioStyle = styled.label`
-	width: 20px;
-	height: 20px;
-	display: inline-block;
-	vertical-align: middle;
-
-	input {
-		visibility: hidden;
-		width: 0.1px;
-		height: 0.1px;
-		position: absolute;
-		left: -5px;
-		border: solid 1px black;
-	}
-
-	input + span {
-		width: 20px;
-		height: 20px;
-		display: inline-block;
-		border-radius: 50%;
-		justify-content: center;
-		align-items: center;
-		padding: 1px;
-		background-clip: content-box;
-		text-align: center;
-		box-sizing: border-box;
-		border: solid 1px ${theme("primary")};
-	}
-
-	input:checked + span {
-		background-color: ${theme("primary")};
-	}
-`
-
-export const RadioInput = React.forwardRef(function RadioInput(props, ref) {
-	return (
-		<RadioStyle>
-			<input ref={ref} type="radio" {...props} />
-			<span />
-		</RadioStyle>
-	)
-})
-
-const RadioLabelStyle = styled.div`
-	display: inline-flex;
-	align-items: center;
-	padding-right: 5px;
-
-	${fullWidth()}
-
-	> span {
-		margin-left: 1rem;
-		line-height: 20px;
-		display: inline-block;
-		${"" /* border: solid 1px black; */}
-	}
-`
-
-export const RadioLabel = (props) => {
-	return (
-		<RadioLabelStyle {...props}>
-			<RadioInput {...props} />
-			<span>{props.label}</span>
-		</RadioLabelStyle>
-	)
-}
-
-RadioLabel.defaultProps = {
-	label: "Something",
-}
-RadioLabel.propTypes = {
-	label: t.string.isRequired,
-}
-
-const CheckboxStyle = styled(RadioStyle)`
-	margin-right: 5px;
-	cursor: pointer;
-
-	> input + span {
-		border-radius: 2px;
-	}
-`
-
-export const Checkbox = React.forwardRef(function Checkbox(props, ref) {
-	return (
-		<CheckboxStyle>
-			<input ref={ref} type="checkbox" {...props} />
-			<span />
-		</CheckboxStyle>
-	)
-})

@@ -35,7 +35,8 @@ const Light = {
 		from: "#eee",
 		to: "whitesmoke"
 	},
-	...Generic
+	...Generic,
+	radio: { }
 }
 
 const Dark = {
