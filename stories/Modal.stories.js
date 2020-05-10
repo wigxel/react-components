@@ -2,19 +2,19 @@ import React from "react"
 import { storiesOf } from "@storybook/react"
 import { withKnobs, boolean, text } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
-import { Modal, Card } from "../src/components/cards"
+import { Card } from "../src/components/cards"
+import Modal from "../src/components/cards/Modal"
 import { Button } from "../src/components/buttons"
 import { H4, P } from "../src/components/typography"
 import { Stack, Tab } from "../src/components/layouts"
-import { ModalProvider, useModal } from "../src/hooks/modal"
 
 const Buttons = () => {
-	const { toggle } = useModal()
+	const { toggle } = Modal.useModal()
 
 	return (
 		<React.Fragment>
 			<H4>Modals</H4>
-			<P>Some content</P>
+			<P>Click either buttons to launch the modal (popup)</P>
 			<Button style={{ marginRight: ".5rem" }} onClick={() => toggle("keep")}>
 				Launch Modal
 			</Button>
@@ -26,7 +26,7 @@ const Buttons = () => {
 const stories = storiesOf("Modal", module).addDecorator(withKnobs)
 stories.add("Example", () => (
 	<Theme>
-		<ModalProvider>
+		<Modal.Provider>
 			<Buttons />
 			<Modal name="keep" size={text("Modal Size", "sm")}>
 				<Stack>
@@ -54,7 +54,7 @@ stories.add("Example", () => (
 					officia neque! Quod, aperiam!
 				</P>
 			</Modal>
-		</ModalProvider>
+		</Modal.Provider>
 	</Theme>
 ))
 
@@ -86,4 +86,4 @@ stories.add("Simple Modal", () => {
 			</Modal>
 		</Theme>
 	)
-})
+}) 

@@ -1,6 +1,6 @@
 {
   "name": "@wigxel/react-components",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "UI Component library by Wigxel corp.",
   "main": "lib/main.js",
   "publishConfig": {
@@ -12,7 +12,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepublishOnly": "npm run release",
-    "release": "npm run build:dev && npm run build:prod",
+    "release": "npm run build",
     "build": "rollup -c",
     "lint": "eslint --quiet --fix src/ stories/ && echo 'Lint complete.'",
     "watch": "watch 'clear && npm run lint' src stories"

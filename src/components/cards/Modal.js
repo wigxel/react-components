@@ -2,8 +2,9 @@ import React from "react"
 import t from "prop-types"
 import { has } from "ramda"
 import styled, { css } from "styled-components"
+
 import { propIs } from "../../libs/styled.helpers"
-import { useModal } from "../../hooks/modal"
+import { useModal, ModalProvider } from "../../libs/contexts/modal"
 import Card from "./Card"
 
 const ModalSize = {
@@ -128,5 +129,8 @@ Modal.propTypes = {
 	size: t.oneOf(["sm", "lg"]),
 	children: t.node.isRequired,
 }
+
+Modal.useModal = useModal
+Modal.Provider = ModalProvider
 
 export default Modal
