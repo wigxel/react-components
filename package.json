@@ -1,6 +1,6 @@
 {
   "name": "@wigxel/react-components",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "UI Component library by Wigxel corp.",
   "main": "lib/main.js",
   "publishConfig": {
