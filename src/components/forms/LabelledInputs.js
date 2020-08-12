@@ -180,7 +180,7 @@ export const Labelled = {}
 
 const canFocus = (props) => props.placeholder
 
-const createInput = curry((fn, initialState) => {
+export const createInput = curry((fn, initialState) => {
 	return React.forwardRef(function InputWrapper(props, ref) {
 		const [state, setState] = useState({
 			focus: canFocus(props),
@@ -198,7 +198,7 @@ const createInput = curry((fn, initialState) => {
 		}
 
 		const blur = (state) => {
-			if (!inputRef.current.value) {
+			if (!inputRef.current || !inputRef.current.value) {
 				return { ...state, focus: canFocus(props) }
 			}
 			return state
@@ -243,9 +243,9 @@ const styleWrapper = curry((initialState, component) => {
 	}, initialState)
 })
 
-const closedInput = styleWrapper({})
+export const closedInput = styleWrapper({})
 
-const makeAlwaysFocused = styleWrapper({ focus: true })
+export const makeAlwaysFocused = styleWrapper({ focus: true })
 
 Labelled.Input = closedInput(({ props, inputRef, state }) => {
 	return (

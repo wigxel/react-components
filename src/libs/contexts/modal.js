@@ -25,6 +25,8 @@ export const ModalProvider = ({ children }) => {
 	)
 }
 
+export const ModalConsumer = modalCtx.Consumer
+
 ModalProvider.propTypes = {
 	children: t.node.isRequired,
 }

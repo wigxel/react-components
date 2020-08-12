@@ -4,7 +4,7 @@ import { has } from "ramda"
 import styled, { css } from "styled-components"
 
 import { propIs } from "../../libs/styled.helpers"
-import { useModal, ModalProvider } from "../../libs/contexts/modal"
+import { useModal, ModalProvider, ModalConsumer } from "../../libs/contexts/modal"
 import Card from "./Card"
 
 const ModalSize = {
@@ -132,5 +132,6 @@ Modal.propTypes = {
 
 Modal.useModal = useModal
 Modal.Provider = ModalProvider
+Modal.Consumer = ModalConsumer
 
 export default Modal
