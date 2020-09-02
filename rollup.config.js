@@ -20,6 +20,7 @@ export default {
 		"buttons": "src/components/buttons/index.js",
 		"typography": "src/components/typography/index.js",
 		"special": "src/components/special/index.js",
+		"utils": "src/libs/utils.js"
 	},
 	output: [
 		{
