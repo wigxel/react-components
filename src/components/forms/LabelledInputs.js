@@ -51,7 +51,7 @@ const sharedFocusStyle = css`
 		position: absolute;
 		border-radius: 20px;
 		display: inline-block;
-		background-color: white;
+		background-color: var(--label-bg, white);
 		transition: all 0.3s ease-out;
 	}
 

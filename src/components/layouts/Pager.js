@@ -44,9 +44,37 @@ const Wrap = styled.div`
   }
 `
 
+const pagerCtx = React.createContext()
+
+export const usePager = () => React.useContext(pagerCtx)
+
+export const PagerProvider = ({ children }) => {
+	const [page, setPage] = React.useState(0)
+
+	return (
+		<pagerCtx.Provider
+			value={{
+				currentPage: page,
+				next: () => setPage(page + 1),
+				prev: () => page >= 1 && setPage(page - 1),
+				goto: page => page >= 0 && setPage(page)
+			}}
+		>
+			{children}
+		</pagerCtx.Provider>
+	)
+}
+
+PagerProvider.propTypes = {
+	children: t.node.isRequired
+}
+
 export const Pager = function(props) {
-	const { current: cp } = props
+	const { current } = props
+	const { currentPage: cp, goto } = usePager()
 	const [height, setHeight] = useState("auto")
+
+	React.useEffect(() => goto(current), [])
 
 	const slideLeft = useCallback(
 		(cp, slider) => slider.current.clientWidth * cp,
@@ -89,7 +117,7 @@ export const Pager = function(props) {
 	return (
 		<Wrap ref={rootElem}>
 			<section id="page-holder" ref={slider} style={{ height }}>
-				{React.Children.map(props.children, (child, index) => 
+				{React.Children.map(props.children, (child, index) => (
 					<Slide
 						key={index}
 						ref={ref => addSlideRef(ref, index)}
@@ -98,7 +126,7 @@ export const Pager = function(props) {
 					>
 						{child}
 					</Slide>
-				)}
+				))}
 			</section>
 		</Wrap>
 	)

@@ -1,6 +1,6 @@
 {
   "name": "@wigxel/react-components",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "description": "UI Component library by Wigxel corp.",
   "main": "lib/main.js",
   "publishConfig": {
@@ -22,8 +22,8 @@
     "url": "git+https://github.com/wigxel/react-components.git"
   },
   "keywords": [
-  	"styled-components",
-  	"customizible components",
+    "styled-components",
+    "customizable components",
     "react-components",
     "wigxel-ui-components",
     "wigxel"
@@ -42,12 +42,11 @@
     "ramda": "^0.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2",
     "styled-components": "^4.4.0"
   },
   "peerDependencies": {
-    "react": "16.x",
     "lodash": "4.x",
+    "react": "16.x",
     "styled-components": ">=4.x"
   },
   "devDependencies": {

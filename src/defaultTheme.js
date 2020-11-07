@@ -20,4 +20,23 @@ export default {
 		active: "dodgerblue",
 		inside: "whitesmoke",
 	},
+
+	// Theme properties for Inputs
+	radio: {
+		unchecked: "#eee",
+		checked: "#705DF5",
+		shadow: "rgba(0, 0, 0, .16)",
+		pill: { hover: "#f8f8f8" }
+	},
+
+	// Theme properties for Card Like components
+	card: {
+		bgColor: "#fff",
+		dividerColor: "whitesmoke",
+	},
+
+	skeleton: {
+		from: "whitesmoke",
+		to: "white"
+	}
 }

@@ -30,6 +30,7 @@ export const SkeletonWrapper = props => {
 	const { width, height } = props
 	return <SkeletonStyle {...props} style={{ width, height }} />
 }
+
 SkeletonWrapper.propTypes = {
 	width: t.number.isRequired,
 	height: t.number.isRequired

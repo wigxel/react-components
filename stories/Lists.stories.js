@@ -1,5 +1,4 @@
 import React from "react"
-import { HashRouter } from "react-router-dom"
 import { storiesOf } from "@storybook/react"
 import { withKnobs, boolean } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
@@ -45,16 +44,6 @@ stories
 						<FlatList.Item>John Carter</FlatList.Item>
 						<FlatList.Item>Emily Richards</FlatList.Item>
 					</FlatList>
-
-					<H4>Flat Links (NavLinks)</H4>
-					<HashRouter>
-						<FlatList>
-							<FlatList.Link to={"/dashboard"}>Dashboard</FlatList.Link>
-							<FlatList.Link to={"/home"}>Home</FlatList.Link>
-							<FlatList.Link to={"/settings"}>Settings </FlatList.Link>
-							<FlatList.Link to={"/logout"}>Logout</FlatList.Link>
-						</FlatList>
-					</HashRouter>
 				</div>
 			</Theme>
 		)

@@ -9,6 +9,7 @@ import Card from "./Card"
 
 const ModalSize = {
 	small: propIs("size", (e) => e === "sm"),
+	medium: propIs("size", (e) => e === "md"),
 	large: propIs("size", (e) => e === "lg"),
 }
 
@@ -53,8 +54,11 @@ const DialogStyle = styled.section`
 
 	.wg-modal-content {
 		width: 100%;
-		max-width: 800px;
 		transform: translate(0, -50%);
+
+		${ModalSize.medium(css`
+			max-width: 800px;
+		`)}
 
 		${ModalSize.small(css`
 			max-width: 400px;
@@ -117,7 +121,7 @@ export const Modal = (props) => {
 }
 
 Modal.defaultProps = {
-	size: "",
+	size: "md",
 	symbol: Symbol("modal"),
 	onClose: (a) => a,
 }

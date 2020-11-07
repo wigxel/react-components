@@ -77,7 +77,6 @@ export const Activity = (props) => {
 }
 
 Activity.propTypes = {
-	children: t.array,
 	entries: t.array,
 	render: t.func,
 	hoverable: t.bool,

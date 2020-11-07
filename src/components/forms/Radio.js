@@ -122,6 +122,7 @@ const StyledLabel = styled.label`
 
   & input[type="checkbox"]:checked + span {
     border: solid 10px ${theme("radio.checked")};
+    box-shadow: 0 4px 3px -2px ${theme("radio.shadow")};
   }
 
   & input[type="radio"]:checked + span {
