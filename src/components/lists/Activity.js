@@ -4,7 +4,7 @@ import t from "prop-types"
 import { themeOr, withProp, propOr } from "../../libs/styled.helpers"
 
 const theme = themeOr({
-	timeline: {
+	activity: {
 		borderColor: "#848484",
 		bgColor: "#fff",
 		hoverColor: "whitesmoke",
@@ -38,8 +38,10 @@ const ActivityStyle = styled.ul `
 
     ${withProp("hoverable")(css`
         &:hover {
+        		cursor: default;
+
             &:before {
-                background-color: ${theme("timeline.hoverColor")};
+                background-color: ${theme("activity.hoverColor")};
             }
         }
     `)}
@@ -53,7 +55,7 @@ const ActivityStyle = styled.ul `
     	bottom: calc(-${propOr("size", "1rem")} / 2);
     	background-color: green;
     	position: absolute;
-    	border-left: solid 1px ${theme("timeline.borderColor")};
+    	border-left: solid 1px ${theme("activity.borderColor")};
     }
 
     &::before {
@@ -69,8 +71,8 @@ const ActivityStyle = styled.ul `
         `)};
         background-color: ${theme("point.color")};
         transform: translate3d(-50%, 0, 0);
-        box-shadow: 0 0 0 3px ${theme("timeline.bgColor")};
-        border: solid 1px ${theme("timeline.borderColor")};
+        box-shadow: 0 0 0 3px ${theme("activity.bgColor")};
+        border: solid 1px ${theme("activity.borderColor")};
     }
   }
 `

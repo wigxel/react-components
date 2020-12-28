@@ -2,7 +2,7 @@ import React from "react"
 import { storiesOf } from "@storybook/react"
 import { withKnobs, boolean } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
-import { FlatList, Collapsible } from "../src/components/lists"
+import { Collapsible } from "../src/components/lists"
 import { H4, P } from "../src/components/typography"
 import { Stack } from "../src/components/layouts"
 

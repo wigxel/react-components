@@ -1,0 +1,139 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Activity } from "../../src/components/lists"
+
+<Meta title="MDX/Activity" component={Activity} />
+
+# Activity / Audit Trail
+This ia an `Activity` components also known as `Audit Trail` it's mostly used for organizing
+history information.
+#
+#
+
+### Usage
+After installing the npm package *@wigxel/react-components* to your project.   
+
+```jsx
+import { Activity } from '@wigxel/react-components/lib/lists';
+```
+
+A simple example of the `Activity` component is below. Try out the code snippet below.
+
+```jsx
+<Activity
+	entries={[
+		{ text: 'Callout Made' }, 
+		{ text: "Designer Applied" },
+		{ text: "Winter is coming" }
+	]}
+/>
+```
+
+You should get the output below. At this *state* the Component lacks
+interaction. Almost like a simple print on the page.  
+You can add interaction by adding the `hoverable` prop, which is a `Boolean` to 
+indicate hovering.
+
+export const Template = (args) => <Activity {...args} />
+
+<Canvas>
+  <Story name="Activity" args={{ 
+      label: 'Activito',
+      entries: [
+		{ text: 'Callout Made' }, 
+		{ text: "Designer Applied" },
+		{ text: "Winter is coming" }
+	]
+    }}>
+    {Template.bind({ })}
+   </Story>
+</Canvas>
+
+### Adding Hover Effect
+At this *state* the Component lacks
+interaction.  
+Adding a `hoverable` prop, which is a `Boolean`, 
+when set to `true` will activate the hover indicator   
+(transitions the background color of the bullet)
+
+```jsx
+<Activity
+	hoverable={true}
+	entries={[
+		{ text: 'Callout Made' }, 
+		{ text: "Designer Applied" },
+		{ text: "Winter is coming" }
+	]}
+/>
+
+```
+
+<Canvas>
+  <Story name="Adding Hover Effect" args={{
+  		label: "Activity",
+      hoverable: true,
+      entries: [
+		{ text: 'Callout Made' }, 
+		{ text: "Designer Applied" },
+		{ text: "Winter is coming" }
+	]
+    }}>
+    {Template.bind({ })}
+   </Story>
+</Canvas>
+
+### Changing the structure of the component
+So far we've seen how the component works. In a case where you need render more information
+to the history. The Activity component has a `render` prop which is a function that must return a React Element(Node). 
+
+For example
+
+```jsx
+// defined the render function that returns the data
+const renderActivity = (entry) => (
+	<section style={{ WebkitUserSelect: "none", display: "inline-block" }}>
+		<span style={{ 
+			backgroundColor: "white", 
+			fontSize: '.8rem', 
+			display: "inline-block", 
+			border: "solid 1px #bbb", 
+			padding: "5px 10px", borderRadius: "0 12px" }}>
+			{entry.text}
+		</span>
+		<br />
+		<div style={{ textAlign: "right" }}>
+			<small style={{ opacity: ".5", paddingRight: "1rem" }}>
+				<i>{entry.timestamp}</i>
+			</small>
+		</div>
+	</section>
+);
+
+<Activity
+	hoverable={true}
+	entries={[
+		{ text: 'Callout Made', timestamp: '2days ago' }, 
+		{ text: "Designer Applied", timestamp: '3days ago' },
+		{ text: "Winter is coming", timestamp: '1week ago' }
+	]}
+	render={renderActivity}
+/>
+```
+<Story name="Customization" args={{
+		label: "Activity",
+    hoverable: true,
+	render: (entry) => (
+		<section style={{ WebkitUserSelect: "none", display: "inline-block" }}>
+			<span style={{ backgroundColor: "white", fontSize: '.8rem', display: "inline-block", border: "solid 1px #bbb", padding: "5px 10px", borderRadius: "0 12px" }}>{entry.text}</span> <br />
+			<small style={{ opacity: ".5", paddingRight: "1rem" }}>
+				<i>{entry.timestamp}</i>
+			</small>
+		</section>
+		),
+	entries: [
+		{ text: 'Callout Made', timestamp: '2days ago' }, 
+		{ text: "Designer Applied", timestamp: '3days ago' },
+		{ text: "Winter is coming", timestamp: '1week ago' }
+	]
+}}>
+{Template.bind({ })}
+</Story>
