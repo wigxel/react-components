@@ -34,11 +34,12 @@
     "url": "https://github.com/wigxel/react-components/issues"
   },
   "files": [
-    "lib"
+    "lib",
+    "README.md"
   ],
   "homepage": "https://github.com/wigxel/react-components#readme",
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "ramda": "^0.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -53,11 +54,12 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.1",
-    "@storybook/addon-actions": "^5.3.17",
-    "@storybook/addon-knobs": "^5.3.17",
-    "@storybook/addon-links": "^5.3.17",
-    "@storybook/addons": "^5.3.17",
-    "@storybook/react": "^5.3.17",
+    "@storybook/addon-actions": "^6.1.6",
+    "@storybook/addon-essentials": "^6.1.6",
+    "@storybook/addon-knobs": "^6.1.6",
+    "@storybook/addon-links": "^6.1.6",
+    "@storybook/addons": "^6.1.6",
+    "@storybook/react": "^6.1.6",
     "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
@@ -69,7 +71,7 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-terser": "^5.3.0",
-    "storybook": "^5.3.17",
+    "storybook": "^6.1.6",
     "tap-spec": "^5.0.0",
     "tape": "^4.13.2",
     "tape-watch": "^2.3.0",
