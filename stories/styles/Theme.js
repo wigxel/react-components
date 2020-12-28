@@ -1,6 +1,6 @@
 const Generic = {
 	colors: {
-		primary: "#705DF5",
+		primary: "limegreen",
 		accent: "#FFAA00",
 		danger: "#E56464",
 		grey: "#878787",
@@ -20,7 +20,11 @@ const Generic = {
 		hoverColor: "whitesmoke",
 	},
 	check: {
-		// labelBg: "#705DF5"
+		active: "dodgerblue",
+		borderColor: "#ddd"
+	},
+	font: {
+		sans: "Avenir"
 	}
 }
 

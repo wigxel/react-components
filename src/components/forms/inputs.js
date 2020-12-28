@@ -1,19 +1,26 @@
 import React from "react"
 import styled, { css } from "styled-components"
-import { fullWidth, theme, withProp } from "../../libs/styled.helpers"
+import { fullWidth, themeOr, withProp } from "../../libs/styled.helpers"
+
+const theme = themeOr({
+	font: {
+		sans: "Avenir, Ubuntu, Segoe UI, -apple-system, sans-serif",
+	},
+	input: {
+		bgColor: "whitesmoke",
+	}
+})
 
 const InputStyle = styled.input`
-	background-color: ${theme("whitesmoke")};
-	border: none;
 	height: 38px;
-	min-width: 243px;
 	border-radius: 6px;
-	text-indent: 15px;
+	text-indent: 1rem;
 	font-size: 13px;
-	font-family: var(--heading-font, "Quicksand");
-	transition: all 0.3s ease-out;
-	border-color: ${theme("primary")};
-	caret-color: ${theme("primary")};
+	transition: all 0.15s ease-out;
+	border: solid 2px transparent; 
+	font-family: ${theme("font.sans")};
+	caret-color: ${theme("colors.primary")};
+	background-color: ${theme("input.bgColor")};
 	outline: none;
 
 	&::placeholder {
@@ -27,17 +34,19 @@ const InputStyle = styled.input`
 	}
 
 	&:focus {
-		border: solid 1px ${theme("primary")};
-		${withProp("large")(css`
-			border: solid 2px ${theme("primary")};
-		`)}
+		border: solid 2px ${theme("colors.primary")};
 	}
 
 	${fullWidth()}
+	${withProp("small")(css`
+		height: 30px;
+		font-size: 1rem;
+		border: solid 2px transparent;
+	`)}
+
 	${withProp("large")(css`
 		height: 50px;
-		font-size: 16px;
-		border-radius: 12px;
+		font-size: 1rem;
 		border: solid 2px transparent;
 	`)}
 `
@@ -63,7 +72,7 @@ export const Input = React.forwardRef(function SimpleInput(props, ref) {
 // 		margin: 6px;
 // 		width: 28px;
 // 		height: 28px;
-// 		color: ${theme("primary")};
+// 		color: ${theme("colors.primary")};
 
 // 		${props =>
 // 		props.large &&

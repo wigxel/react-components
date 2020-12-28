@@ -5,10 +5,12 @@ import { themeOr, withProp, propIs } from "../../libs/styled.helpers"
 import t from "prop-types"
 
 const theme = themeOr({
+	font: {
+		sans: "sans-serif",
+	},
 	check: {
 		active: "#705DF5",
-		labelBg: "whitesmoke",
-		labelColor: "#705DF5"
+		borderColor: "#F0F0F9",
 	}
 })
 
@@ -22,7 +24,8 @@ const baseStyle = css`
   ${withProp(
 		"disabled",
 		css`
-      opacity: 0.4;
+			pointer-events: none;
+      opacity: 0.5;
     `
 	)}
 
@@ -30,8 +33,14 @@ const baseStyle = css`
     flex-direction: row;
   }
 
+  & > div {
+  	display: flex;
+  }
+
   & > div > button {
-    font-family: var(--input-font, inherit);
+  	margin: 0;
+    overflow: hidden;
+    font-family: var(${theme("font.sans")}, inherit);
 
     &:focus {
       color: ${theme("primary")};
@@ -42,13 +51,12 @@ const baseStyle = css`
 		"disabled",
 		isFalse,
 		css`
-        &:hover {
-          cursor: pointer;
-          color: ${theme("check.active")};
-          transition: all 0.2s ease-in-out;
-        }
-      `
-	)}
+	      &:hover {
+	        cursor: pointer;
+	        color: ${theme("check.active")};
+	        transition: all 0.2s ease-in-out;
+	      }`)
+  	}
   }
 
   & > div > * > span {
@@ -65,7 +73,7 @@ const baseStyle = css`
       position: relative;
       line-height: 20px;
       border-radius: 0;
-      border: solid 1px ${theme("whitesmoke")};
+      border: solid 1px ${theme("check.borderColor")};
       background: transparent;
       min-height: 40px;
       font-size: 1em;
@@ -86,30 +94,18 @@ const baseStyle = css`
         border-radius: 12px 0 0 12px;
       }
     }
-
-    label {
-      border: none;
-      flex: 0 0 20ch;
-      font-size: 0.9em;
-      text-align: right;
-      color: ${theme("check.labelColor")};
-      background-color: ${theme("check.labelBg")};
-    }
   }
+
+  .reset {
+  	font-size: x-small;
+  	letter-spacing: 3px;
+  	text-transform: uppercase;
+  } 
 
   @media screen and (max-width: 600px) {
     flex-wrap: wrap;
     border-radius: 12px;
     overflow: hidden;
-    border: solid 1px ${theme("border.gray")};
-
-    label {
-      text-align: left;
-      text-transform: uppercase;
-      flex: 0 0 100%;
-      letter-spacing: 3px;
-      font-size: 0.8em;
-    }
 
     > * {
       flex-grow: 1;
@@ -117,19 +113,34 @@ const baseStyle = css`
       border-radius: 0 !important;
     }
   }
+
+
+  ${withProp(
+		"compact",
+		css`
+			& > div > {
+		    *:not(input) {
+		    	padding: .4rem .8rem;
+		    }
+		  }
+    `
+	)}
 `
 
 const FlatStyle = styled.div`
   ${baseStyle}
 
   & button.active {
-    overflow: hidden;
     color: white !important;
     border: solid 1px ${theme("check.active")};
   }
 
   & button::after {
     inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     content: "";
     position: absolute;
     left: 100%;
@@ -139,8 +150,13 @@ const FlatStyle = styled.div`
 
   & button.active::after {
     inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
 `
+
 const DotStyle = styled.div`
   ${baseStyle}
 
@@ -150,7 +166,7 @@ const DotStyle = styled.div`
     span {
       display: block;
       padding-left: 0;
-      transition: padding 0.3s ease;
+      transition: padding 0.3s ease .3s;
     }
   }
 
@@ -166,11 +182,17 @@ const DotStyle = styled.div`
     transform: translate(0, 200%);
     background-color: ${theme("check.active")};
     transition: all 0.3s ease-out 0.2s;
+
+    ${withProp("compact", css`
+				left: 1rem;
+	   `)}
   }
 
   button.active {
     color: ${theme("check.active")};
+
     span {
+    	transition-delay: 0s;
       padding-left: 1rem;
     }
 
@@ -179,6 +201,7 @@ const DotStyle = styled.div`
       transform: translate(0, -50%);
     }
   }
+
 `
 
 export const Checker = React.forwardRef(function _Checker(props, ref) {
@@ -188,7 +211,7 @@ export const Checker = React.forwardRef(function _Checker(props, ref) {
 			if (props.disabled) return
 			const value = props.buttons[idx]
 			setIndex(idx)
-			props.onChange && props.onChange(value, idx)
+			props.onChange && props.onChange(value || null, idx)
 		}),
 		[setIndex]
 	)
@@ -196,10 +219,11 @@ export const Checker = React.forwardRef(function _Checker(props, ref) {
 	const Wrapper = props.style || DotStyle
 
 	return (
-		<Wrapper disabled={props.disabled}>
+		<Wrapper 
+			disabled={props.disabled} 
+			compact={props.compact}>
 			<input ref={ref} type="hidden" name={props.name} />
 			<div>
-				{props.label && <label>{props.label}</label>}
 				{React.Children.map(props.buttons, (text, idx) => {
 					return (
 						<button
@@ -212,9 +236,10 @@ export const Checker = React.forwardRef(function _Checker(props, ref) {
 						</button>
 					)
 				})}
-				{props.canClear && (
-					<button type="button" onClick={updateIndex(-1)}>
-            CLEAR
+				{props.canReset && (
+					<button className="reset" 
+						type="button" onClick={updateIndex(-1)}>
+						Reset
 					</button>
 				)}
 			</div>
@@ -224,17 +249,17 @@ export const Checker = React.forwardRef(function _Checker(props, ref) {
 
 Checker.defaultProps = {
 	name: "",
-	canClear: false,
+	canReset: false,
 	disabled: false
 }
 
 Checker.propTypes = {
-	label: t.string,
 	name: t.string,
 	onChange: t.func.isRequired,
 	buttons: t.arrayOf(t.string).isRequired,
-	canClear: t.bool,
+	canReset: t.bool,
 	disabled: t.bool,
+	compact: t.bool,
 	style: t.oneOf([DotStyle, FlatStyle])
 }
 

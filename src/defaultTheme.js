@@ -34,7 +34,16 @@ export default {
 		bgColor: "#fff",
 		dividerColor: "whitesmoke",
 	},
-
+	font: {
+		sans: "Avenir, Ubuntu, Segoe UI, -apple-system, sans-serif",
+	},
+	input: {
+		bgColor: "whitesmoke",
+	},
+	check: {
+		active: "#705DF5",
+		borderColor: "#F0F0F9",
+	},
 	activity: {
 		borderColor: "#848484",
 		bgColor: "#fff",

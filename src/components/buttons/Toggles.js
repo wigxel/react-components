@@ -28,6 +28,7 @@ const Base = styled.button`
 	width: calc(var(--t-height) * 2);
 	background-color: ${theme("toggle.inside")};
 `
+
 const Rounded = styled(Base)`
 	&:before {
 		left: var(--sp);

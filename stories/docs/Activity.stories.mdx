@@ -37,7 +37,6 @@ export const Template = (args) => <Activity {...args} />
 
 <Canvas>
   <Story name="Activity" args={{ 
-      label: 'Activito',
       entries: [
 		{ text: 'Callout Made' }, 
 		{ text: "Designer Applied" },
@@ -69,7 +68,6 @@ when set to `true` will activate the hover indicator
 
 <Canvas>
   <Story name="Adding Hover Effect" args={{
-  		label: "Activity",
       hoverable: true,
       entries: [
 		{ text: 'Callout Made' }, 
@@ -119,7 +117,6 @@ const renderActivity = (entry) => (
 />
 ```
 <Story name="Customization" args={{
-		label: "Activity",
     hoverable: true,
 	render: (entry) => (
 		<section style={{ WebkitUserSelect: "none", display: "inline-block" }}>

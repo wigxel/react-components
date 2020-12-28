@@ -1,0 +1,164 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Checker } from "../../src/components/forms";
+import { Theme } from "../styles/StyleComponents"
+
+<Meta title="MDX/Checker" component={Checker} />
+
+
+# Checker / Tab
+This component can serve as a `Tab` navigation or an `Radio` Input.
+
+## Usage
+Let's begin by importing and using the Component.
+
+<Story name="For Tabs">
+	<Theme>
+		<Checker
+			buttons={["Active", "Pending", "Closed"]}
+			onChange={(val) => {
+				console.log(val)
+			}}
+		/>
+	</Theme>
+</Story>
+
+```jsx
+import { Checker } from '@wigxel/react-components/lib/form';
+
+<Checker
+	buttons={["Male", "Female", "Alien"]}
+	onChange={(val) => {
+		console.log(val)
+	}}
+/>
+```
+
+From the above code snippet i didn't add a `name` prop. In this state the 
+component can serve as a `Tab` component. The `Checker` component also takes in the `onChange` event listener, this Event is fired when any button is clicked. 
+It works in the same way as the Input `onChange` event listener except it doesn't return an EventType, but the *value* fo the selected button.
+Below are the PropTypes for the `Checker` component.
+
+```javascript
+// `PropTypes` for the Checker Component.
+Checker.propTypes = {
+	label: t.string,
+	name: t.string,
+	onChange: t.func.isRequired,
+	buttons: t.arrayOf(t.string).isRequired,
+	canReset: t.bool,
+	disabled: t.bool,
+	compact: t.bool,
+	style: t.oneOf([ DotStyle, FlatStyle ])
+}
+```
+
+## As a Tab
+
+The `canReset` prop deselects the currently selected value when clicked.  
+To try that out, click on any `Button` below and then click on the `RESET` button to demonstrate that.
+
+<Story name="With Reset option">
+	<Theme>
+		<Checker
+			name="gender"
+			canReset={true}
+			buttons={["Male", "Female", "Others"]}
+			onChange={(val) => console.log(val)}
+		/>
+	</Theme>
+</Story>
+
+> The `canReset` prop requires the `name` prop to be set before it can work as expected.
+
+## When Disabled
+When the `Checker` is disabled. The `opacity` is set to `0.5` as a visual indicator  
+and the pointer events are disabled (so there is no interaction with the cursor).
+
+<Story name="Disabled">
+	<Theme>
+		<Checker
+			name="gender"
+			canReset={true}
+			disabled={true}
+			buttons={["Male", "Female", "Others"]}
+			onChange={(val) => console.log(val)}
+		/>
+	</Theme>
+</Story>
+
+```jsx
+<Checker
+	name="gender"
+	canReset={true}
+	disabled={true}
+	buttons={["Male", "Female", "Others"]}
+	onChange={(val) => console.log(val)}
+/>
+```
+
+## Compact Size
+The `Checker` component has a more compact version, which can be enabled  
+by simply setting the `compact` prop to `true`, see snippet below.
+
+<Story name="Compact Size">
+	<Checker
+		name="gender"
+		compact={true}
+		buttons={["Male", "Female", "Others"]}
+		onChange={(val) => console.log(val)}
+	/>
+</Story>
+
+```jsx
+<Checker
+	compact={true}
+	name="gender"
+	canReset={true}
+	disabled={true}
+	buttons={["Male", "Female", "Others"]}
+	onChange={(val) => console.log(val)}
+/>
+```
+
+## Customizing
+Are are only 2 variants of the `Checker` components, namely `Dot` and `Flat`. The default style is the `Dot` style.
+
+<Story name="Customizing">
+	<Theme>
+		<Checker
+			name="gender"
+			compact={true}
+			canReset={true}
+			style={Checker.Styles.Dot}
+			buttons={["Male", "Female", "Others"]}
+			onChange={(val) => console.log(val)}
+		/> <br/>
+		<Checker
+			name="gender"
+			compact={true}
+			canReset={true}
+			style={Checker.Styles.Flat}
+			buttons={["Male", "Female", "Others"]}
+			onChange={(val) => console.log(val)}
+		/>
+	</Theme>
+</Story>
+
+```jsx
+<Checker
+	name="gender"
+	compact={true}
+	canReset={true}
+	style={Checker.Styles.Dot}
+	buttons={["Male", "Female", "Others"]}
+	onChange={(val) => console.log(val)}
+/>
+<Checker
+	name="gender"
+	compact={true}
+	canReset={true}
+	style={Checker.Styles.Flat}
+	buttons={["Male", "Female", "Others"]}
+	onChange={(val) => console.log(val)}
+/>
+```

@@ -8,7 +8,6 @@ import {
 	//RadioLabel, 
 	Checkbox, 
 	Checkbox1, 
-	Checker, 
 	Input 
 } from "../src/components/forms"
 
@@ -17,49 +16,27 @@ storiesOf("Form.Regular", module)
 		<Theme>
 			<section>
 				<H3>Flat Inputs</H3>
-				<Input placeholder="E-mail Address: John Doe" />
-				<Input placeholder="First Name" />
+				<Input placeholder="E-mail Address: John Doe" style={{
+					width: 400
+				}}/>
 				<Input placeholder="Cup of Coffee" />
 
+				<H3>Large Input</H3>
+				<Stack.Flex alignItems="flex-start">
+					<Stack>
+						<Input placeholder="02" small style={{ width: 50, textIndent: '.5rem' }}/>
+						<Input placeholder="02" small style={{ width: 50, textIndent: '.5rem' }}/>
+						<Input placeholder="02" small style={{ width: 50, textIndent: '.5rem' }}/>
+					</Stack>
+					<Input placeholder="First Name" large fullwidth />
+				</Stack.Flex>
+				
 				<H3>Full Width Input</H3>
 				<Stack.Flex>
 					<Input fullwidth placeholder="Cup of Coffee" />
 					<Input fullwidth placeholder="Enter the world" />
 					<Input fullwidth text="email" placeholder="someone@domain.co" />
 				</Stack.Flex>
-			</section>
-		</Theme>
-	))
-	.add("Checker", () => (
-		<Theme>
-			<section style={{ fontSize: "12px" }}>
-				<div>
-					<Checker
-						style={Checker.Styles.Flat}
-						buttons={["I Am", "Without", "A Label"]}
-						onChange={(val) => {
-							console.log(val)
-						}}
-					/>
-				</div>
-				<div>
-					<Checker
-						label="Choose Hobby"
-						buttons={["Creative", "Modern", "Traditional"]}
-						onChange={(val) => {
-							console.log(val)
-						}}
-					/>
-				</div>
-				<Checker
-					style={Checker.Styles.Flat}
-					label="Choose Hobby"
-					disabled={true}
-					buttons={["Design", "Laugh", "Cry", "Joker"]}
-					onChange={(val) => {
-						console.log(val)
-					}}
-				/>
 			</section>
 		</Theme>
 	))
