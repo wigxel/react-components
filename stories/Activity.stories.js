@@ -1,45 +1,48 @@
 import React from "react"
-import { Link } from "react-router-dom"
 import { storiesOf } from "@storybook/react"
-import { withKnobs } from "@storybook/addon-knobs"
+import { withKnobs, text } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
 import { Activity } from "../src/components/lists"
-import { H4 } from "../src/components/typography"
 
 const entries = [
-	"created a new event",
-	"delete an event",
-	"Received payment from client `ejowo`.",
-	"booked all vendors",
-	"change the status of `Roco's Baby Shower` ",
+	{ text: "Delete an event", dateString: "2days ago" },
+	{ text: "Booked all vendors", dateString: "3days ago" },
+	{ text: "Created a new event", dateString: "2hours ago" },
+	{ text: "Received payment from client `ejowo`.", dateString: "12 minutes ago" },
+	{ text: "Changed the status of `Roco's Baby Shower` ", dateString: "now" },
 ]
 
-storiesOf("List", module)
+storiesOf("Activity", module)
 	.addDecorator(withKnobs)
-	.add("Activity List", () => (
+	.add("Default", () => (
 		<Theme>
-			<div style={{ display: "flex", gap: "1.5rem", flexFlow: "wrap row" }}>
-				<section>
-					<H4>Activity</H4>
-					<Activity entries={entries} hoverable={true} />
-				</section>
-
-				<section>
-					<H4>Activity List (Custom) </H4>
-					<Activity
-						entries={entries}
-						render={(entry) => (
-							<section>
-								<b>{entry}</b> <br />
-								<Link to="/#">
-									<small>
-										<i>3 seconds ago</i>
-									</small>
-								</Link>
-							</section>
-						)}
-					/>
-				</section>
-			</div>
+			<Activity 
+				size={text("Size", "1.2rem")}
+				entries={entries} hoverable={true} />
 		</Theme>
 	))
+	.add("Square", () => (
+		<Theme>
+			<Activity
+				size={text("Size", "1.2rem")}
+				entries={entries}
+				bulletCurve={text("bulletCurve", "3px")}
+			/>
+		</Theme>
+	))
+	.add("Custom", () => (
+		<Activity
+			hoverable
+			size={text("Size", "1.2rem")}
+			entries={entries}
+			render={(entry) => (
+				<section style={{ WebkitUserSelect: "none", display: "inline-block" }}>
+					<b style={{ backgroundColor: "white", display: "inline-block", border: "solid 1px #bbb", padding: 10, borderRadius: 6 }}>{entry.text}</b> <br />
+					<div style={{ textAlign: "right" }}>
+						<small style={{ opacity: ".5", paddingRight: "1rem" }}>
+							<i>{entry.dateString}</i>
+						</small>
+					</div>
+				</section>
+			)}
+		/>))

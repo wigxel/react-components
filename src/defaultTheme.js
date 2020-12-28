@@ -35,6 +35,11 @@ export default {
 		dividerColor: "whitesmoke",
 	},
 
+	activity: {
+		borderColor: "#848484",
+		bgColor: "#fff",
+		hoverColor: "whitesmoke",
+	},
 	skeleton: {
 		from: "whitesmoke",
 		to: "white"

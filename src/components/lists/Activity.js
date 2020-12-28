@@ -1,7 +1,7 @@
 import React from "react"
 import styled, { css } from "styled-components"
 import t from "prop-types"
-import { themeOr, withProp } from "../../libs/styled.helpers"
+import { themeOr, withProp, propOr } from "../../libs/styled.helpers"
 
 const theme = themeOr({
 	timeline: {
@@ -18,13 +18,12 @@ const ActivityStyle = styled.ul `
   flex-flow: column ;
   box-sizing: border-box;
   margin-left: ${23 / 2}px;
-  border-left: solid 1px ${theme("timeline.borderColor")};
 
-
-  .a-item {
+  .list {
     display: block;
     position: relative;
-    padding: .5rem 0 .5rem 1.5rem;
+    padding: 0 0 .5rem 1.5rem;
+    margin-top: .5rem;
 
     .msg {
 
@@ -45,15 +44,31 @@ const ActivityStyle = styled.ul `
         }
     `)}
 
+    &:not(:last-child)::after {
+    	display: block;
+    	content: "";
+    	top: ${propOr("size", "1rem")};
+    	z-index: 10;
+    	left: 0;
+    	bottom: calc(-${propOr("size", "1rem")} / 2);
+    	background-color: green;
+    	position: absolute;
+    	border-left: solid 1px ${theme("timeline.borderColor")};
+    }
+
     &::before {
         content: "";
-        width: 23px;
-        height: 23px;
-        top: 50%; left: 0;
+        width: ${propOr("size", "1rem")};
+        height: ${propOr("size", "1rem")};
+        left: 0;
         position: absolute;
-        border-radius: 50%;
-        background-color: white;
-        transform: translate3d(-50%, -50%, 0);
+      	z-index: 20;
+      	border-radius: 50%;
+        ${withProp("bulletCurve", css`
+        	border-radius: ${e => e.bulletCurve};
+        `)};
+        background-color: ${theme("point.color")};
+        transform: translate3d(-50%, 0, 0);
         box-shadow: 0 0 0 3px ${theme("timeline.bgColor")};
         border: solid 1px ${theme("timeline.borderColor")};
     }
@@ -64,10 +79,12 @@ export const Activity = (props) => {
 	return (
 		<ActivityStyle {...props}>
 			{props.entries.map((e, index) => (
-				<li key={index} className="a-item">
+				<li 
+					key={index}
+					className="list" 
+					style={{ minHeight: `calc(${props.size} + 5px)` }}>
 					{props.render ? props.render(e) : <article>
-						<div className="msg">{e}</div>
-						<span className="timestamp">2 days ago</span>
+						<div className="msg">{e.text}</div>
 					</article>
 					}
 				</li>
@@ -77,7 +94,9 @@ export const Activity = (props) => {
 }
 
 Activity.propTypes = {
-	entries: t.array,
+	entries: t.arrayOf(t.shape({ 
+		text: t.string.isRequired
+	})),
 	render: t.func,
 	hoverable: t.bool,
 }

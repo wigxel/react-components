@@ -14,9 +14,10 @@ const Generic = {
 	alert: {
 		custom: { bg: "beige", text: "dodgerblue" }
 	},
-	timeline: {
-		borderColor: "blue",
-		hoverColor: "whitesmoke"
+	activity: {
+		bgColor: "#fff",
+		borderColor: "#848484",
+		hoverColor: "whitesmoke",
 	},
 	check: {
 		// labelBg: "#705DF5"
