@@ -20,19 +20,16 @@ storiesOf("Buttons", module)
 			<Theme>
 				<Stack>
 					<Sp>
-						Set Online Status <Toggle.Rounded active={state} />
+						Set Online Status <Toggle.Rounded small active={state} />
 					</Sp>
 					<Sp>
-						Auto-Sync Contacts <Toggle.Circle active={state} invert={true} />
+						Auto-Sync Contacts <Toggle.Circle small active={state} invert={true} />
 					</Sp>
 					<Sp>
-						Delete on Complete <Toggle.Binary active={state} invert={true} />
+						Delay after Download <Toggle.Square small active={state} invert={true} />
 					</Sp>
 					<Sp>
-						Delay after Download <Toggle.Square active={state} invert={true} />
-					</Sp>
-					<Sp>
-						Search History <Toggle.Line active={state} label={true} />
+						Search History <Toggle.Line small active={state} label={true} />
 					</Sp>
 				</Stack>
 			</Theme>

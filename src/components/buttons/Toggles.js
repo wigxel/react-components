@@ -4,7 +4,7 @@ import { themeOr, color, propIs } from "../../libs/styled.helpers"
 const theme = themeOr({
 	toggle: {
 		inside: "whitesmoke",
-		active: color("primary"),
+		active: "seagreen",
 		inactive: "white",
 	},
 })
@@ -27,6 +27,10 @@ const Base = styled.button`
 	height: var(--t-height);
 	width: calc(var(--t-height) * 2);
 	background-color: ${theme("toggle.inside")};
+
+	${propIs("small", x => !!x, css`
+		--t-height: 20px;
+	`)}
 `
 
 const Rounded = styled(Base)`
@@ -39,7 +43,7 @@ const Rounded = styled(Base)`
 		width: var(--sq);
 		height: var(--sq);
 		border-radius: var(--t-height) 0 0 var(--t-height);
-		transition: all 0.3s ease-in;
+		transition: all 0.2s ease-in-out;
 		background-color: var(--t-inactive);
 	}
 
@@ -47,9 +51,10 @@ const Rounded = styled(Base)`
 		"active",
 		(x) => !!x,
 		css`
+			background-color: var(--t-active);
+
 			&::before {
 				left: calc(var(--t-height) + var(--sp));
-				background-color: var(--t-active);
 				border-radius: 0 var(--t-height) var(--t-height) 0;
 			}
 		`
@@ -65,31 +70,10 @@ const Circle = styled(Rounded)`
 		"active",
 		(x) => !!x,
 		css`
-			&::before {
-				border-radius: var(--t-height);
-			}
-		`
-	)}
-`
-
-const Binary = styled(Rounded)`
-	transition: all 0.2s ease-out 0.3s;
-
-	&:before {
-		background-color: transparent;
-		border-radius: var(--t-height);
-		border: solid 2px ${theme("bgcolor")};
-		box-sizing: border-box;
-	}
-
-	${propIs(
-		"active",
-		(x) => !!x,
-		css`
-			background-color: var(--t-active);
+			background-color: ${theme("toggle.active")};
 
 			&::before {
-				background-color: var(--t-inactive);
+				background-color: white;
 				border-radius: var(--t-height);
 			}
 		`
@@ -107,8 +91,10 @@ const Square = styled(Rounded)`
 		"active",
 		(x) => !!x,
 		css`
+			background-color: ${theme("toggle.active")};
+
 			&::before {
-				background-color: var(--t-active);
+				background-color: white;
 			}
 		`
 	)}
@@ -121,33 +107,34 @@ const Line = styled(Rounded)`
 		left: 0; 
 		top: 50%;
 		right: 0;
-		border-radius: 20px;
+		border-radius: 999px;
 		content: "";
 		display: block;
-		height: calc(var(--sp) / 2);
+		height: var(--sp);
 		position: absolute;
 		transform: translateY(-50%);
-		background-color: var(--t-active);
+		background-color: ${theme("toggle.inside")};
 	}
 
 	&::before {
 		z-index: 4;
 		border-radius: 3px;
+		box-sizing: border-box;
 		line-height: var(--sq);
 		color: ${theme("toggle.inside")};
+		border: solid var(--sp, 4px) ${theme("toggle.inside")};
 		background-color: var(--t-inactive);
-		box-shadow: 0 1px 3px rgba(0,0,0,0.16);
-		content: "${(props) => props.label && "off"}";
 	}
 
 	${propIs(
 		"active",
 		(x) => !!x,
 		css`
-		&::before {
-			content: "${(props) => props.label && "on"}";
-			color: var(--t-inactive);
+		&::after {
 			background-color: var(--t-active);
+		}
+		&::before {
+			border-color: var(--t-active);
 		}
 	`
 	)}
@@ -156,7 +143,6 @@ const Line = styled(Rounded)`
 export const Toggle = {
 	Rounded,
 	Circle,
-	Binary,
 	Square,
 	Line,
 }
