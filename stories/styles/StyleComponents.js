@@ -1,13 +1,12 @@
 import React from "react"
 import t from "prop-types"
-import { BrowserRouter as Router } from "react-router-dom"
 import { ThemeProvider, createGlobalStyle } from "styled-components"
 import { Light } from "./Theme"
 
 const GlobalStyle = createGlobalStyle`
 	:root {
-		--heading-font: 'Poppins';
-    --input-font: "Poppins";
+		--heading-font: sans-serif;
+    --input-font: sans-serif;
 
 		--ss-bg: white;
 		--ss-btn-bg: #333;
@@ -20,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
 	}
 
   body {
-    font-family: PT Sans, Lato, "Segoe UI", sans-serif;
+    font-family: -apple-system, Avenir, Helvetica, 'Segoe UI', sans-serif;
   }
 `
 
@@ -34,10 +33,8 @@ SubHeading.propTypes = { text: t.string.isRequired }
 
 export const Theme = props => (
 	<ThemeProvider theme={Light}>
-		<Router>
-			{/* eslint-disable-next-line */}
+		{/* eslint-disable-next-line */}
 			{props.children}
-			<GlobalStyle />
-		</Router>
+		<GlobalStyle />
 	</ThemeProvider>
 )

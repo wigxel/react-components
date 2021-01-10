@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react"
 import styled, { css } from "styled-components"
-import { curryN } from "ramda"
+import * as R from "ramda"
 import { themeOr, withProp, propIs } from "../../libs/styled.helpers"
 import t from "prop-types"
 
@@ -10,6 +10,8 @@ const theme = themeOr({
 	},
 	check: {
 		active: "#705DF5",
+		activeTextColor: "#FFFFFF",
+		textColor: "#333333",
 		borderColor: "#F0F0F9",
 	}
 })
@@ -44,19 +46,17 @@ const baseStyle = css`
 
     &:focus {
       color: ${theme("primary")};
-      /* box-shadow: 0px 0 0 2px var(--redAccent); */
     }
 
     ${propIs(
 		"disabled",
 		isFalse,
 		css`
-	      &:hover {
+	      &:not(.active):hover {
 	        cursor: pointer;
 	        color: ${theme("check.active")};
 	        transition: all 0.2s ease-in-out;
-	      }`)
-  	}
+	      }`)}
   }
 
   & > div > * > span {
@@ -69,7 +69,7 @@ const baseStyle = css`
       padding: 1rem 1.5rem;
       text-align: center;
       flex-shrink: 0;
-      color: #333333;
+      color: ${theme("check.textColor")};
       position: relative;
       line-height: 20px;
       border-radius: 0;
@@ -127,87 +127,157 @@ const baseStyle = css`
 	)}
 `
 
-const FlatStyle = styled.div`
-  ${baseStyle}
+const Styles = Object.freeze({
+	Flat: styled.div`
+	  ${baseStyle}
 
-  & button.active {
-    color: white !important;
-    border: solid 1px ${theme("check.active")};
-  }
+	  & button.active {
+	    color: ${theme("check.activeTextColor")} !important;
+	    border: solid 1px ${theme("check.active")};
+	  }
 
-  & button::after {
-    inset: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: "";
-    position: absolute;
-    left: 100%;
-    background-color: ${theme("check.active")};
-    transition: all 0.3s ease-in-out;
-  }
+	  & button::after {
+	    inset: 0;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    content: "";
+	    position: absolute;
+	    left: 100%;
+	    background-color: ${theme("check.active")};
+	    transition: all 0.3s ease-in-out;
+	  }
 
-  & button.active::after {
-    inset: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-`
+	  & button.active::after {
+	    inset: 0;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	  }
+	`,
+	Dot: styled.div`
+	  ${baseStyle}
 
-const DotStyle = styled.div`
-  ${baseStyle}
+	  button {
+	    overflow: hidden;
 
-  button {
-    overflow: hidden;
+	    span {
+	      display: block;
+	      padding-left: 0;
+	      transition: padding 0.3s ease .3s;
+	    }
+	  }
 
-    span {
-      display: block;
-      padding-left: 0;
-      transition: padding 0.3s ease .3s;
-    }
-  }
+	  button::after {
+	    content: "";
+	    position: absolute;
+	    width: 10px;
+	    left: 1.5rem;
+	    top: 50%;
+	    opacity: 0;
+	    height: 10px;
+	    border-radius: 50%;
+	    transform: translate(0, 200%);
+	    background-color: ${theme("check.active")};
+	    transition: all 0.3s ease-out 0.2s;
 
-  button::after {
-    content: "";
-    position: absolute;
-    width: 10px;
-    left: 1.5rem;
-    top: 50%;
-    opacity: 0;
-    height: 10px;
-    border-radius: 50%;
-    transform: translate(0, 200%);
-    background-color: ${theme("check.active")};
-    transition: all 0.3s ease-out 0.2s;
+	    ${withProp("compact", css`
+					left: 1rem;
+		   `)}
+	  }
 
-    ${withProp("compact", css`
-				left: 1rem;
-	   `)}
-  }
+	  button.active {
+	    color: ${theme("check.active")};
 
-  button.active {
-    color: ${theme("check.active")};
+	    span {
+	    	transition-delay: 0s;
+	      padding-left: 1rem;
+	    }
 
-    span {
-    	transition-delay: 0s;
-      padding-left: 1rem;
-    }
+	    &::after {
+	      opacity: 1;
+	      transform: translate(0, -50%);
+	    }
+	  }
+	`,
+	Minimal: styled.div`
+	  ${baseStyle}
 
-    &::after {
-      opacity: 1;
-      transform: translate(0, -50%);
-    }
-  }
+	  & > div > {
+	    *:not(input) {
+	    	border-color: transparent transparent ${theme("check.borderColor")} transparent;
+	      &:last-child, &:first-child {
+	        border-radius: 0;
+	      }
+	    }
+	  }
 
-`
+	  button {
+	    overflow: hidden;
+
+	    span {
+	      display: block;
+	      padding-left: 0;
+	      transition: padding 0.3s ease .3s;
+	    }
+	  }
+
+	  button.active {
+	    color: ${theme("check.active")};
+      border-bottom: solid 2px ${theme("check.active")};
+
+	    &::after {
+	      opacity: 1;
+	      transform: translate(0, -50%);
+	    }
+	  }
+	`,
+	Badge: styled.div`
+		${baseStyle}
+
+		> div {
+			display: inline-flex;
+			justify-content: space-between;
+		}
+
+	  & > div > {
+	    *:not(input) {
+	    	&:not(:first-child) {
+	    		margin-left: .5rem;
+	    	}
+				background-color: transparent;
+	    	border-color: transparent !important;
+
+	    	&:last-child, &:first-child, & {
+	        border-radius: 99px;
+	    	}
+	    }
+	  }
+
+	  button {
+	  	transition: all .2s ease-in-out;
+
+	    span {
+	      display: block;
+	      padding-left: 0;
+	      transition: padding 0.3s ease .3s;
+	    }
+	  }
+
+	  button.active {
+	    color: ${theme("check.activeTextColor")};
+	    background-color: ${theme("check.active")};
+	  }
+	`
+})
 
 export const Checker = React.forwardRef(function _Checker(props, ref) {
-	const [index, setIndex] = useState(-1)
+	const defaultIndex = R.findIndex(R.equals(props.defaultValue), props.buttons)
+	const [index, setIndex] = useState(defaultIndex || -1)
 	const updateIndex = useCallback(
-		curryN(2, idx => {
+		R.curryN(2, idx => {
 			if (props.disabled) return
 			const value = props.buttons[idx]
 			setIndex(idx)
@@ -216,7 +286,7 @@ export const Checker = React.forwardRef(function _Checker(props, ref) {
 		[setIndex]
 	)
 	const isActive = useCallback(idx => idx == index, [index])
-	const Wrapper = props.style || DotStyle
+	const Wrapper = props.style || Styles.Dot
 
 	return (
 		<Wrapper 
@@ -256,13 +326,14 @@ Checker.defaultProps = {
 Checker.propTypes = {
 	name: t.string,
 	onChange: t.func.isRequired,
+	defaultValue: t.string,
 	buttons: t.arrayOf(t.string).isRequired,
 	canReset: t.bool,
 	disabled: t.bool,
 	compact: t.bool,
-	style: t.oneOf([DotStyle, FlatStyle])
+	style: t.oneOf(Object.values(Styles))
 }
 
-Checker.Styles = { Dot: DotStyle, Flat: FlatStyle }
+Checker.Styles = Styles
 
 export default Checker

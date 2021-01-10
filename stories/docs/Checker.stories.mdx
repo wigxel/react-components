@@ -121,7 +121,7 @@ by simply setting the `compact` prop to `true`, see snippet below.
 ```
 
 ## Customizing
-Are are only 2 variants of the `Checker` components, namely `Dot` and `Flat`. The default style is the `Dot` style.
+Are are only 2 variants of the `Checker` components, namely `Dot`, `Minimal`, `Badge` and `Flat`. The default style is the `Dot` style.
 
 <Story name="Customizing">
 	<Theme>
@@ -138,6 +138,21 @@ Are are only 2 variants of the `Checker` components, namely `Dot` and `Flat`. Th
 			compact={true}
 			canReset={true}
 			style={Checker.Styles.Flat}
+			buttons={["Male", "Female", "Others"]}
+			onChange={(val) => console.log(val)}
+		/> <br/>
+		<Checker
+			compact={true}
+			canReset={true}
+			style={Checker.Styles.Minimal}
+			buttons={["Male", "Female", "Others"]}
+			onChange={(val) => console.log(val)}
+		/> <br/>
+		<Checker
+			compact={true}
+			defaultValue="Female"
+			canReset={true}
+			style={Checker.Styles.Badge}
 			buttons={["Male", "Female", "Others"]}
 			onChange={(val) => console.log(val)}
 		/>
@@ -158,6 +173,21 @@ Are are only 2 variants of the `Checker` components, namely `Dot` and `Flat`. Th
 	compact={true}
 	canReset={true}
 	style={Checker.Styles.Flat}
+	buttons={["Male", "Female", "Others"]}
+	onChange={(val) => console.log(val)}
+/>
+<Checker
+	compact={true}
+	canReset={true}
+	style={Checker.Styles.Minimal}
+	buttons={["Male", "Female", "Others"]}
+	onChange={(val) => console.log(val)}
+/>
+<Checker
+	compact={true}
+	defaultValue="Female"
+	canReset={true}
+	style={Checker.Styles.Badge}
 	buttons={["Male", "Female", "Others"]}
 	onChange={(val) => console.log(val)}
 />

@@ -43,6 +43,8 @@ export default {
 	check: {
 		active: "#705DF5",
 		borderColor: "#F0F0F9",
+		activeTextColor: "#FFF",
+		textColor: "#333333",
 	},
 	activity: {
 		borderColor: "#848484",

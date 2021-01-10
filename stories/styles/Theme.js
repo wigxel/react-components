@@ -20,8 +20,8 @@ const Generic = {
 		hoverColor: "whitesmoke",
 	},
 	check: {
-		active: "dodgerblue",
-		borderColor: "#ddd"
+		active: "#333",
+		borderColor: "#ddd",
 	},
 	font: {
 		sans: "Avenir"
