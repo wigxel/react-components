@@ -46,6 +46,8 @@ const Wrap = styled.div`
 
 const pagerCtx = React.createContext()
 
+export const PagerConsumer = pagerCtx.Consumer
+
 export const usePager = () => React.useContext(pagerCtx)
 
 export const PagerProvider = ({ children }) => {
@@ -74,7 +76,9 @@ export const Pager = function(props) {
 	const { currentPage: cp, goto } = usePager()
 	const [height, setHeight] = useState("auto")
 
-	React.useEffect(() => goto(current), [])
+	React.useEffect(() => {
+		goto(current)
+	}, [])
 
 	const slideLeft = useCallback(
 		(cp, slider) => slider.current.clientWidth * cp,

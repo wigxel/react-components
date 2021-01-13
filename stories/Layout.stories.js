@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react"
 import { withKnobs, boolean, number } from "@storybook/addon-knobs"
 import { Theme } from "./styles/StyleComponents"
 import { H1, H2, H3, P } from "../src/components/typography"
-import { Pager, Stack, Cluster, Outline } from "../src/components/layouts"
+import { Pager, PagerProvider, PagerConsumer, Stack, Cluster, Outline } from "../src/components/layouts"
 import { Button } from "../src/components/buttons"
 
 // eslint-disable-next-line
@@ -161,33 +161,35 @@ storiesOf("Layouts", module)
 		)
 	})
 	.add("Pager", () => {
-		const current = number("Current Page")
+		const page = number("Default Page")
+
 		return (
 			<Theme>
-				<Stack noExtraSpace style={{ width: "100%" }}>
-					<H2>Pager</H2>
-					<Outline color="indigo">
-						<Pager /> {/* For Safety: Should throw error when no children */}
-						<Pager current={current} morph={boolean("Should Morph")}>
-							<ClusterOutline>
-								<Stack noExtraSpace>
-									<H3 light={true}>The Pager is really cool.</H3>
-									<P>
+				<PagerProvider>
+					<Stack noExtraSpace style={{ width: "100%" }}>
+						<H2>Pager</H2>
+						<Outline color="indigo">
+							<Pager /> {/* For Safety: Should throw error when no children */}
+							<Pager defaultPage={page} morph={boolean("Should Morph")}>
+								<ClusterOutline>
+									<Stack noExtraSpace>
+										<H3 light={true}>The Pager is really cool.</H3>
+										<P>
 										So, the page is more like a carousel; but for pages. It can
 										switch between pages when a user wants it to. <br />
 										Wait until you see how it really works
-									</P>
-									<P>Click Here to Switch to the Next Page</P>
-									<Button>Switch to Page 2</Button>
-								</Stack>
-							</ClusterOutline>
-							<ClusterOutline>
-								<Stack noExtraSpace>
-									<H3>This is the Second Page</H3>
-									<P>So, what do you think about it?</P>
-									<P>Great or what?</P>
-									<P>Click Here to Switch to the Previous Page</P>
-									<P>
+										</P>
+										<P>Click Here to Switch to the Next Page</P>
+										<PagerConsumer>
+											{({ next }) => <Button onClick={next}>Switch to Page 2</Button>}
+										</PagerConsumer>
+									</Stack>
+								</ClusterOutline>
+								<ClusterOutline>
+									<Stack noExtraSpace>
+										<H3>This is the Second Page</H3>
+										<P>Click Here to Switch to the Previous Page</P>
+										<P>
 										Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 										Excepturi perferendis placeat optio accusamus tempora
 										debitis facilis? Officiis obcaecati cum natus in aspernatur,
@@ -201,13 +203,16 @@ storiesOf("Layouts", module)
 										blanditiis obcaecati sint aliquam adipisci ipsa sunt neque
 										dolorum quas perferendis reprehenderit eius maxime modi
 										debitis ad, eligendi!
-									</P>
-									<Button>Back</Button>
-								</Stack>
-							</ClusterOutline>
-						</Pager>
-					</Outline>
-				</Stack>
+										</P>
+										<PagerConsumer>
+											{({ prev }) => <Button onClick={prev}>Prev</Button>}
+										</PagerConsumer>
+									</Stack>
+								</ClusterOutline>
+							</Pager>
+						</Outline>
+					</Stack>
+				</PagerProvider>
 			</Theme>
 		)
 	})

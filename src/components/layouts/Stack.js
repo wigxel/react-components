@@ -11,6 +11,17 @@ const propSizes = [
 const StackStyle = styled.div`
 	padding: 0.1px 0;
 	
+	/** DO NO MOVE 'noExtraSpace' FROM HERE **/
+	${withProp(
+		"noExtraSpace",
+		css`
+      > * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    `
+	)}
+
 	> * + * {
 		margin-top: 1rem;
 	}
@@ -23,16 +34,6 @@ const StackStyle = styled.div`
       }
       > * + *:not(:empty) {
         margin-top: 1rem;
-      }
-    `
-	)}
-
-	${withProp(
-		"noExtraSpace",
-		css`
-      > * {
-        margin-top: 0;
-        margin-bottom: 0;
       }
     `
 	)}
