@@ -174,7 +174,7 @@ export const TextWrapper = styled.div`
 	}
 `
 
-export const Labelled = () => <span>"Hello"</span>
+export const Labelled = { }
 
 const canFocus = (props) => !!props.placeholder
 
@@ -221,23 +221,39 @@ export function useInput(initialState, props, ref) {
 	}
 }
 
-const NewWrapper  = ({ children, props, state }) => {
+const NewWrapper  = ({ children, options, state }) => {
 	return (
-		<MainWrapper fullwidth={props.fullwidth}>
+		<MainWrapper fullwidth={options.fullwidth}>
 			<InputStyle
-				htmlFor={props.name}
+				htmlFor={options.name}
 				focused={state.focus}
-				hasIcon={!!props.icon}
-				options={props.children}
-				disabled={props.disabled}
+				hasIcon={!!options.icon}
+				options={options.children}
+				disabled={options.disabled}
 			>
-				{props.icon && <span className="icn">{props.icon}</span>}
-				<span className="wg-label">{props.label}</span>
+				{options.icon && <span className="icn">{options.icon}</span>}
+				<span className="wg-label">{options.label}</span>
 				{children}
 			</InputStyle>
-			{props.message}
+			{options.message}
 		</MainWrapper>
 	)
+}
+
+NewWrapper.propTypes = {
+	state: t.shape({
+		focus: t.bool.isRequired,
+	}),
+	options: t.shape({
+		icon: t.string,
+		fullwidth: t.bool,
+		name: t.string,
+		label: t.string,
+		message: t.any,
+		disabled: t.bool,
+		children: t.node.isRequired
+	}).isRequired,
+	children: t.node.isRequired
 }
 
 const InputTypes = Object.freeze({
@@ -249,7 +265,7 @@ Labelled.Input = React.forwardRef(function LabelledInput (props, ref) {
 	const { props: _props, inputRef, state } = useInput(InputTypes.Closed, props, ref)
 
 	return (
-		<NewWrapper props={_props} state={state}>
+		<NewWrapper options={_props} state={state}>
 			<input
 				ref={inputRef}
 				{...removeBacklist(_props)}
@@ -276,7 +292,7 @@ Labelled.Number = React.forwardRef(function LabelledNumber (_props, ref) {
 	}
 
 	return (
-		<NewWrapper props={props} state={state}>
+		<NewWrapper options={props} state={state}>
 			<input
 				{...removeBacklist(props)}
 				ref={inputRef}
@@ -301,7 +317,7 @@ Labelled.Select = React.forwardRef(function LabelledSelect (_props, ref) {
 	const { props, inputRef, state } = useInput(InputTypes.AlwaysFocused, _props, ref)
 
 	return (
-		<NewWrapper props={props} state={state}>
+		<NewWrapper options={props} state={state}>
 			<select {...removeBacklist(props)} ref={inputRef} onChange={props.onChange}>
 				{props.children}
 			</select>
@@ -322,20 +338,20 @@ Labelled.Select.propTypes = {
 	children: t.node.isRequired,
 }
 
-Labelled.Textarea = React.forwardRef(function LabelledTextarea (_props, ref) {
-	const { props, inputRef, state } = useInput(InputTypes.Closed, _props, ref)
+Labelled.Textarea = React.forwardRef(function LabelledTextarea (props, ref) {
+	const { props: options, inputRef, state } = useInput(InputTypes.Closed, props, ref)
 
 	return (
 		<div>
-			<TextWrapper focused={state.focus} disabled={props.disabled}>
-				<span className="wg-label">{props.label}</span>
+			<TextWrapper focused={state.focus} disabled={options.disabled}>
+				<span className="wg-label">{options.label}</span>
 				<textarea
 					ref={inputRef}
-					{...removeBacklist(props)}
-					onChange={props.onChange}
+					{...removeBacklist(options)}
+					onChange={options.onChange}
 				/>
 			</TextWrapper>
-			{props.message}
+			{options.message}
 		</div>
 	)
 }, {})

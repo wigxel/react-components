@@ -14,7 +14,7 @@ stories
 			<Theme>
 				<Stack>
 					<H4>Collapsible</H4>
-					<Collapsible open={boolean("Toggle One", false)}>
+					<Collapsible expand={boolean("Toggle One", false)}>
 						<P>Lorem Morgan</P>
 						<P>Lorem Morgan</P>
 						<P>John Carter</P>

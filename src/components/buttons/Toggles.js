@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import { themeOr, color, propIs } from "../../libs/styled.helpers"
+import { themeOr, propIs } from "../../libs/styled.helpers"
 
 const theme = themeOr({
 	toggle: {

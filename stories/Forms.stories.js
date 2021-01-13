@@ -24,9 +24,9 @@ storiesOf("Form.Regular", module)
 				<H3>Large Input</H3>
 				<Stack.Flex alignItems="flex-start">
 					<Stack>
-						<Input placeholder="02" small style={{ width: 50, textIndent: '.5rem' }}/>
-						<Input placeholder="02" small style={{ width: 50, textIndent: '.5rem' }}/>
-						<Input placeholder="02" small style={{ width: 50, textIndent: '.5rem' }}/>
+						<Input placeholder="02" small style={{ width: 50, textIndent: ".5rem" }}/>
+						<Input placeholder="02" small style={{ width: 50, textIndent: ".5rem" }}/>
+						<Input placeholder="02" small style={{ width: 50, textIndent: ".5rem" }}/>
 					</Stack>
 					<Input placeholder="First Name" large fullwidth />
 				</Stack.Flex>

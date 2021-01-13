@@ -95,10 +95,15 @@ export const Activity = (props) => {
 	)
 }
 
+Activity.defaultProps = {
+	size: "15px"
+}
+
 Activity.propTypes = {
 	entries: t.arrayOf(t.shape({ 
 		text: t.string.isRequired
 	})),
+	size: t.string,
 	render: t.func,
 	hoverable: t.bool,
 }

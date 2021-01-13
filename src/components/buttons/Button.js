@@ -1,5 +1,3 @@
-import React from "react"
-import t from "prop-types"
 import styled, { css } from "styled-components"
 import { fullWidth } from "../../libs/styled.helpers"
 import { withProp, theme } from "../../libs/styled.helpers"
@@ -8,6 +6,7 @@ const ButtonStyle = styled.button`
   --theme-color: ${theme("colors.gray")};
   background-color: #444;
   padding: .7rem 1.8rem;
+  line-height: 1.6;
   white-space: nowrap;
   font-size: 13px;
   align-items: center;
@@ -89,19 +88,3 @@ const ButtonStyle = styled.button`
 `
 
 export const Button = ButtonStyle
-
-export const IconButton = (props) => {
-	return (
-		<Button {...props}>
-			<span>{props.children}</span>
-		</Button>
-	)
-}
-
-IconButton.propTypes = {
-	children: t.node.isRequired,
-}
-
-export const CircleButton = (props) => {
-	return <Button circle {...props}></Button>
-}

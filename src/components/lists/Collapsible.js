@@ -18,9 +18,9 @@ const CollapseStyle = styled.div`
 `
 
 const makeObserver = (onChange) =>
-	new MutationObserver(function (mutationsList, observer) {
+	new MutationObserver(function (mutationsList) {
 		for (let mutation of mutationsList) {
-			console.log("Mutation", mutation)
+			// console.log("Mutation", mutation)
 			onChange(mutation.type)
 		}
 	})
@@ -42,8 +42,8 @@ export const Collapsible = (props) => {
 	}, [props.morph])
 
 	useEffect(() => {
-		setHeight(props.open ? getHeight(container.current) : 0)
-	}, [props.open])
+		setHeight(props.expand ? getHeight(container.current) : 0)
+	}, [props.expand])
 
 	return (
 		<CollapseStyle {...props} style={{ height }}>
@@ -57,7 +57,8 @@ Collapsible.defaultProps = {
 }
 
 Collapsible.propTypes = {
-	open: t.bool,
+	expand: t.bool,
+	morph: t.bool.isRequired,
 	children: t.node.isRequired,
 }
 

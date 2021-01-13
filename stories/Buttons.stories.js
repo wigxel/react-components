@@ -1,6 +1,6 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import { Button, IconText, CircleButton } from "../src/components/buttons"
+import { Button  } from "../src/components/buttons"
 import { Theme } from "./styles/StyleComponents"
 import { Tab } from "../src/components/layouts"
 
@@ -29,41 +29,6 @@ storiesOf("Buttons", module)
 				<Button large danger>Get Started</Button>
 				<Button large outline>Get Started</Button>
 				<Button large ghost>Stop Now</Button>
-			</Tab>
-		</Theme>
-	))
-	.add("Outlined", () => (
-		<Theme>
-			<Tab>
-				<Button danger outline>
-					Danger
-				</Button>
-				<Button warning outline>
-					Warning
-				</Button>
-				<Button primary outline large>
-					Primary
-				</Button>
-			</Tab>
-		</Theme>
-	))
-	.add("with icons", () => (
-		<Theme>
-			<Tab>
-				<IconButton icon="dashboard" color="#fff">
-					Add Vendor
-				</IconButton>
-				<IconButton icon="home" color="#fff" primary large>
-					Add Profile Info
-				</IconButton>
-			</Tab>
-		</Theme>
-	))
-	.add("Button Circle", () => (
-		<Theme>
-			<Tab>
-				<CircleButton icon="home" onClick={() => alert("clicking button")} />
-				<CircleButton icon="add" onClick={() => alert("clicking button")} />
 			</Tab>
 		</Theme>
 	))
