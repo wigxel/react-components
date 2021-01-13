@@ -2,11 +2,11 @@ import React from "react"
 import t from "prop-types"
 import styled, { css } from "styled-components"
 import { fullWidth } from "../../libs/styled.helpers"
-import { withProp, color } from "../../libs/styled.helpers"
+import { withProp, theme } from "../../libs/styled.helpers"
 
 const ButtonStyle = styled.button`
-  --theme-color: ${color("accent")};
-  background-color: ${color("accent")};
+  --theme-color: ${theme("colors.gray")};
+  background-color: #444;
   padding: .7rem 1.8rem;
   white-space: nowrap;
   font-size: 13px;
@@ -21,7 +21,7 @@ const ButtonStyle = styled.button`
   display: inline-flex;
   transform: scale(1);
   transition: all .3s cubic-bezier(.08,.82,.17,1);
-  font-family: var(--heading-font, 'Quicksand');
+  font-family: var(--button-font, 'Quicksand');
 
   .material-icons {
     margin-right: .5rem;
@@ -40,14 +40,19 @@ const ButtonStyle = styled.button`
     box-shadow: 0 3px 8px -4px rgba(0, 0, 0, 0.3);
   }
 
-  ${withProp("primary")(css`
-		--theme-color: ${color("primary")};
-		background-color: ${color("primary")};
+  ${withProp("small")(css`
+		padding: .4rem 1rem;
+		border-radius: 8px;
+	`)}
+
+	${withProp("primary")(css`
+		--theme-color: ${theme("colors.primary")};
+		background-color: ${theme("colors.primary")};
 	`)}
 
   ${withProp("danger")(css`
-		--theme-color: ${color("danger")};
-		background-color: ${color("danger")};
+		--theme-color: ${theme("colors.danger")};
+		background-color: ${theme("colors.danger")};
 	`)}
 
   ${withProp("outline")(css`
@@ -56,8 +61,14 @@ const ButtonStyle = styled.button`
 		color: var(--theme-color, #888);
 	`)}
 
+  ${withProp("ghost")(css`
+		color: var(--theme-color);
+		background-color: transparent;
+	`)}
+
   ${withProp("large")(css`
-		padding: 1rem 2rem;
+		padding: .8rem 2rem;
+		font-size: 1.2rem;
 	`)}
 
   ${withProp("circle")(css`

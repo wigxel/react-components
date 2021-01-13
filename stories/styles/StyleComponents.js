@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
 	:root {
 		--heading-font: sans-serif;
     --input-font: sans-serif;
+    --button-font: sans-serif;
 
 		--ss-bg: white;
 		--ss-btn-bg: #333;
