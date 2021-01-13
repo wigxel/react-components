@@ -25,6 +25,9 @@ const Generic = {
 	},
 	font: {
 		sans: "Avenir"
+	},
+	border: {
+		active: "#333"
 	}
 }
 

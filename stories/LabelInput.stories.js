@@ -32,6 +32,14 @@ storiesOf("Form.Labelled", module)
 							ref={formRef}
 							type="text"
 							label="Enter Email"
+							onBlur={() => console.log('Changed')}
+							icon={<span style={{ fontSize: "1rem" }}>@</span>}
+							fullwidth
+						/>
+						<Input
+							type="text"
+							label="Enter Email"
+							placeholder="Johnson@domain.com"
 							icon={<span style={{ fontSize: "1rem" }}>@</span>}
 							fullwidth
 						/>

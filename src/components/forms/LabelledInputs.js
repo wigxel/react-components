@@ -1,33 +1,25 @@
-import React, { useState } from "react"
+import React from "react"
 import t from "prop-types"
+import * as R from "ramda"
 import styled, { css } from "styled-components"
-import {
-	curry,
-	curryN,
-	pickBy,
-	__,
-	contains,
-	nthArg,
-	compose,
-	not,
-} from "ramda"
-import { withProp, themeOr, propIs } from "../../libs/styled.helpers"
 import { fullWidth } from "../../libs/styled.helpers"
+import { withProp, color, themeOr, propIs } from "../../libs/styled.helpers"
 
 const theme = themeOr({
 	border: {
+		active: color("primary"),
 		gray: "#e1e1e1",
-		width: "1px",
+		width: "2px",
 	},
 })
 
-const blacklist = ["fullwidth", "icon"]
-const removeBacklist = pickBy(compose(not, contains(__, blacklist), nthArg(1)))
+const blacklist = ["fullwidth", "icon", "message"]
+const removeBacklist = R.pickBy(R.compose(R.not, R.contains(R.__, blacklist), R.nthArg(1)))
 const disabled = propIs("disabled", (x) => x == true)
 const sharedFocusStyle = css`
 	width: 100%;
 	border: solid ${theme("border.width")} ${theme("border.gray")};
-	background: #ffffff;
+	background: transparent;
 	box-sizing: border-box;
 	border-radius: 16px;
 	position: relative;
@@ -50,6 +42,8 @@ const sharedFocusStyle = css`
 		padding: 0 0.5rem;
 		position: absolute;
 		border-radius: 20px;
+		user-select: none;
+		pointer-events: none;
 		display: inline-block;
 		background-color: var(--label-bg, white);
 		transition: all 0.3s ease-out;
@@ -72,16 +66,20 @@ const sharedFocusStyle = css`
 		`
 	)}
 
-	${withProp("focused")(css`
-		border-color: ${theme("primary")};
+	&:focus-within {
+		border-color: ${theme("border.active")};		
+	}
 
-		.wg-label {
-			font-size: 0.9rem;
-			padding: 0 0.5rem;
-			color: ${theme("primary")};
-			transform: translate(0, -120%);
-		}
-	`)}
+		${withProp("focused")(css`
+
+			.wg-label {
+				font-size: 0.9rem;
+				padding: 0 0.5rem;
+				color: ${theme("border.active")};
+				transform: translate(0, -120%);
+			}
+		`)}
+
 
 	${disabled(css`
 		border: none;
@@ -117,9 +115,9 @@ const InputStyle = styled.label`
 			right: 15px;
 			position: absolute;
 			pointer-events: none;
-			border: solid 1px ${theme("primary")};
+			border: solid 1px ${theme("border.active")};
 			transform: rotate(45deg) translate(-25%);
-			border-color: transparent #308ddb #308ddb transparent;
+			border-color: transparent ${theme("border.active")} ${theme("border.active")} transparent;
 		}
 	`)};
 
@@ -176,89 +174,95 @@ export const TextWrapper = styled.div`
 	}
 `
 
-export const Labelled = {}
+export const Labelled = () => <span>"Hello"</span>
 
-const canFocus = (props) => props.placeholder
+const canFocus = (props) => !!props.placeholder
 
-export const createInput = curry((fn, initialState) => {
-	return React.forwardRef(function InputWrapper(props, ref) {
-		const [state, setState] = useState({
-			focus: canFocus(props),
-			...initialState,
-		})
+export function useInput(initialState, props, ref) {
+	const [state, setState] = React.useState({
+		focus: canFocus(props),
+		...initialState,
+	})
 
-		const inputRef = ref ? ref : React.useRef()
+	const inputRef = ref ? ref : React.useRef()
 
-		const action = curryN(2, (fn) => {
-			setState(fn)
-		})
+	const action = R.curry((fn, originalListener, evt) => {
+		setState(fn(evt))
+		if (originalListener) originalListener(evt)
+	})
 
-		const focus = (state) => {
+	const focus = React.useCallback((state) => () => {
+		return { ...state, focus: true }
+	}, [])
+
+	const blur = React.useCallback((state) => (evt) => {
+		// console.log("[DEBUG] Input Ref", inputRef, evt)
+		const value = R.path(["target", "value"], evt)
+
+		if (R.isEmpty(value)) return { ...state, focus: canFocus(props) }
+
+		if (R.is(String, value) && value.trim().length > 0) {
 			return { ...state, focus: true }
 		}
 
-		const blur = (state) => {
-			if (!inputRef.current || !inputRef.current.value) {
-				return { ...state, focus: canFocus(props) }
-			}
-			return state
-		}
+		return { ...state, focus: true }
+	}, [])
 
-		const _props = {
-			onFocus: action(focus),
-			onBlur: action(blur),
+	return {
+		props: {
 			...props,
-		}
+			onFocus: action(focus, props.onFocus),
+			onBlur: action(blur, props.onBlur),
+		},
+		inputRef,
+		state,
+		focus,
+		blur,
+	}
+}
 
-		return fn({
-			props: _props,
-			inputRef,
-			state,
-			focus,
-			blur,
-		})
-	})
-})
-
-const styleWrapper = curry((initialState, component) => {
-	return createInput((args) => {
-		const { props, state } = args
-
-		return (
-			<MainWrapper fullwidth={props.fullwidth}>
-				<InputStyle
-					htmlFor={props.name}
-					focused={state.focus}
-					hasIcon={!!props.icon}
-					options={props.children}
-					disabled={props.disabled}
-				>
-					{props.icon && <span className="icn">{props.icon}</span>}
-					<span className="wg-label">{props.label}</span>
-					{component(args)}
-				</InputStyle>
-				{props.message}
-			</MainWrapper>
-		)
-	}, initialState)
-})
-
-export const closedInput = styleWrapper({})
-
-export const makeAlwaysFocused = styleWrapper({ focus: true })
-
-Labelled.Input = closedInput(({ props, inputRef, state }) => {
+const NewWrapper  = ({ children, props, state }) => {
 	return (
-		<input
-			{...removeBacklist(props)}
-			ref={inputRef}
-			placeholder={state.focus ? props.placeholder : ""}
-			onChange={props.onChange}
-		/>
+		<MainWrapper fullwidth={props.fullwidth}>
+			<InputStyle
+				htmlFor={props.name}
+				focused={state.focus}
+				hasIcon={!!props.icon}
+				options={props.children}
+				disabled={props.disabled}
+			>
+				{props.icon && <span className="icn">{props.icon}</span>}
+				<span className="wg-label">{props.label}</span>
+				{children}
+			</InputStyle>
+			{props.message}
+		</MainWrapper>
+	)
+}
+
+const InputTypes = Object.freeze({
+	Closed: {},
+	AlwaysFocused: { focus: true }
+})
+
+Labelled.Input = React.forwardRef(function LabelledInput (props, ref) {
+	const { props: _props, inputRef, state } = useInput(InputTypes.Closed, props, ref)
+
+	return (
+		<NewWrapper props={_props} state={state}>
+			<input
+				ref={inputRef}
+				{...removeBacklist(_props)}
+				placeholder={state.focus ? _props.placeholder : ""}
+				onChange={_props.onChange}
+			/>
+		</NewWrapper>
 	)
 })
 
-Labelled.Number = closedInput(({ state, props, inputRef }) => {
+Labelled.Number = React.forwardRef(function LabelledNumber (_props, ref) {
+	const { props, inputRef, state } = useInput(InputTypes.Closed, _props, ref)
+
 	const sanitize = (evt) => {
 		const isAlpha = /^[A-Za-z]$/gi.test(evt.key)
 		const isKeyComb = evt.metaKey || evt.ctrlKey
@@ -272,14 +276,16 @@ Labelled.Number = closedInput(({ state, props, inputRef }) => {
 	}
 
 	return (
-		<input
-			{...removeBacklist(props)}
-			ref={inputRef}
-			type="text"
-			placeholder={state.focus ? props.placeholder : ""}
-			onKeyDown={sanitize}
-			onChange={handleChange}
-		/>
+		<NewWrapper props={props} state={state}>
+			<input
+				{...removeBacklist(props)}
+				ref={inputRef}
+				type="text"
+				placeholder={state.focus ? props.placeholder : ""}
+				onKeyDown={sanitize}
+				onChange={handleChange}
+			/>
+		</NewWrapper>
 	)
 })
 
@@ -291,11 +297,15 @@ Labelled.Message.propTypes = {
 	children: t.node.isRequired,
 }
 
-Labelled.Select = makeAlwaysFocused(({ props, inputRef }) => {
+Labelled.Select = React.forwardRef(function LabelledSelect (_props, ref) {
+	const { props, inputRef, state } = useInput(InputTypes.AlwaysFocused, _props, ref)
+
 	return (
-		<select {...removeBacklist(props)} ref={inputRef} onChange={props.onChange}>
-			{props.children}
-		</select>
+		<NewWrapper props={props} state={state}>
+			<select {...removeBacklist(props)} ref={inputRef} onChange={props.onChange}>
+				{props.children}
+			</select>
+		</NewWrapper>
 	)
 })
 
@@ -312,14 +322,16 @@ Labelled.Select.propTypes = {
 	children: t.node.isRequired,
 }
 
-Labelled.Textarea = createInput(({ props, inputRef, state }) => {
+Labelled.Textarea = React.forwardRef(function LabelledTextarea (_props, ref) {
+	const { props, inputRef, state } = useInput(InputTypes.Closed, _props, ref)
+
 	return (
 		<div>
 			<TextWrapper focused={state.focus} disabled={props.disabled}>
 				<span className="wg-label">{props.label}</span>
 				<textarea
-					{...removeBacklist(props)}
 					ref={inputRef}
+					{...removeBacklist(props)}
 					onChange={props.onChange}
 				/>
 			</TextWrapper>

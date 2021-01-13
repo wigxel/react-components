@@ -20,31 +20,7 @@ stories
 						<P>John Carter</P>
 						<P>Emily Richards</P>
 					</Collapsible>
-
-					<Collapsible open={boolean("Toggle Two", true)}>
-						<FlatList>
-							<FlatList.Item>Lorem Morgan</FlatList.Item>
-							<FlatList.Item>Lorem Morgan</FlatList.Item>
-							<FlatList.Item>John Carter</FlatList.Item>
-							<FlatList.Item>Emily Richards</FlatList.Item>
-						</FlatList>
-					</Collapsible>
 				</Stack>
-			</Theme>
-		)
-	})
-	.add("FlatList", () => {
-		return (
-			<Theme>
-				<div>
-					<H4>Flat List</H4>
-					<FlatList>
-						<FlatList.Item>Lorem Morgan</FlatList.Item>
-						<FlatList.Item>Lorem Morgan</FlatList.Item>
-						<FlatList.Item>John Carter</FlatList.Item>
-						<FlatList.Item>Emily Richards</FlatList.Item>
-					</FlatList>
-				</div>
 			</Theme>
 		)
 	})

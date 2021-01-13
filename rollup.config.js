@@ -8,7 +8,7 @@ const NODE_ENV = "production";
 
 export default {
 	external: (id) => {
-		return /^(react|lodash|styled-components)/.test(id);
+		return /^(react|react-dom|lodash|styled-components)/.test(id);
 	},
 	input: {
 		"main": "src/main.js",
