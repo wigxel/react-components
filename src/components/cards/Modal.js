@@ -130,7 +130,7 @@ Modal.propTypes = {
 	onClose: t.func,
 	name: t.string,
 	show: t.bool,
-	size: t.oneOf(["sm", "lg"]),
+	size: t.oneOf(["sm", "md", "lg"]),
 	children: t.node.isRequired,
 }
 
