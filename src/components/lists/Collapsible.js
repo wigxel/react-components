@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react"
+import React, { useRef, useLayoutEffect, useState } from "react"
 import t from "prop-types"
 import styled from "styled-components"
 
@@ -30,7 +30,7 @@ export const Collapsible = (props) => {
 	const [height, setHeight] = useState(0)
 	const getHeight = (el) => el.getBoundingClientRect().height
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const observer = makeObserver(() =>
 			setHeight(getHeight(container.current))
 		)
@@ -41,7 +41,7 @@ export const Collapsible = (props) => {
 		return () => observer.disconnect()
 	}, [props.morph])
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		setHeight(props.expand ? getHeight(container.current) : 0)
 	}, [props.expand])
 
