@@ -1,33 +1,58 @@
-import React from "react";
-import t from "prop-types";
-import { curry, prop, omit, not, mergeLeft } from "ramda";
+import React from "react"
+import t from "prop-types"
+import { curry, prop, omit, not, mergeLeft } from "ramda"
 
-const modalCtx = React.createContext();
+const modalCtx = React.createContext()
 
-export const useModal = () => React.useContext(modalCtx);
+export const useModal = () => React.useContext(modalCtx)
 
 export const ModalProvider = ({ children }) => {
-  const [state, setState] = React.useState({});
-  const _setTo = curry((newState, name) => {
-    setState(mergeLeft({ [name]: newState }));
-  });
+	const [state, setState] = React.useState({})
+	const nameParamMap = React.useRef(new Map()).current
 
-  const show = _setTo(true);
-  const hide = _setTo(false);
-  const detach = (name) => setState(omit([name], state));
-  const toggle = (name) => _setTo(not(prop(name, state)), name);
+	const _setTo = curry((newState, name) => {
+		setState(mergeLeft({ [name]: newState }))
+	})
 
-  return (
-    <modalCtx.Provider
-      value={{ store: state, detach, show, hide, attach: hide, toggle }}
-    >
-      {children}
-    </modalCtx.Provider>
-  );
-};
+	const addOrRemoveParams = (toggleState, name, params = {}) =>
+		toggleState ? nameParamMap.set(name, params) : nameParamMap.delete(name)
 
-export const ModalConsumer = modalCtx.Consumer;
+	const show = (name, params) => {
+		_setTo(true, name)
+		addOrRemoveParams(true, name, params)
+	}
+
+	const hide = (name) => {
+		_setTo(false, name)
+		addOrRemoveParams(false, name)
+	}
+
+	const detach = (name) => setState(omit([name], state)) 
+
+	const toggle = (name, params) => {
+		const newState = not(prop(name, state))
+		newState ? show(name, params) : hide(name)
+	}
+
+	return (
+		<modalCtx.Provider
+			value={{
+				store: state,
+				modalParams: nameParamMap,
+				detach,
+				show,
+				hide,
+				attach: hide,
+				toggle,
+			}}
+		>
+			{children}
+		</modalCtx.Provider>
+	)
+}
+
+export const ModalConsumer = modalCtx.Consumer
 
 ModalProvider.propTypes = {
-  children: t.node.isRequired,
-};
+	children: t.node.isRequired,
+}

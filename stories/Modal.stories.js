@@ -1,6 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { withKnobs, boolean, text } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text, object } from "@storybook/addon-knobs";
 import { Theme } from "./styles/StyleComponents";
 import { Card } from "../src/components/cards";
 import Modal from "../src/components/cards/Modal";
@@ -10,15 +10,22 @@ import { Stack, Tab } from "../src/components/layouts";
 
 const Buttons = () => {
   const { toggle } = Modal.useModal();
+  const toggleParams = object("Button", {
+    param1: "Johnson",
+    params2: "William",
+  });
 
   return (
     <React.Fragment>
       <H4>Modals</H4>
       <P>Click either buttons to launch the modal (popup)</P>
-      <Button style={{ marginRight: ".5rem" }} onClick={() => toggle("keep")}>
-        Launch Modal
+      <Button
+        style={{ marginRight: ".5rem" }}
+        onClick={() => toggle("keep", toggleParams)}
+      >
+        Lauch Small Modal
       </Button>
-      <Button onClick={() => toggle("guest")}>Launch Second</Button>
+      <Button onClick={() => toggle("guest")}>Launch Large Modal</Button>
     </React.Fragment>
   );
 };
@@ -28,7 +35,7 @@ stories.add("Example", function Example() {
   return (
     <Modal.Provider>
       <Modal.Consumer>
-        {({ toggle }) => (
+        {({ toggle, modalParams }) => (
           <Theme>
             <Buttons />
             <Modal name="keep" size={text("Modal Size", "sm")}>
@@ -40,6 +47,7 @@ stories.add("Example", function Example() {
                     "The way out of here is to find true love that distracts you from it."
                   )}
                 </P>
+                <P>Params {JSON.stringify(modalParams.get("keep"))}</P>
                 <Tab>
                   <Button primary>Click Me</Button>
                   <Button
@@ -47,7 +55,7 @@ stories.add("Example", function Example() {
                     outline
                     onClick={() => {
                       toggle("keep");
-                      toggle("guest");
+                      toggle("guest", { noParams: true });
                     }}
                   >
                     Try Me
@@ -63,6 +71,7 @@ stories.add("Example", function Example() {
                 nostrum sequi consequatur, at suscipit delectus aut accusantium
                 dolorum mollitia officia neque! Quod, aperiam!
               </P>
+              <P>Params {JSON.stringify(modalParams.get("keep"))}</P>
             </Modal>
           </Theme>
         )}

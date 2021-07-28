@@ -4,7 +4,7 @@ module.exports = {
         "commonjs": true,
         "es6": true
     },
-    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -20,23 +20,4 @@ module.exports = {
     "plugins": [
         "react"
     ],
-    "rules": {
-    		"no-console": 1,
-        "indent": [
-            "error",
-            "tab"
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "double"
-        ],
-        "semi": [
-            "error",
-            "never"
-        ]
-    }
 };
