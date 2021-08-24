@@ -1,6 +1,8 @@
 # Wigxel Component Library
 The UI Component library for modern frontend devs.
 
+## Design System
+https://www.figma.com/community/file/892341847258436769/Voog-Design-System
 
 ## Installation
 ```
