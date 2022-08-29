@@ -18,13 +18,13 @@ export const ModalProvider = ({ children }) => {
 		toggleState ? nameParamMap.set(name, params) : nameParamMap.delete(name)
 
 	const show = (name, params) => {
-		_setTo(true, name)
 		addOrRemoveParams(true, name, params)
+		_setTo(true, name)
 	}
 
 	const hide = (name) => {
-		_setTo(false, name)
 		addOrRemoveParams(false, name)
+		_setTo(false, name)
 	}
 
 	const detach = (name) => setState(omit([name], state)) 
