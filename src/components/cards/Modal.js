@@ -10,6 +10,7 @@ import {
   ModalConsumer,
 } from "../../libs/contexts/modal";
 import Card from "./Card";
+import { isSSR } from "../../libs/helpers";
 
 const ModalSize = {
   small: propIs("size", (e) => e === "sm"),
@@ -40,7 +41,7 @@ const DialogStyle = styled.section`
     opacity: 0;
     width: 100%;
     display: flex;
-    padding-top: 10vh;
+    padding: 10vh 1rem 0;
     overflow-y: scroll;
     justify-content: center;
     align-items: flex-start;
@@ -93,20 +94,19 @@ export const Modal = (props) => {
   const modal = useModal();
   const show = has("show", props) ? props.show : modal.store[props.name];
 
-  if (props.name) {
-    React.useEffect(() => {
-      modal.attach(props.name);
-      () => modal.detach(props.name);
-    }, []);
-  }
+  React.useEffect(() => {
+    if (isSSR()) return;
+    const ifShowElse = (a, b) => (show ? a : b);
+    document.body.style.overflow = ifShowElse("hidden", "");
+    document.body.style.height = ifShowElse("100vh", "");
+  }, [show]);
 
-  if (props.show) {
-    document.body.style.overflow = "hidden";
-    document.body.style.height = "100vh";
-  } else {
-    document.body.style.overflow = "";
-    document.body.style.height = "";
-  }
+  React.useEffect(() => {
+    if (!props.name) return;
+
+    modal.attach(props.name);
+    return () => modal.detach(props.name);
+  }, []);
 
   return (
     <DialogStyle {...props} show={show}>
@@ -117,7 +117,7 @@ export const Modal = (props) => {
           if (props.name) modal.hide(props.name);
           props.onClose();
         }}
-      ></div>
+      />
       <div className="wg-dialog">
         <Card className="wg-modal-content">{props.children}</Card>
       </div>
@@ -136,7 +136,7 @@ Modal.propTypes = {
   onClose: t.func,
   name: t.string,
   show: t.bool,
-  size: t.oneOf(["sm", "md", "lg"]),
+  size: t.oneOf(["small", "md", "lg"]),
   children: t.node.isRequired,
   closeOnBackdropClick: t.bool,
 };
