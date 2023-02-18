@@ -258,7 +258,7 @@ NewWrapper.propTypes = {
     label: t.string,
     message: t.any,
     disabled: t.bool,
-    isDropdown: t.node,
+    isDropdown: t.bool,
   }).isRequired,
   children: t.node.isRequired,
 };
